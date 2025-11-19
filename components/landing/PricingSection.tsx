@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { ArrowRight } from 'lucide-react';
 import { useState } from 'react';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { motion } from 'framer-motion';
 
 const plans = [
   {
@@ -79,15 +79,36 @@ const Pricing2 = () => {
           Building an AI SaaS should be simple. Our pricing plans are straightforward,
           transparent, and designed to scale with your success.
         </p>
-        <Tabs defaultValue={frequency} onValueChange={setFrequency}>
-          <TabsList className="h-11 px-1 bg-muted/60 backdrop-blur-sm border border-border shadow-sm">
-            <TabsTrigger value="monthly" className="px-6 py-2 text-sm font-medium text-muted-foreground data-[state=active]:bg-background data-[state=active]:text-foreground">Monthly</TabsTrigger>
-            <TabsTrigger value="yearly" className="px-6 py-2 text-sm font-medium text-muted-foreground data-[state=active]:bg-background data-[state=active]:text-foreground">
-              Yearly
-              <Badge variant="outline" className="ml-2 text-xs font-semibold border-primary text-primary">20% off</Badge>
-            </TabsTrigger>
-          </TabsList>
-        </Tabs>
+        <div className="flex items-center justify-center">
+          <div className="grid grid-cols-2 gap-1 rounded-lg bg-muted/60 p-1 text-center text-sm font-medium backdrop-blur-sm border border-border shadow-sm">
+            {["monthly", "yearly"].map((option) => (
+              <button
+                key={option}
+                onClick={() => setFrequency(option)}
+                className={cn(
+                  "relative px-8 py-2 transition-all duration-200 cursor-pointer rounded-md",
+                  frequency === option ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                {frequency === option && (
+                  <motion.div
+                    layoutId="active-pill"
+                    className="absolute inset-0 rounded-md bg-background shadow-sm border border-border/50"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10 flex items-center justify-center gap-2 capitalize">
+                  {option}
+                  {option === "yearly" && (
+                    <Badge variant="outline" className="ml-1 text-[10px] px-1.5 py-0 h-5 font-semibold border-primary text-primary bg-primary/5">
+                      -20%
+                    </Badge>
+                  )}
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
         <div className="mt-8 grid w-full max-w-5xl gap-6 lg:grid-cols-3">
           {plans.map((plan) => (
             <div

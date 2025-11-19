@@ -1,5 +1,8 @@
-export const Logo01 = () => (
+import React from 'react';
+
+export const Logo01 = (props: React.ComponentProps<'svg'>) => (
   <svg
+    {...props}
     width="120"
     height="40"
     viewBox="0 0 120 40"
@@ -14,54 +17,57 @@ export const Logo01 = () => (
       d="M24 12L28 8L32 12V20H24V12Z"
       fill="#10A37F"
     />
-    <circle cx="20" cy="28" r="6" fill="#10A37F" opacity="0.8"/>
-    <path d="M40 16h16v8H40v-8z" fill="#6366F1"/>
-    <path d="M60 12h8v16h-8V12z" fill="#6366F1"/>
-    <path d="M72 20h8v8h-8v-8z" fill="#6366F1"/>
+    <circle cx="20" cy="28" r="6" fill="#10A37F" opacity="0.8" />
+    <path d="M40 16h16v8H40v-8z" fill="#6366F1" />
+    <path d="M60 12h8v16h-8V12z" fill="#6366F1" />
+    <path d="M72 20h8v8h-8v-8z" fill="#6366F1" />
     <text x="85" y="25" fontFamily="Arial, sans-serif" fontSize="14" fontWeight="bold" fill="#1F2937">OpenAI</text>
   </svg>
 );
 
-export const Logo02 = () => (
+export const Logo02 = (props: React.ComponentProps<'svg'>) => (
   <svg
+    {...props}
     width="140"
     height="40"
     viewBox="0 0 140 40"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <circle cx="15" cy="20" r="8" fill="#FF6B35" opacity="0.9"/>
-    <circle cx="30" cy="20" r="8" fill="#F7931E" opacity="0.9"/>
-    <circle cx="45" cy="20" r="8" fill="#FFC947" opacity="0.9"/>
-    <path d="M60 12h20v4H60v-4z" fill="#8B5CF6"/>
-    <path d="M60 18h20v4H60v-4z" fill="#8B5CF6"/>
-    <path d="M60 24h20v4H60v-4z" fill="#8B5CF6"/>
+    <circle cx="15" cy="20" r="8" fill="#FF6B35" opacity="0.9" />
+    <circle cx="30" cy="20" r="8" fill="#F7931E" opacity="0.9" />
+    <circle cx="45" cy="20" r="8" fill="#FFC947" opacity="0.9" />
+    <path d="M60 12h20v4H60v-4z" fill="#8B5CF6" />
+    <path d="M60 18h20v4H60v-4z" fill="#8B5CF6" />
+    <path d="M60 24h20v4H60v-4z" fill="#8B5CF6" />
     <text x="85" y="25" fontFamily="Arial, sans-serif" fontSize="14" fontWeight="bold" fill="#1F2937">Anthropic</text>
   </svg>
 );
 
-export const Logo03 = () => (
+export const Logo03 = (props: React.ComponentProps<'svg'>) => (
   <svg
+    {...props}
     width="140"
     height="40"
     viewBox="0 0 140 40"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <ellipse cx="20" cy="20" rx="12" ry="14" fill="#FFD21E"/>
-    <circle cx="17" cy="18" r="1.5" fill="#1F2937"/>
-    <circle cx="23" cy="18" r="1.5" fill="#1F2937"/>
-    <path d="M14 24Q20 28 26 24" stroke="#1F2937" strokeWidth="1.5" fill="none"/>
-    <path d="M40 15h25v10H40v-10z" fill="#7C3AED" rx="2"/>
-    <circle cx="47" cy="20" r="2" fill="white"/>
-    <circle cx="52" cy="20" r="2" fill="white"/>
-    <circle cx="57" cy="20" r="2" fill="white"/>
+    <ellipse cx="20" cy="20" rx="12" ry="14" fill="#FFD21E" />
+    <circle cx="17" cy="18" r="1.5" fill="#1F2937" />
+    <circle cx="23" cy="18" r="1.5" fill="#1F2937" />
+    <path d="M14 24Q20 28 26 24" stroke="#1F2937" strokeWidth="1.5" fill="none" />
+    <path d="M40 15h25v10H40v-10z" fill="#7C3AED" rx="2" />
+    <circle cx="47" cy="20" r="2" fill="white" />
+    <circle cx="52" cy="20" r="2" fill="white" />
+    <circle cx="57" cy="20" r="2" fill="white" />
     <text x="70" y="25" fontFamily="Arial, sans-serif" fontSize="14" fontWeight="bold" fill="#1F2937">Hugging Face</text>
   </svg>
 );
 
-export const Logo04 = () => (
+export const Logo04 = (props: React.ComponentProps<'svg'>) => (
   <svg
+    {...props}
     id="logo-54"
     width="170"
     height="41"
@@ -114,8 +120,9 @@ export const Logo04 = () => (
   </svg>
 );
 
-export const Logo05 = () => (
+export const Logo05 = (props: React.ComponentProps<'svg'>) => (
   <svg
+    {...props}
     id="logo-52"
     width="170"
     height="41"
@@ -168,8 +175,9 @@ export const Logo05 = () => (
   </svg>
 );
 
-export const Logo06 = () => (
+export const Logo06 = (props: React.ComponentProps<'svg'>) => (
   <svg
+    {...props}
     id="logo-33"
     width="160"
     height="46"
@@ -238,8 +246,9 @@ export const Logo06 = () => (
   </svg>
 );
 
-export const Logo07 = () => (
+export const Logo07 = (props: React.ComponentProps<'svg'>) => (
   <svg
+    {...props}
     id="logo-7"
     width="160"
     height="46"
@@ -258,8 +267,9 @@ export const Logo07 = () => (
   </svg>
 );
 
-export const Logo08 = () => (
+export const Logo08 = (props: React.ComponentProps<'svg'>) => (
   <svg
+    {...props}
     id="logo-3"
     width="160"
     height="46"

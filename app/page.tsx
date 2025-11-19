@@ -9,20 +9,39 @@ import FaqSection from "@/components/landing/FaqSection"
 import CtaSection from "@/components/landing/CtaSection"
 import FooterSection from "@/components/landing/FooterSection"
 import AnnouncementBar from "@/components/landing/AnnouncementBar"
+import SectionAnimation from "@/components/shared/SectionAnimation"
 
 export default function Home() {
   return (
     <>
       <AnnouncementBar />
       <Header />
-      <Hero />
-      <LogoCloud />
-      <Features />
-      <HowItWorksSection />
-      <ValueProposition />
-      <Testimonials />
-      <FaqSection />
-      <CtaSection />
+      <main>
+        <SectionAnimation>
+          <Hero />
+        </SectionAnimation>
+        <SectionAnimation delay={0.1}>
+          <LogoCloud />
+        </SectionAnimation>
+        <SectionAnimation>
+          <Features />
+        </SectionAnimation>
+        <SectionAnimation>
+          <HowItWorksSection />
+        </SectionAnimation>
+        <SectionAnimation>
+          <ValueProposition />
+        </SectionAnimation>
+        <SectionAnimation>
+          <Testimonials />
+        </SectionAnimation>
+        <SectionAnimation>
+          <FaqSection />
+        </SectionAnimation>
+        <SectionAnimation>
+          <CtaSection />
+        </SectionAnimation>
+      </main>
       <FooterSection />
     </>
   )
