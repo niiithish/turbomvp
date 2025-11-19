@@ -50,7 +50,7 @@ const ChartBarActive = () => {
     const [activeIndex, setActiveIndex] = useState(2);
 
     return (
-        <div className="w-full h-full max-w-xl rounded-md border bg-background p-4">
+        <div className="w-full h-full rounded-md border bg-background p-4">
             <ChartContainer config={chartConfig} className="aspect-auto h-full w-full">
                 <BarChart
                     accessibilityLayer

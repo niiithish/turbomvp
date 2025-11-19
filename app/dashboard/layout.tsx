@@ -13,6 +13,8 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
+import { ThemeToggle } from "@/components/theme/ThemeToggle"
+import { NotificationsPopover } from "@/components/notifications/NotificationsPopover"
 
 export default function DashboardLayout({
     children,
@@ -40,6 +42,10 @@ export default function DashboardLayout({
                                 </BreadcrumbItem>
                             </BreadcrumbList>
                         </Breadcrumb>
+                    </div>
+                    <div className="ml-auto px-4 flex items-center gap-3 mr-2">
+                        <ThemeToggle />
+                        <NotificationsPopover />
                     </div>
                 </header>
                 <div className="flex flex-1 flex-col gap-4 p-4 pt-0">

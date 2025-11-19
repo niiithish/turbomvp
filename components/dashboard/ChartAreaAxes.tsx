@@ -27,18 +27,18 @@ const chartConfig = {
     },
     tokens: {
         label: "Tokens Generated",
-        color: "var(--chart-1)",
+        color: "var(--chart-5)",
     },
 } satisfies ChartConfig;
 
 const ChartAreaAxes = () => (
-    <div className="w-full max-w-xl rounded-md border bg-background p-4">
+    <div className="w-full rounded-md border bg-background p-4">
         <ChartContainer config={chartConfig}>
             <AreaChart
                 accessibilityLayer
                 data={chartData}
                 margin={{
-                    left: -20,
+                    left: 12,
                     right: 12,
                 }}
             >
@@ -51,7 +51,10 @@ const ChartAreaAxes = () => (
                     tickMargin={8}
                 />
                 <YAxis axisLine={false} tickCount={3} tickLine={false} tickMargin={8} />
-                <ChartTooltip content={<ChartTooltipContent />} cursor={false} />
+                <ChartTooltip
+                    content={<ChartTooltipContent className="min-w-[200px]" />}
+                    cursor={false}
+                />
                 <Area
                     dataKey="requests"
                     fill="var(--color-requests)"
