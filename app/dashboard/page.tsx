@@ -1,7 +1,8 @@
 import { DashboardMetrics } from "@/components/dashboard/DashboardMetrics"
-import { WorkPerformanceChart } from "@/components/dashboard/WorkPerformanceChart"
-import { AttendanceChart } from "@/components/dashboard/AttendanceChart"
-import { EmployeeTable } from "@/components/dashboard/EmployeeTable"
+import ChartAreaAxes from "@/components/dashboard/ChartAreaAxes"
+import ChartBarActive from "@/components/dashboard/ChartBarActive"
+import Example from "@/components/dashboard/TableWithActions"
+
 
 export default function DashboardPage() {
     return (
@@ -9,15 +10,16 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between">
                 <h1 className="text-2xl font-bold tracking-tight">Overview</h1>
             </div>
-
             <DashboardMetrics />
-
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                <WorkPerformanceChart />
-                <AttendanceChart />
+            <div className="flex flex-col lg:flex-row gap-4">
+                <div className="w-full lg:w-3/5">
+                    <ChartAreaAxes />
+                </div>
+                <div className="w-full lg:w-2/5">
+                    <ChartBarActive />
+                </div>
             </div>
-
-            <EmployeeTable />
+            <Example />
         </div>
     )
 }

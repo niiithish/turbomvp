@@ -7,12 +7,10 @@ import {
   IconDashboard,
   IconFileAi,
   IconFileDescription,
-  IconHelp,
   IconInnerShadowTop,
   IconListDetails,
-  IconSearch,
-  IconSettings,
 } from "@tabler/icons-react"
+import { Comment01Icon, HelpCircleIcon, Settings02Icon } from "hugeicons-react"
 
 import { NavMain } from "@/components/navigation/NavMain"
 import { NavSecondary } from "@/components/navigation/NavSecondary"
@@ -100,19 +98,19 @@ const data = {
   ],
   navSecondary: [
     {
+      title: "Help Center",
+      url: "#",
+      icon: HelpCircleIcon,
+    },
+    {
+      title: "Feedback",
+      url: "#",
+      icon: Comment01Icon,
+    },
+    {
       title: "Settings",
       url: "#",
-      icon: IconSettings,
-    },
-    {
-      title: "Get Help",
-      url: "#",
-      icon: IconHelp,
-    },
-    {
-      title: "Search",
-      url: "#",
-      icon: IconSearch,
+      icon: Settings02Icon,
     },
   ],
 }

@@ -41,32 +41,32 @@ function MetricCard({ title, value, change, trend, period }: MetricCardProps) {
 export function DashboardMetrics() {
     const metrics = [
         {
-            title: "Total Employee",
-            value: "246",
-            change: 12.04,
+            title: "Total API Calls",
+            value: "2.4M",
+            change: 12.5,
             trend: "up" as const,
-            period: "Last month",
+            period: "Last 30 days",
         },
         {
-            title: "New Employee",
-            value: "59",
-            change: 32.0,
+            title: "Active Users",
+            value: "8,549",
+            change: 8.2,
             trend: "up" as const,
-            period: "Last month",
+            period: "Last 30 days",
         },
         {
-            title: "Man Employee",
-            value: "12",
-            change: 16.22,
-            trend: "up" as const,
-            period: "Last month",
-        },
-        {
-            title: "Woman Employee",
-            value: "45%",
-            change: 8.06,
+            title: "Avg. Latency",
+            value: "142ms",
+            change: 4.1,
             trend: "down" as const,
-            period: "Last month",
+            period: "Last 30 days",
+        },
+        {
+            title: "Revenue",
+            value: "$42.5k",
+            change: 18.2,
+            trend: "up" as const,
+            period: "Last 30 days",
         },
     ]
 
