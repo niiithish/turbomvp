@@ -11,41 +11,34 @@ interface FeaturesProps {
   feature2?: Feature;
   feature3?: Feature;
   feature4?: Feature;
-  feature5?: Feature;
 }
 
 const Features = ({
-  title = "Complete AI SaaS Foundation",
-  description = "Production-ready template with authentication and database pre-configured. Just add your environment variables and start building your AI SaaS in minutes, not months.",
+  title = "Focus on what matters",
+  description = "Explore powerful features designed to help teams plan, track, and deliver tasks with ease.",
   feature1 = {
-    title: "🔐 Enterprise-Ready Authentication",
+    title: "Stay organized & manage tasks easily",
     description:
-      "Skip weeks of auth setup with pre-configured Clerk authentication. Support for social providers, SSO, and protected routes out of the box.",
+      "Prioritize, track progress, and manage everything in one place for a smoother workflow.",
     image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
   },
   feature2 = {
-    title: "🗄️ Scalable Database Infrastructure",
+    title: "AI teammate",
     description:
-      "Production-grade Supabase PostgreSQL with real-time subscriptions, row-level security, and automatic backups. Scales from MVP to enterprise.",
+      "Oasis AI handles tasks and predicts timelines to keep you on track.",
     image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
   },
   feature3 = {
-    title: "🚀 Rapid Development & Deployment",
+    title: "Team collaboration",
     description:
-      "Get to market faster with pre-configured deployment pipelines, environment management, and production optimizations. Focus on building your unique features.",
+      "Work seamlessly with your team. Share, assign, and succeed together.",
     image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
   },
   feature4 = {
-    title: "🎨 Modern UI Component Library",
+    title: "Powerful data integration without limits",
     description:
-      "50+ beautiful shadcn/ui components built with Radix UI primitives. Accessible, customizable, and consistent design system that impresses users.",
+      "Easily integrate data from any source to create a seamless, automated, and unified workflow system.",
     image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg",
-  },
-  feature5 = {
-    title: "⚡ Developer Experience & Performance",
-    description:
-      "Lightning-fast development with Next.js 16, Turbopack, and TypeScript. Optimized build pipeline and production-ready performance.",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-5.svg",
   },
 }: FeaturesProps) => {
   return (
@@ -55,60 +48,71 @@ const Features = ({
           <h2 className="text-center text-4xl md:text-5xl leading-[1.15] font-semibold tracking-tighter lg:max-w-4xl">
             {title}
           </h2>
-          <p className="text-muted-foreground text-center text-xl lg:max-w-4xl">
+          <p className="text-muted-foreground text-center text-xl lg:max-w-2xl">
             {description}
           </p>
         </div>
-        <div className="relative flex justify-center">
-          <div className="w-full lg:max-w-6xl">
-            <div className="flex flex-col gap-6 lg:flex-row">
-              <div className="border-border flex flex-col justify-between rounded-(--card-radius-lg) border bg-background p-8 lg:w-1/3 shadow-[0_12px_50px_-15px_rgba(0,0,0,0.1)] hover:shadow-[0_12px_60px_-20px_rgba(0,0,0,0.15)] transition-all duration-300">
-                <h3 className="text-lg font-semibold tracking-tight">{feature1.title}</h3>
-                <p className="text-muted-foreground text-base">{feature1.description}</p>
-                <img
-                  src={feature1.image}
-                  alt={feature1.title}
-                  className="mt-8 aspect-[1.5] h-full w-full rounded-(--card-radius) object-cover"
-                />
-              </div>
-              <div className="border-border flex flex-col justify-between rounded-(--card-radius-lg) border bg-background p-8 lg:w-1/3 shadow-[0_12px_50px_-15px_rgba(0,0,0,0.1)] hover:shadow-[0_12px_60px_-20px_rgba(0,0,0,0.15)] transition-all duration-300">
-                <h3 className="text-lg font-semibold tracking-tight">{feature2.title}</h3>
-                <p className="text-muted-foreground text-base">{feature2.description}</p>
-                <img
-                  src={feature2.image}
-                  alt={feature2.title}
-                  className="mt-8 aspect-[1.45] h-full w-full rounded-(--card-radius) object-cover"
-                />
-              </div>
-              <div className="border-border flex flex-col justify-between rounded-(--card-radius-lg) border bg-background p-8 lg:w-1/3 shadow-[0_12px_50px_-15px_rgba(0,0,0,0.1)] hover:shadow-[0_12px_60px_-20px_rgba(0,0,0,0.15)] transition-all duration-300">
-                <h3 className="text-lg font-semibold tracking-tight">{feature3.title}</h3>
-                <p className="text-muted-foreground text-base">{feature3.description}</p>
-                <img
-                  src={feature3.image}
-                  alt={feature3.title}
-                  className="mt-8 aspect-[1.45] h-full w-full rounded-(--card-radius) object-cover"
-                />
-              </div>
+        
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:max-w-6xl mx-auto">
+          {/* Row 1 */}
+          {/* Feature 1 - Big Left (7 cols) */}
+          <div className="lg:col-span-7 border-border flex flex-col justify-between rounded-(--card-radius-lg) border bg-card p-8 shadow-sm hover:shadow-md transition-all duration-300">
+            <div className="w-full flex-1 flex items-center justify-center mb-8 bg-muted/20 rounded-(--card-radius) overflow-hidden">
+               <img
+                src={feature1.image}
+                alt={feature1.title}
+                className="w-full h-[300px] object-cover aspect-[16/9]"
+              />
             </div>
-            <div className="mt-6 flex flex-col gap-6 lg:flex-row">
-              <div className="border-border flex flex-col rounded-(--card-radius-lg) border bg-background p-8 lg:w-1/2 shadow-[0_12px_50px_-15px_rgba(0,0,0,0.1)] hover:shadow-[0_12px_60px_-20px_rgba(0,0,0,0.15)] transition-all duration-300">
-                <h3 className="text-lg font-semibold tracking-tight">{feature4.title}</h3>
-                <p className="text-muted-foreground text-base">{feature4.description}</p>
-                <img
-                  src={feature4.image}
-                  alt={feature4.title}
-                  className="mt-6 aspect-[2.5] h-72 w-full rounded-(--card-radius) object-cover"
-                />
-              </div>
-              <div className="border-border flex flex-col rounded-(--card-radius-lg) border bg-background p-8 lg:w-1/2 shadow-[0_12px_50px_-15px_rgba(0,0,0,0.1)] hover:shadow-[0_12px_60px_-20px_rgba(0,0,0,0.15)] transition-all duration-300">
-                <h3 className="text-lg font-semibold tracking-tight">{feature5.title}</h3>
-                <p className="text-muted-foreground text-base">{feature5.description}</p>
-                <img
-                  src={feature5.image}
-                  alt={feature5.title}
-                  className="mt-6 aspect-[2.5] h-72 w-full rounded-(--card-radius) object-cover"
-                />
-              </div>
+            <div>
+              <h3 className="text-xl font-semibold tracking-tight">{feature1.title}</h3>
+              <p className="text-muted-foreground text-base mt-2">{feature1.description}</p>
+            </div>
+          </div>
+
+          {/* Feature 2 - Small Right (5 cols) */}
+          <div className="lg:col-span-5 border-border flex flex-col justify-between rounded-(--card-radius-lg) border bg-card p-8 shadow-sm hover:shadow-md transition-all duration-300">
+            <div className="w-full flex-1 flex items-center justify-center mb-8 bg-muted/20 rounded-(--card-radius) overflow-hidden">
+              <img
+                src={feature2.image}
+                alt={feature2.title}
+                className="w-full h-[300px] object-cover aspect-square"
+              />
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold tracking-tight">{feature2.title}</h3>
+              <p className="text-muted-foreground text-base mt-2">{feature2.description}</p>
+            </div>
+          </div>
+
+          {/* Row 2 */}
+          {/* Feature 3 - Small Left (5 cols) */}
+          <div className="lg:col-span-5 border-border flex flex-col justify-between rounded-(--card-radius-lg) border bg-card p-8 shadow-sm hover:shadow-md transition-all duration-300">
+            <div className="w-full flex-1 flex items-center justify-center mb-8 bg-muted/20 rounded-(--card-radius) overflow-hidden">
+              <img
+                src={feature3.image}
+                alt={feature3.title}
+                className="w-full h-[300px] object-cover aspect-square"
+              />
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold tracking-tight">{feature3.title}</h3>
+              <p className="text-muted-foreground text-base mt-2">{feature3.description}</p>
+            </div>
+          </div>
+
+          {/* Feature 4 - Big Right (7 cols) */}
+          <div className="lg:col-span-7 border-border flex flex-col justify-between rounded-(--card-radius-lg) border bg-card p-8 shadow-sm hover:shadow-md transition-all duration-300">
+             <div className="w-full flex-1 flex items-center justify-center mb-8 bg-muted/20 rounded-(--card-radius) overflow-hidden">
+              <img
+                src={feature4.image}
+                alt={feature4.title}
+                className="w-full h-[300px] object-cover aspect-[16/9]"
+              />
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold tracking-tight">{feature4.title}</h3>
+              <p className="text-muted-foreground text-base mt-2">{feature4.description}</p>
             </div>
           </div>
         </div>

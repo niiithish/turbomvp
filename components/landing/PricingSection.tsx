@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { CheckIcon, XIcon, InfoIcon } from 'lucide-react';
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const plans = [
   {
@@ -84,6 +84,57 @@ const PricingSection = () => {
   return (
     <section className="py-12 bg-background text-foreground">
       <div className="container px-4 md:px-6 mx-auto max-w-7xl">
+        {/* Header Section */}
+        <div className="mb-12 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <h2 className="text-4xl font-semibold mb-3">Pick the perfect plan</h2>
+            <p className="text-muted-foreground text-base">
+              Stay organized, hit your goals, and scale your productivity—on your terms.
+            </p>
+          </div>
+          
+          {/* Toggle Switch */}
+          <div className="flex items-center justify-start gap-3 shrink-0">
+            <div className="relative inline-flex items-center bg-card border border-border rounded-md p-1">
+              <motion.div
+                className="absolute inset-y-1 bg-primary rounded-sm"
+                initial={false}
+                animate={{
+                  x: frequency === 'monthly' ? 2 : '100%',
+                  width: frequency === 'monthly' ? 'calc(50% - 4px)' : 'calc(50% - 4px)',
+                }}
+                transition={{
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 30,
+                }}
+              />
+              <button
+                onClick={() => setFrequency('monthly')}
+                className={cn(
+                  "relative z-10 px-6 py-2 text-sm font-medium rounded-sm transition-colors duration-200",
+                  frequency === 'monthly' 
+                    ? "text-primary-foreground" 
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                Monthly
+              </button>
+              <button
+                onClick={() => setFrequency('yearly')}
+                className={cn(
+                  "relative z-10 px-6 py-2 text-sm font-medium rounded-sm transition-colors duration-200",
+                  frequency === 'yearly' 
+                    ? "text-primary-foreground" 
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                Yearly
+              </button>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {plans.map((plan) => (
             <div
@@ -98,9 +149,18 @@ const PricingSection = () => {
               <div className="mb-6">
                 <h3 className="text-lg font-medium text-muted-foreground mb-2">{plan.name}</h3>
                 <div className="flex items-baseline gap-1 mb-4">
-                  <span className="text-5xl font-medium tracking-tight">
-                    {plan.price[frequency]}
-                  </span>
+                  <AnimatePresence mode="wait">
+                    <motion.span
+                      key={frequency}
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: -20, opacity: 0 }}
+                      transition={{ duration: 0.2, ease: "easeOut" }}
+                      className="text-5xl font-medium tracking-tight"
+                    >
+                      {plan.price[frequency]}
+                    </motion.span>
+                  </AnimatePresence>
                   <span className="text-muted-foreground text-sm">/month</span>
                 </div>
                 

@@ -1,5 +1,6 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { Marquee } from "@/components/ui/marquee";
 import Link from "next/link";
 import { ComponentProps } from "react";
 import { TrendingUp } from "lucide-react";
@@ -67,65 +68,75 @@ const socialProofData = [
   },
 ];
 
-const Testimonials = () => (
-  <div id="testimonials" className="min-h-screen flex justify-center items-center py-(--section-padding-y) px-(--container-padding-x) bg-muted">
-    <div className="w-full max-w-(--container-max-w) mx-auto">
-      {/* Success Stories */}
-      <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl leading-[1.15] font-semibold tracking-tighter mb-6">
-          Developer Success Stories
-        </h2>
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          Real developers, real results, faster launches.
-        </p>
-      </div>
+const Testimonials = () => {
+  const firstColumn = socialProofData.slice(0, 3);
+  const secondColumn = socialProofData.slice(3, 6);
 
-      <div className="max-w-(--container-max-w) mx-auto columns-1 md:columns-2 lg:columns-3 gap-8">
-        {socialProofData.map((story) => (
-          <div
-            key={story.id}
-            className="mb-8 rounded-(--card-radius-lg) p-6 break-inside-avoid shadow-lg bg-card relative"
-          >
-            {/* Twitter Link */}
-            <div className="absolute top-4 right-4">
-              <Button variant="ghost" size="icon" asChild>
-                <Link href="#" target="_blank" title={story.twitter}>
-                  <TwitterLogo className="w-4 h-4" />
-                </Link>
-              </Button>
-            </div>
+  return (
+    <div id="testimonials" className="py-(--section-padding-y) px-(--container-padding-x) bg-black text-white overflow-hidden">
+      <div className="w-full max-w-(--container-max-w) mx-auto grid grid-cols-1 lg:grid-cols-[40%_60%] gap-12 items-center">
+        {/* Left Side: Content */}
+        <div className="flex flex-col items-start text-left">
+          <h2 className="text-4xl font-semibold tracking-tighter mb-6 text-white">
+            What people are <br />
+            saying about Brightly
+          </h2>
+          <p className="text-base text-gray-400 max-w-lg mb-8">
+            Hear from real users who have transformed their workflows with the power of Ticksy
+          </p>
+          <Button asChild size="lg">
+            <Link href="/signup">
+              Get started
+            </Link>
+          </Button>
+        </div>
 
-            <div className="flex items-center gap-4 mb-4">
-              <Avatar>
-                <AvatarFallback className="text-xl font-medium bg-primary text-primary-foreground">
-                  {story.avatar}
-                </AvatarFallback>
-              </Avatar>
-              <div>
-                <p className="text-lg font-semibold">{story.name}</p>
-                <p className="text-sm text-muted-foreground">
-                  {story.designation} at {story.company}
-                </p>
-              </div>
-            </div>
-            <p className="text-base leading-relaxed">{story.testimonial}</p>
-          </div>
-        ))}
-      </div>
+        {/* Right Side: Marquee Columns */}
+        <div className="relative h-[600px] overflow-hidden grid grid-cols-2 gap-4 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]">
+          {/* First Column: Scroll Up (Bottom to Top) */}
+          <Marquee vertical className="[--duration:30s]" repeat={4}>
+            {firstColumn.map((story) => (
+              <TestimonialCard key={story.id} story={story} />
+            ))}
+          </Marquee>
 
-      {/* Community CTA */}
-      <div className="text-center mt-16">
-        <p className="text-muted-foreground mb-4">
-          Ready to join the community?
-        </p>
-        <Button asChild size="lg">
-          <Link href="https://github.com">
-            <TrendingUp className="h-4 w-4 mr-2" />
-            View on GitHub
-          </Link>
-        </Button>
+          {/* Second Column: Scroll Down (Top to Bottom) */}
+          <Marquee vertical className="[--duration:30s]" repeat={4}>
+            {secondColumn.map((story) => (
+              <TestimonialCard key={story.id} story={story} />
+            ))}
+          </Marquee>
+        </div>
       </div>
     </div>
+  );
+};
+
+const TestimonialCard = ({ story }: { story: typeof socialProofData[0] }) => (
+  <div className="rounded-(--card-radius-lg) p-6 shadow-lg bg-card relative text-card-foreground">
+    {/* Twitter Link */}
+    <div className="absolute top-4 right-4">
+      <Button variant="ghost" size="icon" asChild>
+        <Link href="#" target="_blank" title={story.twitter}>
+          <TwitterLogo className="w-4 h-4" />
+        </Link>
+      </Button>
+    </div>
+
+    <div className="flex items-center gap-4 mb-4">
+      <Avatar>
+        <AvatarFallback className="text-xl font-medium bg-primary text-primary-foreground">
+          {story.avatar}
+        </AvatarFallback>
+      </Avatar>
+      <div>
+        <p className="text-lg font-semibold">{story.name}</p>
+        <p className="text-sm text-muted-foreground">
+          {story.designation} at {story.company}
+        </p>
+      </div>
+    </div>
+    <p className="text-base leading-relaxed">{story.testimonial}</p>
   </div>
 );
 

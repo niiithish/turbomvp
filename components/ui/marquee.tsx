@@ -65,10 +65,13 @@ export function Marquee({
               "flex-row": !vertical,
               "flex-col": vertical,
             })}
-            initial={{ x: 0, y: 0 }}
+            initial={{
+              x: vertical ? 0 : reverse ? "-100%" : "0%",
+              y: vertical ? (reverse ? "-100%" : "0%") : 0,
+            }}
             animate={{
-              x: vertical ? 0 : reverse ? "100%" : "-100%",
-              y: vertical ? (reverse ? "100%" : "-100%") : 0,
+              x: vertical ? 0 : reverse ? "0%" : "-100%",
+              y: vertical ? (reverse ? "0%" : "-100%") : 0,
             }}
             transition={{
               duration: 40,

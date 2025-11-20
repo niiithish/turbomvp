@@ -4,10 +4,7 @@ import {
   Logo02,
   Logo03,
   Logo04,
-  Logo05,
-  Logo06,
-  Logo07,
-  Logo08,
+
 } from "@/components/landing/Logos";
 
 const logos = [
@@ -15,10 +12,7 @@ const logos = [
   Logo02,
   Logo03,
   Logo04,
-  Logo05,
-  Logo06,
-  Logo07,
-  Logo08,
+
 ];
 
 const LogoCloud = () => {

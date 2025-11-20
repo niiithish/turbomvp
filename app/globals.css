@@ -203,6 +203,16 @@
 }
 
 /* Testimonials auto-scroll animation */
+@keyframes marquee-up {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+
+@keyframes marquee-down {
+  from { transform: translateY(-50%); }
+  to { transform: translateY(0); }
+}
+
 
 
 /* Enhanced accordion animations inspired by Lemon Squeezy */
