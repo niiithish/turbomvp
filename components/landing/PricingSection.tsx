@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { CheckIcon, XIcon, InfoIcon } from 'lucide-react';
+import { Tick02Icon, Cancel01Icon, InformationCircleIcon } from 'hugeicons-react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -166,7 +166,7 @@ const PricingSection = () => {
                 
                 <div className="flex items-center gap-1 text-sm underline decoration-dotted underline-offset-4 text-muted-foreground hover:text-foreground cursor-help w-fit">
                   {plan.usage}
-                  {plan.highlight || plan.id === 'pro' ? <InfoIcon className="w-3 h-3" /> : null}
+                  {plan.highlight || plan.id === 'pro' ? <InformationCircleIcon className="w-3 h-3" /> : null}
                 </div>
               </div>
 
@@ -186,9 +186,9 @@ const PricingSection = () => {
                   {plan.features.map((feature, idx) => (
                     <li key={idx} className={cn("flex items-start gap-3 text-sm", !feature.included && "opacity-50")}>
                       {feature.included ? (
-                        <CheckIcon className="w-4 h-4 text-[#ccff00] shrink-0 mt-0.5" />
+                        <Tick02Icon className="w-4 h-4 text-[#ccff00] shrink-0 mt-0.5" />
                       ) : (
-                        <XIcon className="w-4 h-4 text-muted-foreground shrink-0 mt-0.5" />
+                        <Cancel01Icon className="w-4 h-4 text-muted-foreground shrink-0 mt-0.5" />
                       )}
                       <div className="flex flex-col">
                         <span className={cn(feature.included ? "text-foreground" : "line-through text-muted-foreground")}>

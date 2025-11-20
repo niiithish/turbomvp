@@ -60,6 +60,7 @@ export function SettingsSidebar() {
                   <SidebarMenuButton
                     asChild
                     isActive={pathname === item.href}
+                    className="data-[active=true]:bg-sidebar-active-bg"
                   >
                     <Link href={item.href}>
                       <item.icon className="size-4" />

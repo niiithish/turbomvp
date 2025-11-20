@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { User, Edit2, Mail, Calendar } from 'lucide-react';
+import { UserIcon, PencilEdit01Icon, Mail01Icon, Calendar01Icon } from 'hugeicons-react';
 import { getProfileAction } from '@/lib/actions/profile-actions';
 import { toast } from 'sonner';
 import Link from 'next/link';
@@ -116,7 +116,7 @@ export function SimpleProfile() {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <User className="h-5 w-5" />
+            <UserIcon className="h-5 w-5" />
             Profile
           </CardTitle>
           <CardDescription>
@@ -137,7 +137,7 @@ export function SimpleProfile() {
                 {user?.name || 'Anonymous User'}
               </h3>
               <p className="text-sm text-muted-foreground flex items-center gap-1">
-                <Mail className="h-3 w-3" />
+                <Mail01Icon className="h-3 w-3" />
                 {user?.email}
               </p>
             </div>
@@ -161,7 +161,7 @@ export function SimpleProfile() {
               <div className="flex items-center justify-between text-sm">
                 <span className="text-muted-foreground">Member Since</span>
                 <span className="font-medium flex items-center gap-1">
-                  <Calendar className="h-3 w-3" />
+                  <Calendar01Icon className="h-3 w-3" />
                   {new Date(user.createdAt).toLocaleDateString()}
                 </span>
               </div>
@@ -172,7 +172,7 @@ export function SimpleProfile() {
           <div className="pt-4">
             <Button asChild variant="default" className="w-full">
               <Link href="/profile/edit">
-                <Edit2 className="mr-2 h-4 w-4" />
+                <PencilEdit01Icon className="mr-2 h-4 w-4" />
                 Edit Profile
               </Link>
             </Button>

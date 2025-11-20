@@ -21,7 +21,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { updateProfileAction, getProfileAction } from '@/lib/actions/profile-actions';
-import { Loader2, Save, User } from 'lucide-react';
+import { Loading03Icon, FloppyDiskIcon, UserIcon } from 'hugeicons-react';
 import { toast } from 'sonner';
 
 interface Profile {
@@ -121,7 +121,7 @@ export function ProfileManager() {
           <CardDescription>Loading your profile...</CardDescription>
         </CardHeader>
         <CardContent className="flex justify-center py-8">
-          <Loader2 className="h-8 w-8 animate-spin" />
+          <Loading03Icon className="h-8 w-8 animate-spin" />
         </CardContent>
       </Card>
     );
@@ -149,7 +149,7 @@ export function ProfileManager() {
     <Card className="w-full max-w-2xl mx-auto">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <User className="h-5 w-5" />
+          <UserIcon className="h-5 w-5" />
           Profile Manager
         </CardTitle>
         <CardDescription>
@@ -226,12 +226,12 @@ export function ProfileManager() {
         >
           {isSaving ? (
             <>
-              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+              <Loading03Icon className="h-4 w-4 mr-2 animate-spin" />
               Updating Profile...
             </>
           ) : (
             <>
-              <Save className="h-4 w-4 mr-2" />
+              <FloppyDiskIcon className="h-4 w-4 mr-2" />
               Update Profile
             </>
           )}
