@@ -21,15 +21,15 @@ export function ActiveUsersCard() {
           <span className="text-primary">+12.5%</span> from last month
         </p>
         <div className="pt-2 space-y-1.5">
-          <div className="flex items-center justify-between p-2 rounded-lg bg-muted/50">
+          <div className="flex items-center justify-between p-2 rounded-sm bg-muted/50">
             <span className="text-xs text-muted-foreground">Daily Active</span>
             <span className="font-semibold text-xs">1,234</span>
           </div>
-          <div className="flex items-center justify-between p-2 rounded-lg bg-muted/50">
+          <div className="flex items-center justify-between p-2 rounded-sm bg-muted/50">
             <span className="text-xs text-muted-foreground">Weekly Active</span>
             <span className="font-semibold text-xs">2,103</span>
           </div>
-          <div className="flex items-center justify-between p-2 rounded-lg bg-muted/50">
+          <div className="flex items-center justify-between p-2 rounded-sm bg-muted/50">
             <span className="text-xs text-muted-foreground">Monthly Active</span>
             <span className="font-semibold text-xs">2,847</span>
           </div>

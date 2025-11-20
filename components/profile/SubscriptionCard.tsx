@@ -75,7 +75,7 @@ export function SubscriptionCard({
       </CardHeader>
       <CardContent className="space-y-4">
         {/* Current Plan Info */}
-        <div className="rounded-lg border p-4 space-y-3">
+        <div className="rounded-sm border p-4 space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium">Current Plan</span>
             <span className="text-lg font-bold">

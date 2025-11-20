@@ -1,254 +1,153 @@
 'use client';
 
-
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { ArrowRight } from 'lucide-react';
+import { CheckIcon, XIcon, InfoIcon } from 'lucide-react';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 const plans = [
   {
-    id: 'hobby',
-    name: 'Starter',
+    id: 'free',
+    name: 'Free',
     price: {
-      monthly: 'Free forever',
-      yearly: 'Free forever',
+      monthly: '$0',
+      yearly: '$0',
     },
-    description:
-      'Perfect for developers building their first AI SaaS application.',
+    usage: '$5 free monthly usage',
     features: [
-      'Complete AI SaaS template',
-      'Authentication setup (Clerk)',
-      'Database integration (Supabase)',
-      'Payment processing (Polar)',
-      'Community support',
+      { name: '10 concurrent runs', included: true },
+      { name: 'Unlimited tasks', included: true },
+      { name: '5 team members', included: true },
+      { name: 'Dev and Prod environments', included: true },
+      { name: 'Preview branches', included: false },
+      { name: '10 schedules', included: true },
+      { name: '1 day log retention', included: true },
+      { name: 'Community support', included: true },
+      { name: '1 alert destination', included: true },
+      { name: '10 concurrent Realtime connections', included: true },
     ],
-    cta: 'Get started for free',
+    cta: 'Get started',
+    highlight: false,
+  },
+  {
+    id: 'hobby',
+    name: 'Hobby',
+    price: {
+      monthly: '$10',
+      yearly: '$100',
+    },
+    usage: '$10 monthly usage included',
+    features: [
+      { name: '25 concurrent runs', included: true },
+      { name: 'Unlimited tasks', included: true },
+      { name: '5 team members', included: true },
+      { name: 'Dev, Staging and Prod environments', included: true },
+      { name: '5 preview branches', included: true },
+      { name: '100 schedules', included: true },
+      { name: '7 day log retention', included: true },
+      { name: 'Community support', included: true },
+      { name: '3 alert destinations', included: true },
+      { name: '50 concurrent Realtime connections', included: true },
+    ],
+    cta: 'Get started',
+    highlight: true,
   },
   {
     id: 'pro',
-    name: 'Professional',
+    name: 'Pro',
     price: {
-      monthly: 29,
-      yearly: 25,
+      monthly: '$50',
+      yearly: '$500',
     },
-    description: 'Everything you need to scale your AI SaaS business.',
+    usage: '$50 monthly usage included',
     features: [
-      'All Starter features',
-      'Premium UI components',
-      'AI model integrations',
-      'Advanced analytics',
-      'Priority email support',
-      'API documentation',
+      { name: '100+ concurrent runs', included: true, subtext: 'Then $50/month per 50' },
+      { name: 'Unlimited tasks', included: true },
+      { name: '25+ team members', included: true, subtext: 'Then $20/month per seat' },
+      { name: 'Dev, Staging and Prod environments', included: true },
+      { name: '20+ preview branches', included: true, subtext: 'Then $10/month per branch' },
+      { name: '1000+ schedules', included: true, subtext: 'Then $10/month per 1,000' },
+      { name: '30 day log retention', included: true },
+      { name: 'Dedicated Slack support', included: true },
+      { name: '100+ alert destinations', included: true },
+      { name: '500+ concurrent Realtime connections', included: true, subtext: 'Then $10/month per 100' },
     ],
-    cta: 'Subscribe to Pro',
-    popular: true,
-  },
-  {
-    id: 'enterprise',
-    name: 'Enterprise',
-    price: {
-      monthly: 'Get in touch for pricing',
-      yearly: 'Get in touch for pricing',
-    },
-    description: 'Advanced features for large AI SaaS applications and teams.',
-    features: [
-      'All Professional features',
-      'Custom AI integrations',
-      'White-label solutions',
-      'Dedicated support',
-      'SLA guarantees',
-      'On-premise deployment',
-    ],
-    cta: 'Contact us',
+    cta: 'Get started',
+    highlight: false,
   },
 ];
 
-const Pricing2 = () => {
-  const [frequency, setFrequency] = useState<string>('monthly');
+const PricingSection = () => {
+  const [frequency, setFrequency] = useState<'monthly' | 'yearly'>('monthly');
 
   return (
-    <div id="pricing" className="not-prose flex flex-col gap-12 px-(--container-padding-x) py-(--section-padding-y) text-center bg-muted/30">
-      <div className="flex flex-col items-center justify-center gap-6">
-        <h2 className="mb-0 text-balance font-semibold text-4xl md:text-5xl leading-[1.15] tracking-tighter text-foreground">
-          AI SaaS Pricing
-        </h2>
-        <p className="mx-auto mt-0 mb-0 max-w-2xl text-balance text-xl text-muted-foreground leading-relaxed">
-          Building an AI SaaS should be simple. Our pricing plans are straightforward,
-          transparent, and designed to scale with your success.
-        </p>
-        <div className="flex items-center justify-center">
-          <div className="grid grid-cols-2 gap-1 rounded-lg bg-muted/60 p-1 text-center text-sm font-medium backdrop-blur-sm border border-border shadow-sm">
-            {["monthly", "yearly"].map((option) => (
-              <button
-                key={option}
-                onClick={() => setFrequency(option)}
-                className={cn(
-                  "relative px-8 py-2 transition-all duration-200 cursor-pointer rounded-md",
-                  frequency === option ? "text-foreground" : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                {frequency === option && (
-                  <motion.div
-                    layoutId="active-pill"
-                    className="absolute inset-0 rounded-md bg-background shadow-sm border border-border/50"
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                  />
-                )}
-                <span className="relative z-10 flex items-center justify-center gap-2 capitalize">
-                  {option}
-                  {option === "yearly" && (
-                    <Badge variant="outline" className="ml-1 text-[10px] px-1.5 py-0 h-5 font-semibold border-primary text-primary bg-primary/5">
-                      -20%
-                    </Badge>
-                  )}
-                </span>
-              </button>
-            ))}
-          </div>
-        </div>
-        <div className="mt-8 grid w-full max-w-5xl gap-6 lg:grid-cols-3">
+    <section className="py-12 bg-background text-foreground">
+      <div className="container px-4 md:px-6 mx-auto max-w-7xl">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {plans.map((plan) => (
             <div
-              className={cn(
-                'relative w-full flex flex-col rounded-xl overflow-hidden',
-                plan.popular
-                  ? 'bg-primary/5 dark:bg-linear-to-b dark:from-primary/20 dark:via-primary/15 dark:to-primary/10 border border-primary/20 shadow-[0_12px_50px_-15px_rgba(0,0,0,0.15)] dark:shadow-[0_12px_50px_-15px_rgba(255,255,255,0.1)] transform scale-105'
-                  : 'bg-card border border-border shadow-[0_12px_50px_-15px_rgba(0,0,0,0.1)]'
-              )}
               key={plan.id}
+              className={cn(
+                "flex flex-col p-6 rounded-sm border transition-all duration-200",
+                plan.highlight
+                  ? "border-[#ccff00] bg-card/50"
+                  : "border-border bg-card/20"
+              )}
             >
-              {/* Header with Badge */}
-              <div className={cn(
-                'px-6 pt-4 pb-2',
-                plan.popular ? '' : 'bg-card'
-              )}>
-                <div className="flex items-center justify-between mb-1">
-                  <h3 className={cn(
-                    'text-2xl font-bold tracking-tight text-left',
-                    plan.popular ? 'text-foreground' : 'text-foreground'
-                  )}>
-                    {plan.name}
-                  </h3>
-                  {plan.popular && (
-                    <Badge className="bg-primary text-white text-xs font-semibold px-3 py-1 rounded-md border-0">
-                      Best value
-                    </Badge>
-                  )}
+              <div className="mb-6">
+                <h3 className="text-lg font-medium text-muted-foreground mb-2">{plan.name}</h3>
+                <div className="flex items-baseline gap-1 mb-4">
+                  <span className="text-5xl font-medium tracking-tight">
+                    {plan.price[frequency]}
+                  </span>
+                  <span className="text-muted-foreground text-sm">/month</span>
                 </div>
-                <p className={cn(
-                  'text-sm leading-relaxed text-left',
-                  plan.popular ? 'text-muted-foreground' : 'text-muted-foreground'
-                )}>
-                  {plan.description}
-                </p>
+                
+                <div className="flex items-center gap-1 text-sm underline decoration-dotted underline-offset-4 text-muted-foreground hover:text-foreground cursor-help w-fit">
+                  {plan.usage}
+                  {plan.highlight || plan.id === 'pro' ? <InfoIcon className="w-3 h-3" /> : null}
+                </div>
               </div>
 
-              {/* Pricing */}
-              <div className={cn(
-                'px-6 py-2',
-                plan.popular ? '' : ''
-              )}>
-                {typeof plan.price[frequency as keyof typeof plan.price] === 'number' ? (
-                  <div className="flex flex-col items-start">
-                    <div className="flex items-baseline gap-1">
-                      <span
-                        className={cn(
-                          'text-5xl font-bold tracking-tighter',
-                          plan.popular ? 'text-foreground' : 'text-foreground'
-                        )}
-                      >
-                        {new Intl.NumberFormat('en-US', {
-                          style: 'currency',
-                          currency: 'USD',
-                          maximumFractionDigits: 0,
-                        }).format(plan.price[frequency as keyof typeof plan.price] as number)}
-                      </span>
-                      <span className={cn(
-                        'text-base',
-                        plan.popular ? 'text-muted-foreground' : 'text-muted-foreground'
-                      )}>
-                        per month
-                      </span>
-                    </div>
-                    <p className={cn(
-                      'text-xs',
-                      plan.popular ? 'text-muted-foreground' : 'text-muted-foreground'
-                    )}>
-                      per user / month, when paying {frequency}
-                    </p>
-                  </div>
-                ) : (
-                  <div className={cn(
-                    'text-2xl font-semibold text-left',
-                    plan.popular ? 'text-foreground' : 'text-foreground'
-                  )}>
-                    {plan.price[frequency as keyof typeof plan.price]}
-                  </div>
+              <Button
+                className={cn(
+                  "w-full py-6 text-base font-medium mb-8 rounded-md transition-colors",
+                  plan.highlight
+                    ? "bg-[#ccff00] text-black hover:bg-[#b3e600]"
+                    : "bg-secondary/50 text-secondary-foreground hover:bg-secondary border border-border/50"
                 )}
-              </div>
+              >
+                {plan.cta}
+              </Button>
 
-              {/* CTA Button */}
-              <div className={cn(
-                'px-6 py-3',
-                plan.popular ? '' : 'bg-card'
-              )}>
-                <Button
-                  className={cn(
-                    'w-full py-4 rounded-md text-base font-semibold transition-all duration-200 items-center gap-2',
-                    plan.popular
-                      ? 'bg-primary text-primary-foreground hover:bg-primary/90'
-                      : 'bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border'
-                  )}
-                  size="lg"
-                >
-                  {plan.cta}
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
-              </div>
-
-              {/* Features List */}
-              <div className={cn(
-                'px-6 py-4 flex-1',
-                plan.popular ? '' : 'bg-muted/30'
-              )}>
-                <div className="space-y-2">
-                  {plan.features.map((feature, index) => (
-                    <div key={index} className="flex items-start gap-3">
-                      <div className="mt-0.5">
-                        <svg
-                          className={cn(
-                            'w-5 h-5',
-                            plan.popular ? 'text-foreground' : 'text-foreground'
-                          )}
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
+              <div className="flex-1">
+                <ul className="space-y-4">
+                  {plan.features.map((feature, idx) => (
+                    <li key={idx} className={cn("flex items-start gap-3 text-sm", !feature.included && "opacity-50")}>
+                      {feature.included ? (
+                        <CheckIcon className="w-4 h-4 text-[#ccff00] shrink-0 mt-0.5" />
+                      ) : (
+                        <XIcon className="w-4 h-4 text-muted-foreground shrink-0 mt-0.5" />
+                      )}
+                      <div className="flex flex-col">
+                        <span className={cn(feature.included ? "text-foreground" : "line-through text-muted-foreground")}>
+                          {feature.name}
+                        </span>
+                        {feature.subtext && (
+                          <span className="text-xs text-muted-foreground mt-0.5">{feature.subtext}</span>
+                        )}
                       </div>
-                      <span className={cn(
-                        'text-sm leading-relaxed',
-                        plan.popular ? 'text-foreground' : 'text-foreground'
-                      )}>
-                        {feature}
-                      </span>
-                    </div>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
             </div>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
-export default Pricing2;
+export default PricingSection;

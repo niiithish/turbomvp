@@ -207,7 +207,7 @@ export function ProfileManager() {
 
           {/* Profile Status */}
           {profile && (
-            <div className="bg-muted/50 p-3 rounded-lg">
+            <div className="bg-muted/50 p-3 rounded-sm">
               <h4 className="font-medium text-sm mb-1">Profile Status</h4>
               <div className="text-xs text-muted-foreground space-y-1">
                 <p>Profile ID: {profile.id}</p>
@@ -238,7 +238,7 @@ export function ProfileManager() {
         </Button>
 
         {/* Instructions */}
-        <div className="text-xs text-muted-foreground bg-muted/30 p-3 rounded-lg">
+        <div className="text-xs text-muted-foreground bg-muted/30 p-3 rounded-sm">
           <p className="font-medium mb-1">How it works:</p>
           <ul className="list-disc list-inside space-y-1">
             <li>Update your profile information and click "Update Profile" to save changes</li>

@@ -71,7 +71,7 @@ const FAQ = () => {
             <AccordionItem
               key={question}
               value={`question-${index}`}
-              className="border border-border/50 rounded-lg px-6 py-2 bg-background/50 hover:bg-accent/50 transition-colors"
+              className="border border-border/50 rounded-sm px-6 py-2 bg-background/50 hover:bg-accent/50 transition-colors"
             >
               <AccordionPrimitive.Header className="flex">
                 <AccordionPrimitive.Trigger
