@@ -1,25 +1,17 @@
-import { DashboardMetrics } from "@/components/dashboard/DashboardMetrics"
-import ChartAreaAxes from "@/components/dashboard/ChartAreaAxes"
-import ChartBarActive from "@/components/dashboard/ChartBarActive"
-import Example from "@/components/dashboard/TableWithActions"
+import { currentUser } from "@/lib/auth-helpers";
 
-
-export default function DashboardPage() {
-    return (
-        <div className="flex flex-1 flex-col gap-4 p-4">
-            <div className="flex items-center justify-between">
-                <h1 className="text-2xl font-bold tracking-tight">Overview</h1>
-            </div>
-            <DashboardMetrics />
-            <div className="flex flex-col lg:flex-row gap-4">
-                <div className="w-full lg:w-3/5">
-                    <ChartAreaAxes />
-                </div>
-                <div className="w-full lg:w-2/5">
-                    <ChartBarActive />
-                </div>
-            </div>
-            <Example />
-        </div>
-    )
+export default async function DashboardPage() {
+  const user = await currentUser();
+  
+  return (
+    <div className="grid gap-4">
+      <h2 className="text-2xl font-bold">Welcome back, {user?.name || "User"}!</h2>
+      <div className="p-4 border rounded-lg bg-card text-card-foreground shadow-sm">
+        <h3 className="font-semibold mb-2">User Details</h3>
+        <pre className="bg-muted p-2 rounded text-xs overflow-auto">
+          {JSON.stringify(user, null, 2)}
+        </pre>
+      </div>
+    </div>
+  );
 }
