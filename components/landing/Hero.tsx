@@ -31,7 +31,7 @@ export default function Hero() {
           <div className="absolute inset-0 bg-primary/10 blur-[100px] rounded-[inherit]" />
         </div>
 
-        <div className="relative aspect-video bg-accent rounded-(--card-radius-xl) overflow-hidden border border-primary/20 shadow-[0_0_50px_-12px_var(--primary)]">
+        <div className="relative aspect-[20/9] bg-accent rounded-(--card-radius-xl) overflow-hidden border border-primary/20 shadow-[0_0_50px_-12px_var(--primary)]">
           <img
             src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
             alt="Screenshot"

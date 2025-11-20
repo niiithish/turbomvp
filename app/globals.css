@@ -10,8 +10,8 @@
   --card-foreground: #333333;
   --popover: #ffffff;
   --popover-foreground: #333333;
-  --primary: #ccff00;
-  --primary-foreground: #000000;
+  --primary: #5468ff;
+  --primary-foreground: #ffffff;
   --secondary: #f3f4f6;
   --secondary-foreground: #4b5563;
   --muted: #f9fafb;
@@ -22,7 +22,7 @@
   --destructive-foreground: #ffffff;
   --border: #e5e7eb;
   --input: #e5e7eb;
-  --ring: #ccff00;
+  --ring: #5468ff;
   --chart-1: #3B82F6;
   --chart-2: #10B981;
   --chart-3: #F59E0B;
@@ -30,14 +30,14 @@
   --chart-5: #EF4444;
   --sidebar: #f9fafb;
   --sidebar-foreground: #333333;
-  --sidebar-primary: #ccff00;
-  --sidebar-primary-foreground: #000000;
+  --sidebar-primary: #5468ff;
+  --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #F5F5F5;
   --sidebar-accent-foreground: #272A2F;
   --sidebar-border: #e5e7eb;
-  --sidebar-ring: #ccff00;
+  --sidebar-ring: #5468ff;
   --sidebar-active-bg: #E8E8E8;
-  --logo-color: #ccff00;
+  --logo-color: #5468ff;
   --font-sans: var(--font-geist-sans), ui-sans-serif, sans-serif, system-ui;
   --font-serif: Source Serif 4, serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
@@ -89,8 +89,8 @@
   --card-foreground: #e5e5e5;
   --popover: #1A1D1A;
   --popover-foreground: #e5e5e5;
-  --primary: #ccff00;
-  --primary-foreground: #000000;
+  --primary: #5468ff;
+  --primary-foreground: #ffffff;
   --secondary: #1A1D1A;
   --secondary-foreground: #e5e5e5;
   --muted: #141514;  
@@ -101,7 +101,7 @@
   --destructive-foreground: #ffffff;
   --border: #2A2D2A;
   --input: #2A2D2A;
-  --ring: #ccff00;
+  --ring: #5468ff;
   --chart-1: #60A5FA;
   --chart-2: #34D399;
   --chart-3: #FBBF24;
@@ -109,14 +109,14 @@
   --chart-5: #F87171;
   --sidebar: #0F110F;
   --sidebar-foreground: #e5e5e5;
-  --sidebar-primary: #ccff00;
-  --sidebar-primary-foreground: #000000;
+  --sidebar-primary: #5468ff;
+  --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #212225;
   --sidebar-accent-foreground: #FFF4EC;
   --sidebar-border: #2A2D2A;
-  --sidebar-ring: #ccff00;
+  --sidebar-ring: #5468ff;
   --sidebar-active-bg: #2A2D32;
-  --logo-color: #ccff00;
+  --logo-color: #5468ff;
   --font-sans: var(--font-geist-sans), ui-sans-serif, sans-serif, system-ui;
   --font-serif: Source Serif 4, serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
@@ -205,6 +205,24 @@
   }
 }
 
+@layer utilities {
+  .animate-marquee {
+    animation: marquee var(--duration, 40s) linear infinite;
+  }
+
+  .animate-marquee-reverse {
+    animation: marquee-reverse var(--duration, 40s) linear infinite;
+  }
+
+  .animate-marquee-vertical {
+    animation: marquee-vertical var(--duration, 40s) linear infinite;
+  }
+
+  .animate-marquee-vertical-reverse {
+    animation: marquee-vertical-reverse var(--duration, 40s) linear infinite;
+  }
+}
+
 /* Testimonials auto-scroll animation */
 @keyframes marquee-up {
   from { transform: translateY(0); }
@@ -214,6 +232,27 @@
 @keyframes marquee-down {
   from { transform: translateY(-50%); }
   to { transform: translateY(0); }
+}
+
+/* Marquee component animations */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+@keyframes marquee-reverse {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
+
+@keyframes marquee-vertical {
+  from { transform: translateY(0); }
+  to { transform: translateY(-100%); }
+}
+
+@keyframes marquee-vertical-reverse {
+  from { transform: translateY(0); }
+  to { transform: translateY(100%); }
 }
 
 
