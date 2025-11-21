@@ -6,10 +6,10 @@ import { Button } from "@/components/ui/button";
 
 export default function CtaSection() {
   return (
-    <section className="w-full px-(--container-padding-x) py-(--section-padding-y-lg)">
+    <section className="w-full px-6 md:px-8 py-24 md:py-32">
       <div className="mx-auto max-w-4xl">
         <div
-          className="rounded-(--card-radius-xl) p-12 text-center shadow-2xl sm:p-16"
+          className="rounded-2xl p-12 text-center shadow-2xl sm:p-16"
           style={{ backgroundColor: "#171717" }}
         >
           <h2 className="mb-4 font-bold text-3xl text-white sm:text-4xl lg:text-5xl">

@@ -9,8 +9,8 @@ const logos = [
 ];
 
 const LogoCloud = () => (
-  <div className="border-border/40 border-y bg-background py-(--section-padding-y-sm)">
-    <div className="mx-auto max-w-(--container-max-w) px-(--container-padding-x)">
+  <div className="border-border/40 border-y bg-background py-12 md:py-16">
+    <div className="mx-auto max-w-7xl px-6 md:px-8">
       <div className="flex flex-col items-center gap-8">
         <p className="text-center font-medium text-muted-foreground text-sm uppercase tracking-wider">
           Trusted by the world's leading organizations

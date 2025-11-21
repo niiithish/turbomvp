@@ -30,10 +30,10 @@ export default function HowItWorksSection() {
 
   return (
     <section
-      className="bg-muted px-(--container-padding-x) py-(--section-padding-y-lg)"
+      className="bg-muted px-6 md:px-8 py-24 md:py-32"
       id="how-it-works"
     >
-      <div className="mx-auto max-w-(--container-max-w)">
+      <div className="mx-auto max-w-7xl">
         <div className="mb-16 text-center">
           <h2 className="mb-8 font-semibold text-4xl text-foreground leading-[1.15] tracking-tighter md:text-5xl">
             The 5-Minute Promise
@@ -54,7 +54,7 @@ export default function HowItWorksSection() {
                     {/* biome-ignore lint/performance/noImgElement: External image */}
                     <img
                       alt={step.title}
-                      className="mx-auto h-44 w-80 rounded-(--card-radius-lg) object-cover shadow-lg"
+                      className="mx-auto h-44 w-80 rounded-xl object-cover shadow-lg"
                       height={176}
                       src={step.image}
                       width={320}

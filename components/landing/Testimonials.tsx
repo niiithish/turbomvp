@@ -73,10 +73,10 @@ const Testimonials = () => {
 
   return (
     <div
-      className="overflow-hidden bg-black px-(--container-padding-x) py-(--section-padding-y-lg) text-white"
+      className="overflow-hidden bg-black px-6 md:px-8 py-24 md:py-32 text-white"
       id="testimonials"
     >
-      <div className="mx-auto grid w-full max-w-(--container-max-w) grid-cols-1 items-center gap-12 lg:grid-cols-[40%_60%]">
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 lg:grid-cols-[40%_60%]">
         {/* Left Side: Content */}
         <div className="flex flex-col items-start text-left">
           <h2 className="mb-6 font-semibold text-4xl text-white tracking-tighter">
@@ -114,7 +114,7 @@ const Testimonials = () => {
 };
 
 const TestimonialCard = ({ story }: { story: (typeof socialProofData)[0] }) => (
-  <div className="relative rounded-(--card-radius-lg) bg-card p-6 text-card-foreground shadow-lg">
+  <div className="relative rounded-xl bg-card p-6 text-card-foreground shadow-lg">
     {/* Twitter Link */}
     <div className="absolute top-4 right-4">
       <Button asChild size="icon" variant="ghost">

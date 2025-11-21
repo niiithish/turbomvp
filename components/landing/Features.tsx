@@ -46,8 +46,8 @@ const Features = ({
   },
 }: FeaturesProps) => {
   return (
-    <section className="py-(--section-padding-y-lg)" id="features">
-      <div className="container mx-auto max-w-(--container-max-w) px-(--container-padding-x)">
+    <section className="py-24 md:py-32" id="features">
+      <div className="container mx-auto max-w-7xl px-6 md:px-8">
         <div className="mb-16 flex flex-col items-center gap-6">
           <h2 className="text-center font-semibold text-4xl leading-[1.15] tracking-tighter md:text-5xl lg:max-w-4xl">
             {title}
@@ -60,8 +60,8 @@ const Features = ({
         <div className="mx-auto grid grid-cols-1 gap-6 lg:max-w-6xl lg:grid-cols-12">
           {/* Row 1 */}
           {/* Feature 1 - Big Left (7 cols) */}
-          <div className="flex flex-col justify-between rounded-(--card-radius-lg) border border-border bg-card p-8 shadow-sm transition-all duration-300 hover:shadow-md lg:col-span-7">
-            <div className="mb-8 flex w-full flex-1 items-center justify-center overflow-hidden rounded-(--card-radius) bg-muted/20">
+          <div className="flex flex-col justify-between rounded-xl border border-border bg-card p-8 shadow-sm transition-all duration-300 hover:shadow-md lg:col-span-7">
+            <div className="mb-8 flex w-full flex-1 items-center justify-center overflow-hidden rounded-lg bg-muted/20">
               {/* biome-ignore lint/performance/noImgElement: External image */}
               <img
                 alt={feature1.title}
@@ -82,8 +82,8 @@ const Features = ({
           </div>
 
           {/* Feature 2 - Small Right (5 cols) */}
-          <div className="flex flex-col justify-between rounded-(--card-radius-lg) border border-border bg-card p-8 shadow-sm transition-all duration-300 hover:shadow-md lg:col-span-5">
-            <div className="mb-8 flex w-full flex-1 items-center justify-center overflow-hidden rounded-(--card-radius) bg-muted/20">
+          <div className="flex flex-col justify-between rounded-xl border border-border bg-card p-8 shadow-sm transition-all duration-300 hover:shadow-md lg:col-span-5">
+            <div className="mb-8 flex w-full flex-1 items-center justify-center overflow-hidden rounded-lg bg-muted/20">
               {/* biome-ignore lint/performance/noImgElement: External image */}
               <img
                 alt={feature2.title}
@@ -105,8 +105,8 @@ const Features = ({
 
           {/* Row 2 */}
           {/* Feature 3 - Small Left (5 cols) */}
-          <div className="flex flex-col justify-between rounded-(--card-radius-lg) border border-border bg-card p-8 shadow-sm transition-all duration-300 hover:shadow-md lg:col-span-5">
-            <div className="mb-8 flex w-full flex-1 items-center justify-center overflow-hidden rounded-(--card-radius) bg-muted/20">
+          <div className="flex flex-col justify-between rounded-xl border border-border bg-card p-8 shadow-sm transition-all duration-300 hover:shadow-md lg:col-span-5">
+            <div className="mb-8 flex w-full flex-1 items-center justify-center overflow-hidden rounded-lg bg-muted/20">
               <img
                 alt={feature3.title}
                 className="aspect-square h-[300px] w-full object-cover"
@@ -126,8 +126,8 @@ const Features = ({
           </div>
 
           {/* Feature 4 - Big Right (7 cols) */}
-          <div className="flex flex-col justify-between rounded-(--card-radius-lg) border border-border bg-card p-8 shadow-sm transition-all duration-300 hover:shadow-md lg:col-span-7">
-            <div className="mb-8 flex w-full flex-1 items-center justify-center overflow-hidden rounded-(--card-radius) bg-muted/20">
+          <div className="flex flex-col justify-between rounded-xl border border-border bg-card p-8 shadow-sm transition-all duration-300 hover:shadow-md lg:col-span-7">
+            <div className="mb-8 flex w-full flex-1 items-center justify-center overflow-hidden rounded-lg bg-muted/20">
               {/* biome-ignore lint/performance/noImgElement: External image */}
               <img
                 alt={feature4.title}

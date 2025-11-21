@@ -55,7 +55,7 @@ const faq = [
 
 const FAQ = () => (
   <div
-    className="flex min-h-screen items-center justify-center px-(--container-padding-x) py-(--section-padding-y-lg)"
+    className="flex min-h-screen items-center justify-center px-6 md:px-8 py-24 md:py-32"
     id="faq"
   >
     <div className="w-full max-w-2xl">

@@ -23,7 +23,7 @@ export default function FooterSection() {
 
   return (
     <footer className="border-t bg-background">
-      <div className="mx-auto max-w-(--container-max-w) px-(--container-padding-x) py-(--section-padding-y-sm)">
+      <div className="mx-auto max-w-7xl px-6 md:px-8 py-12 md:py-16">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {/* Column 1: Logo */}

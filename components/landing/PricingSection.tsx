@@ -106,8 +106,8 @@ const PricingSection = () => {
   const [frequency, setFrequency] = useState<"monthly" | "yearly">("monthly");
 
   return (
-    <section className="bg-background py-(--section-padding-y-lg) text-foreground">
-      <div className="mx-auto max-w-(--container-max-w) px-(--container-padding-x)">
+    <section className="bg-background py-24 md:py-32 text-foreground">
+      <div className="mx-auto max-w-7xl px-6 md:px-8">
         {/* Header Section */}
         <div className="mb-12 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
