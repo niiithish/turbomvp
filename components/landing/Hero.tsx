@@ -7,7 +7,7 @@ export default function Hero() {
     <div className="relative flex min-h-screen w-full flex-col items-center justify-center gap-16 overflow-hidden px-6 md:px-8 py-12 md:py-16">
       <div className="relative z-10 mx-auto max-w-4xl text-center">
         <div className="mt-6 text-center">
-          <h1 className="font-semibold text-4xl leading-[1.15] tracking-tighter md:text-6xl">
+          <h1 className="font-semibold text-4xl leading-[1.15] tracking-tighter md:text-5xl">
             Organize your day, master <br /> your productivity flow
           </h1>
         </div>
@@ -36,7 +36,7 @@ export default function Hero() {
             alt="Screenshot"
             className="mx-auto object-cover"
             height={540}
-            src="https://crisp.chat/_ipx/w_2160&f_webp&q_90/components/home/HomeHeroApp/screenshot.png"
+            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
             width={1200}
           />
           {/* Inner Edge Glow */}

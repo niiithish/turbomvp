@@ -58,44 +58,50 @@ const FAQ = () => (
     className="flex min-h-screen items-center justify-center px-6 md:px-8 py-24 md:py-32"
     id="faq"
   >
-    <div className="w-full max-w-2xl">
-      <h2 className="font-semibold text-4xl leading-[1.15] tracking-tighter md:text-5xl">
-        AI SaaS Template FAQs
-      </h2>
-      <p className="mt-2 text-muted-foreground text-xl">
-        Everything you need to know about building your AI SaaS with this
-        template.
-      </p>
+    <div className="w-full max-w-7xl">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        {/* Left Column - Header */}
+        <div className="lg:sticky lg:top-24 text-center lg:text-left mx-auto lg:mx-0">
+          <h2 className="font-semibold text-4xl leading-[1.15] tracking-tighter md:text-5xl">
+            Frequently Asked Questions
+          </h2>
+          <p className="mt-4 text-muted-foreground text-lg md:text-xl">
+            Everything you need to know—features, benefits, and common questions answered clearly
+          </p>
+        </div>
 
-      <Accordion
-        className="mt-8 space-y-4 sm:mt-10"
-        collapsible
-        defaultValue="question-0"
-        type="single"
-      >
-        {faq.map(({ question, answer }, index) => (
-          <AccordionItem
-            className="rounded-sm border border-border/50 bg-background/50 px-6 py-2 transition-colors hover:bg-accent/50"
-            key={question}
-            value={`question-${index}`}
+        {/* Right Column - FAQ Items */}
+        <div>
+          <Accordion
+            className="space-y-4"
+            collapsible
+            type="single"
           >
-            <AccordionHeader className="flex">
-              <AccordionTrigger
-                className={cn(
-                  "flex flex-1 cursor-pointer items-center justify-between py-4 font-semibold tracking-tight transition-all [&[data-state=open]>svg]:rotate-45",
-                  "text-start text-lg"
-                )}
+            {faq.map(({ question, answer }, index) => (
+              <AccordionItem
+                className="rounded-sm border border-border/50 bg-background/50 px-6 py-2 transition-colors hover:bg-accent/50"
+                key={question}
+                value={`question-${index}`}
               >
-                {question}
-                <PlusIcon className="h-5 w-5 shrink-0 text-muted-foreground transition-transform duration-200" />
-              </AccordionTrigger>
-            </AccordionHeader>
-            <AccordionContent className="pb-4 text-base text-muted-foreground">
-              {answer}
-            </AccordionContent>
-          </AccordionItem>
-        ))}
-      </Accordion>
+                <AccordionHeader className="flex">
+                  <AccordionTrigger
+                    className={cn(
+                      "flex flex-1 cursor-pointer items-center justify-between py-4 font-semibold tracking-tight transition-all [&[data-state=open]>svg]:rotate-45",
+                      "text-start text-lg"
+                    )}
+                  >
+                    {question}
+                    <PlusIcon className="h-5 w-5 shrink-0 text-muted-foreground transition-transform duration-200" />
+                  </AccordionTrigger>
+                </AccordionHeader>
+                <AccordionContent className="pb-4 text-base text-muted-foreground">
+                  {answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </div>
     </div>
   </div>
 );

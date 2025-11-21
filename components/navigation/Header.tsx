@@ -22,11 +22,11 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`sticky top-0 z-50 border-b bg-background transition-all duration-300 ${isScrolled ? "h-12" : "h-16"}`}
+      className={`sticky top-0 z-50 border-b bg-background h-16 md:transition-all md:duration-300 ${isScrolled ? "md:h-12" : ""}`}
     >
-      <div className="mx-auto flex h-full max-w-(--container-max-w) items-center justify-between px-(--container-padding-x)">
+      <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div
-          className={`transition-all duration-300 ${isScrolled ? "scale-90" : "scale-100"}`}
+          className={`md:transition-all md:duration-300 ${isScrolled ? "md:scale-90" : ""}`}
         >
           <Logo />
         </div>
@@ -35,20 +35,19 @@ const Navbar = () => {
         <NavMenu className="hidden md:block" />
 
         <div
-          className={`flex items-center gap-3 transition-all duration-300 ${isScrolled ? "scale-90" : "scale-100"}`}
+          className={`flex items-center gap-3 md:transition-all md:duration-300 ${isScrolled ? "md:scale-90" : ""}`}
         >
-          <ThemeToggle />
+          <ThemeToggle className="hidden md:flex" />
           <Button asChild className="hidden sm:inline-flex" variant="outline">
             <Link href="/sign-in">Sign In</Link>
           </Button>
           <Button asChild>
             <Link href="/sign-up">Sign Up</Link>
           </Button>
-        </div>
-
-        {/* Mobile Menu */}
-        <div className="md:hidden">
-          <NavigationSheet />
+          {/* Mobile Menu */}
+          <div className="md:hidden">
+            <NavigationSheet />
+          </div>
         </div>
       </div>
     </nav>
