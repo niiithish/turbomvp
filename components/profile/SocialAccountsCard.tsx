@@ -1,9 +1,15 @@
 "use client";
 
+import {
+  CheckmarkCircle02Icon,
+  GithubIcon,
+  GoogleIcon,
+  Link02Icon,
+  Loading03Icon,
+} from "hugeicons-react";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { GoogleIcon, GithubIcon, CheckmarkCircle02Icon, Link02Icon, Loading03Icon } from "hugeicons-react";
+import { Button } from "@/components/ui/button";
 
 interface SocialAccount {
   provider: "google" | "github";
@@ -19,14 +25,22 @@ export function SocialAccountsCard() {
 
   const handleLinkSocial = async (provider: "google" | "github") => {
     setLinkingProvider(provider);
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    setSocialAccounts(prev => prev.map(acc => acc.provider === provider ? { ...acc, linked: true } : acc));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    setSocialAccounts((prev) =>
+      prev.map((acc) =>
+        acc.provider === provider ? { ...acc, linked: true } : acc
+      )
+    );
     setLinkingProvider(null);
     toast.success(`Linked ${provider} account`);
   };
 
   const handleUnlinkSocial = (provider: "google" | "github") => {
-    setSocialAccounts(prev => prev.map(acc => acc.provider === provider ? { ...acc, linked: false } : acc));
+    setSocialAccounts((prev) =>
+      prev.map((acc) =>
+        acc.provider === provider ? { ...acc, linked: false } : acc
+      )
+    );
     toast.success(`Unlinked ${provider} account`);
   };
 
@@ -34,7 +48,7 @@ export function SocialAccountsCard() {
     <div className="space-y-6">
       <div>
         <h3 className="font-medium">Connected Accounts</h3>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-muted-foreground text-sm">
           Connect your social accounts to sign in faster.
         </p>
       </div>
@@ -42,8 +56,8 @@ export function SocialAccountsCard() {
       <div className="space-y-3">
         {socialAccounts.map((account) => (
           <div
+            className="flex items-center justify-between rounded-sm border bg-card p-3"
             key={account.provider}
-            className="flex items-center justify-between p-3 border rounded-sm bg-card"
           >
             <div className="flex items-center gap-3">
               {account.provider === "google" ? (
@@ -54,36 +68,38 @@ export function SocialAccountsCard() {
               <div>
                 <div className="font-medium capitalize">{account.provider}</div>
                 {account.linked ? (
-                  <div className="flex items-center gap-1 text-sm text-green-600">
+                  <div className="flex items-center gap-1 text-green-600 text-sm">
                     <CheckmarkCircle02Icon className="size-3" />
                     Connected
                   </div>
                 ) : (
-                  <div className="text-sm text-muted-foreground">Not connected</div>
+                  <div className="text-muted-foreground text-sm">
+                    Not connected
+                  </div>
                 )}
               </div>
             </div>
 
             {account.linked ? (
               <Button
-                variant="outline"
-                size="sm"
-                onClick={() => handleUnlinkSocial(account.provider)}
                 className="text-destructive hover:text-destructive"
+                onClick={() => handleUnlinkSocial(account.provider)}
+                size="sm"
+                variant="outline"
               >
                 Unlink
               </Button>
             ) : (
               <Button
-                variant="outline"
-                size="sm"
-                onClick={() => handleLinkSocial(account.provider)}
                 disabled={linkingProvider === account.provider}
+                onClick={() => handleLinkSocial(account.provider)}
+                size="sm"
+                variant="outline"
               >
                 {linkingProvider === account.provider ? (
-                  <Loading03Icon className="size-3 mr-1 animate-spin" />
+                  <Loading03Icon className="mr-1 size-3 animate-spin" />
                 ) : (
-                  <Link02Icon className="size-3 mr-1" />
+                  <Link02Icon className="mr-1 size-3" />
                 )}
                 Link
               </Button>

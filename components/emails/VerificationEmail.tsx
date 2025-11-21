@@ -1,4 +1,4 @@
-  import {
+import {
   Body,
   Button,
   Container,
@@ -23,6 +23,8 @@ type VerificationEmailProps = {
   logoUrl?: string;
 };
 
+const nameSplitRegex = /\s+/;
+
 export function VerificationEmail({
   verificationUrl,
   userEmail,
@@ -34,12 +36,16 @@ export function VerificationEmail({
   const brand = appName ?? "AI SaaS";
   const previewText = `Verify your email for ${brand}`;
   const greetingName =
-    (userName && userName.trim().split(/\s+/)[0]) || (userEmail ? userEmail.split("@")[0] : "there");
+    userName?.trim().split(nameSplitRegex)[0] ||
+    (userEmail ? userEmail.split("@")[0] : "there");
 
   return (
     <Html>
       <Head>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Geist&display=swap"
+          rel="stylesheet"
+        />
       </Head>
       <Preview>{previewText}</Preview>
       <Tailwind>
@@ -63,16 +69,16 @@ export function VerificationEmail({
               <Section className="p-8">
                 <Section className="mb-8 text-center">
                   <Img
-                    src={logoUrl}
-                    width={48}
                     alt={`${brand} logo`}
                     className="mx-auto block"
+                    src={logoUrl}
                     style={{ display: "block", height: "auto" }}
+                    width={48}
                   />
                 </Section>
 
                 <Heading
-                  className="m-0 mb-5 text-[24px] font-semibold leading-[1.3] text-center"
+                  className="m-0 mb-5 text-center font-semibold text-[24px] leading-[1.3]"
                   style={{ color: emailTheme.text, letterSpacing: "-0.01em" }}
                 >
                   Verify your email
@@ -90,14 +96,19 @@ export function VerificationEmail({
                   style={{ color: emailTheme.secondaryText }}
                 >
                   We just need to verify your email address{" "}
-                  {userEmail && <span style={{ color: emailTheme.primary }}>{userEmail}</span>} before you can access
-                  your account. Click the button below to confirm your email.
+                  {userEmail && (
+                    <span style={{ color: emailTheme.primary }}>
+                      {userEmail}
+                    </span>
+                  )}{" "}
+                  before you can access your account. Click the button below to
+                  confirm your email.
                 </Text>
 
                 <Section className="my-6 text-center">
                   <Button
-                    href={verificationUrl}
                     className="inline-block text-center no-underline"
+                    href={verificationUrl}
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
@@ -141,15 +152,17 @@ export function VerificationEmail({
                   className="mt-0 mb-3 text-[12px] leading-normal"
                   style={{ color: emailTheme.mutedText }}
                 >
-                  This link expires in {expirationMinutes} minutes. Email sent by {brand}.
+                  This link expires in {expirationMinutes} minutes. Email sent
+                  by {brand}.
                 </Text>
 
                 <Text
                   className="mt-3 mb-4 text-[12px] leading-normal"
                   style={{ color: emailTheme.mutedText }}
                 >
-                  If you didn't sign up for {brand}, you can safely ignore this email. Someone else might have typed
-                  your email address by mistake.
+                  If you didn't sign up for {brand}, you can safely ignore this
+                  email. Someone else might have typed your email address by
+                  mistake.
                 </Text>
               </Section>
             </Section>

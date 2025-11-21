@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-
 @custom-variant dark (&:is(.dark *));
 
 :root {
@@ -36,6 +35,16 @@
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.702 0.183 293.541);
+
+  /* Landing Page Tokens */
+  --section-padding-y-sm: 4rem;
+  --section-padding-y-lg: 6rem;
+  --container-max-w: 1280px;
+  --container-padding-x: 2rem;
+
+  --card-radius: var(--radius);
+  --card-radius-lg: calc(var(--radius) + 4px);
+  --card-radius-xl: calc(var(--radius) + 1rem);
 }
 
 .dark {
@@ -71,7 +80,6 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.38 0.189 293.745);
 }
-
 
 @theme inline {
   --color-background: var(--background);
@@ -161,37 +169,59 @@
 
 /* Testimonials auto-scroll animation */
 @keyframes marquee-up {
-  from { transform: translateY(0); }
-  to { transform: translateY(-50%); }
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
 }
 
 @keyframes marquee-down {
-  from { transform: translateY(-50%); }
-  to { transform: translateY(0); }
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
 /* Marquee component animations */
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-100%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
 }
 
 @keyframes marquee-reverse {
-  from { transform: translateX(0); }
-  to { transform: translateX(100%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
 }
 
 @keyframes marquee-vertical {
-  from { transform: translateY(0); }
-  to { transform: translateY(-100%); }
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
 }
 
 @keyframes marquee-vertical-reverse {
-  from { transform: translateY(0); }
-  to { transform: translateY(100%); }
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
 }
-
-
 
 /* Enhanced accordion animations inspired by Lemon Squeezy */
 @keyframes accordion-smooth-open {

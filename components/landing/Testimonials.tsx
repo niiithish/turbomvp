@@ -1,9 +1,8 @@
+import Link from "next/link";
+import type { ComponentProps } from "react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Marquee } from "@/components/ui/marquee";
-import Link from "next/link";
-import { ComponentProps } from "react";
-import { TrendingUp } from "lucide-react";
 
 const socialProofData = [
   {
@@ -14,7 +13,7 @@ const socialProofData = [
     testimonial:
       "Launched my AI SaaS in 3 days instead of 3 months. The template saved me from building auth, payments, and database from scratch. Pure gold for indie hackers!",
     avatar: "AC",
-    twitter: "@alexchen"
+    twitter: "@alexchen",
   },
   {
     id: 2,
@@ -24,7 +23,7 @@ const socialProofData = [
     testimonial:
       "We built and deployed our enterprise AI tool in 2 weeks. The Clerk integration was seamless, and Polar payments worked perfectly out of the box. Incredible time saver.",
     avatar: "SM",
-    twitter: "@sarahmartinez"
+    twitter: "@sarahmartinez",
   },
   {
     id: 3,
@@ -34,7 +33,7 @@ const socialProofData = [
     testimonial:
       "As a non-technical founder, this template was a game-changer. I could focus on the AI features while the infrastructure just worked. Got our first paying customer in week 1.",
     avatar: "MJ",
-    twitter: "@mikejohnson"
+    twitter: "@mikejohnson",
   },
   {
     id: 4,
@@ -44,7 +43,7 @@ const socialProofData = [
     testimonial:
       "I've built 3 client projects using this template. Each one would have taken months to build from scratch. Now I can deliver production-ready AI apps in weeks.",
     avatar: "ER",
-    twitter: "@emilyrod"
+    twitter: "@emilyrod",
   },
   {
     id: 5,
@@ -54,7 +53,7 @@ const socialProofData = [
     testimonial:
       "We evaluated multiple solutions and this template was the clear winner. The architecture is clean, the integrations work perfectly, and our dev team loves it.",
     avatar: "DP",
-    twitter: "@davidpark"
+    twitter: "@davidpark",
   },
   {
     id: 6,
@@ -64,7 +63,7 @@ const socialProofData = [
     testimonial:
       "From idea to revenue in 14 days. The template handled everything I needed to launch. Best investment I've made for my SaaS journey. Highly recommended!",
     avatar: "LT",
-    twitter: "@lisathompson"
+    twitter: "@lisathompson",
   },
 ];
 
@@ -73,35 +72,37 @@ const Testimonials = () => {
   const secondColumn = socialProofData.slice(3, 6);
 
   return (
-    <div id="testimonials" className="py-(--section-padding-y) px-(--container-padding-x) bg-black text-white overflow-hidden">
-      <div className="w-full max-w-(--container-max-w) mx-auto grid grid-cols-1 lg:grid-cols-[40%_60%] gap-12 items-center">
+    <div
+      className="overflow-hidden bg-black px-(--container-padding-x) py-(--section-padding-y-lg) text-white"
+      id="testimonials"
+    >
+      <div className="mx-auto grid w-full max-w-(--container-max-w) grid-cols-1 items-center gap-12 lg:grid-cols-[40%_60%]">
         {/* Left Side: Content */}
         <div className="flex flex-col items-start text-left">
-          <h2 className="text-4xl font-semibold tracking-tighter mb-6 text-white">
+          <h2 className="mb-6 font-semibold text-4xl text-white tracking-tighter">
             What people are <br />
             saying about Brightly
           </h2>
-          <p className="text-base text-gray-400 max-w-lg mb-8">
-            Hear from real users who have transformed their workflows with the power of Ticksy
+          <p className="mb-8 max-w-lg text-base text-gray-400">
+            Hear from real users who have transformed their workflows with the
+            power of Ticksy
           </p>
           <Button asChild size="lg">
-            <Link href="/signup">
-              Get started
-            </Link>
+            <Link href="/signup">Get started</Link>
           </Button>
         </div>
 
         {/* Right Side: Marquee Columns */}
-        <div className="relative h-[600px] overflow-hidden grid grid-cols-2 gap-4 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]">
+        <div className="mask-[linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)] relative grid h-[600px] grid-cols-2 gap-4 overflow-hidden">
           {/* First Column: Scroll Up (Bottom to Top) */}
-          <Marquee vertical className="[--duration:30s]" repeat={4}>
+          <Marquee className="[--duration:30s]" repeat={4} vertical>
             {firstColumn.map((story) => (
               <TestimonialCard key={story.id} story={story} />
             ))}
           </Marquee>
 
           {/* Second Column: Scroll Down (Top to Bottom) */}
-          <Marquee vertical className="[--duration:30s]" repeat={4}>
+          <Marquee className="[--duration:30s]" repeat={4} vertical>
             {secondColumn.map((story) => (
               <TestimonialCard key={story.id} story={story} />
             ))}
@@ -112,26 +113,26 @@ const Testimonials = () => {
   );
 };
 
-const TestimonialCard = ({ story }: { story: typeof socialProofData[0] }) => (
-  <div className="rounded-(--card-radius-lg) p-6 shadow-lg bg-card relative text-card-foreground">
+const TestimonialCard = ({ story }: { story: (typeof socialProofData)[0] }) => (
+  <div className="relative rounded-(--card-radius-lg) bg-card p-6 text-card-foreground shadow-lg">
     {/* Twitter Link */}
     <div className="absolute top-4 right-4">
-      <Button variant="ghost" size="icon" asChild>
+      <Button asChild size="icon" variant="ghost">
         <Link href="#" target="_blank" title={story.twitter}>
-          <TwitterLogo className="w-4 h-4" />
+          <TwitterLogo className="h-4 w-4" />
         </Link>
       </Button>
     </div>
 
-    <div className="flex items-center gap-4 mb-4">
+    <div className="mb-4 flex items-center gap-4">
       <Avatar>
-        <AvatarFallback className="text-xl font-medium bg-primary text-primary-foreground">
+        <AvatarFallback className="bg-primary font-medium text-primary-foreground text-xl">
           {story.avatar}
         </AvatarFallback>
       </Avatar>
       <div>
-        <p className="text-lg font-semibold">{story.name}</p>
-        <p className="text-sm text-muted-foreground">
+        <p className="font-semibold text-lg">{story.name}</p>
+        <p className="text-muted-foreground text-sm">
           {story.designation} at {story.company}
         </p>
       </div>
@@ -149,8 +150,8 @@ const TwitterLogo = (props: ComponentProps<"svg">) => (
   >
     <title>X</title>
     <path
-      fill="currentColor"
       d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"
+      fill="currentColor"
     />
   </svg>
 );

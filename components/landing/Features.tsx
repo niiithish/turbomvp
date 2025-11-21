@@ -1,17 +1,17 @@
-interface Feature {
+type Feature = {
   title: string;
   description: string;
   image: string;
-}
+};
 
-interface FeaturesProps {
+type FeaturesProps = {
   title?: string;
   description?: string;
   feature1?: Feature;
   feature2?: Feature;
   feature3?: Feature;
   feature4?: Feature;
-}
+};
 
 const Features = ({
   title = "Focus on what matters",
@@ -20,99 +20,130 @@ const Features = ({
     title: "Stay organized & manage tasks easily",
     description:
       "Prioritize, track progress, and manage everything in one place for a smoother workflow.",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
+    image:
+      "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
   },
   feature2 = {
     title: "AI teammate",
     description:
       "Oasis AI handles tasks and predicts timelines to keep you on track.",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
+    image:
+      "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
   },
   feature3 = {
     title: "Team collaboration",
     description:
       "Work seamlessly with your team. Share, assign, and succeed together.",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
+    image:
+      "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
   },
   feature4 = {
     title: "Powerful data integration without limits",
     description:
       "Easily integrate data from any source to create a seamless, automated, and unified workflow system.",
-    image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg",
+    image:
+      "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg",
   },
 }: FeaturesProps) => {
   return (
-    <section id="features" className="py-(--section-padding-y-lg)">
-      <div className="container max-w-(--container-max-w) mx-auto px-(--container-padding-x)">
+    <section className="py-(--section-padding-y-lg)" id="features">
+      <div className="container mx-auto max-w-(--container-max-w) px-(--container-padding-x)">
         <div className="mb-16 flex flex-col items-center gap-6">
-          <h2 className="text-center text-4xl md:text-5xl leading-[1.15] font-semibold tracking-tighter lg:max-w-4xl">
+          <h2 className="text-center font-semibold text-4xl leading-[1.15] tracking-tighter md:text-5xl lg:max-w-4xl">
             {title}
           </h2>
-          <p className="text-muted-foreground text-center text-xl lg:max-w-2xl">
+          <p className="text-center text-muted-foreground text-xl lg:max-w-2xl">
             {description}
           </p>
         </div>
-        
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:max-w-6xl mx-auto">
+
+        <div className="mx-auto grid grid-cols-1 gap-6 lg:max-w-6xl lg:grid-cols-12">
           {/* Row 1 */}
           {/* Feature 1 - Big Left (7 cols) */}
-          <div className="lg:col-span-7 border-border flex flex-col justify-between rounded-(--card-radius-lg) border bg-card p-8 shadow-sm hover:shadow-md transition-all duration-300">
-            <div className="w-full flex-1 flex items-center justify-center mb-8 bg-muted/20 rounded-(--card-radius) overflow-hidden">
-               <img
-                src={feature1.image}
+          <div className="flex flex-col justify-between rounded-(--card-radius-lg) border border-border bg-card p-8 shadow-sm transition-all duration-300 hover:shadow-md lg:col-span-7">
+            <div className="mb-8 flex w-full flex-1 items-center justify-center overflow-hidden rounded-(--card-radius) bg-muted/20">
+              {/* biome-ignore lint/performance/noImgElement: External image */}
+              <img
                 alt={feature1.title}
-                className="w-full h-[300px] object-cover aspect-[16/9]"
+                className="aspect-[16/9] h-[300px] w-full object-cover"
+                height={300}
+                src={feature1.image}
+                width={533}
               />
             </div>
             <div>
-              <h3 className="text-xl font-semibold tracking-tight">{feature1.title}</h3>
-              <p className="text-muted-foreground text-base mt-2">{feature1.description}</p>
+              <h3 className="font-semibold text-xl tracking-tight">
+                {feature1.title}
+              </h3>
+              <p className="mt-2 text-base text-muted-foreground">
+                {feature1.description}
+              </p>
             </div>
           </div>
 
           {/* Feature 2 - Small Right (5 cols) */}
-          <div className="lg:col-span-5 border-border flex flex-col justify-between rounded-(--card-radius-lg) border bg-card p-8 shadow-sm hover:shadow-md transition-all duration-300">
-            <div className="w-full flex-1 flex items-center justify-center mb-8 bg-muted/20 rounded-(--card-radius) overflow-hidden">
+          <div className="flex flex-col justify-between rounded-(--card-radius-lg) border border-border bg-card p-8 shadow-sm transition-all duration-300 hover:shadow-md lg:col-span-5">
+            <div className="mb-8 flex w-full flex-1 items-center justify-center overflow-hidden rounded-(--card-radius) bg-muted/20">
+              {/* biome-ignore lint/performance/noImgElement: External image */}
               <img
-                src={feature2.image}
                 alt={feature2.title}
-                className="w-full h-[300px] object-cover aspect-square"
+                className="aspect-square h-[300px] w-full object-cover"
+                height={300}
+                src={feature2.image}
+                width={300}
               />
             </div>
             <div>
-              <h3 className="text-xl font-semibold tracking-tight">{feature2.title}</h3>
-              <p className="text-muted-foreground text-base mt-2">{feature2.description}</p>
+              <h3 className="font-semibold text-xl tracking-tight">
+                {feature2.title}
+              </h3>
+              <p className="mt-2 text-base text-muted-foreground">
+                {feature2.description}
+              </p>
             </div>
           </div>
 
           {/* Row 2 */}
           {/* Feature 3 - Small Left (5 cols) */}
-          <div className="lg:col-span-5 border-border flex flex-col justify-between rounded-(--card-radius-lg) border bg-card p-8 shadow-sm hover:shadow-md transition-all duration-300">
-            <div className="w-full flex-1 flex items-center justify-center mb-8 bg-muted/20 rounded-(--card-radius) overflow-hidden">
+          <div className="flex flex-col justify-between rounded-(--card-radius-lg) border border-border bg-card p-8 shadow-sm transition-all duration-300 hover:shadow-md lg:col-span-5">
+            <div className="mb-8 flex w-full flex-1 items-center justify-center overflow-hidden rounded-(--card-radius) bg-muted/20">
               <img
-                src={feature3.image}
                 alt={feature3.title}
-                className="w-full h-[300px] object-cover aspect-square"
+                className="aspect-square h-[300px] w-full object-cover"
+                height={300}
+                src={feature3.image}
+                width={300}
               />
             </div>
             <div>
-              <h3 className="text-xl font-semibold tracking-tight">{feature3.title}</h3>
-              <p className="text-muted-foreground text-base mt-2">{feature3.description}</p>
+              <h3 className="font-semibold text-xl tracking-tight">
+                {feature3.title}
+              </h3>
+              <p className="mt-2 text-base text-muted-foreground">
+                {feature3.description}
+              </p>
             </div>
           </div>
 
           {/* Feature 4 - Big Right (7 cols) */}
-          <div className="lg:col-span-7 border-border flex flex-col justify-between rounded-(--card-radius-lg) border bg-card p-8 shadow-sm hover:shadow-md transition-all duration-300">
-             <div className="w-full flex-1 flex items-center justify-center mb-8 bg-muted/20 rounded-(--card-radius) overflow-hidden">
+          <div className="flex flex-col justify-between rounded-(--card-radius-lg) border border-border bg-card p-8 shadow-sm transition-all duration-300 hover:shadow-md lg:col-span-7">
+            <div className="mb-8 flex w-full flex-1 items-center justify-center overflow-hidden rounded-(--card-radius) bg-muted/20">
+              {/* biome-ignore lint/performance/noImgElement: External image */}
               <img
-                src={feature4.image}
                 alt={feature4.title}
-                className="w-full h-[300px] object-cover aspect-[16/9]"
+                className="aspect-[16/9] h-[300px] w-full object-cover"
+                height={300}
+                src={feature4.image}
+                width={533}
               />
             </div>
             <div>
-              <h3 className="text-xl font-semibold tracking-tight">{feature4.title}</h3>
-              <p className="text-muted-foreground text-base mt-2">{feature4.description}</p>
+              <h3 className="font-semibold text-xl tracking-tight">
+                {feature4.title}
+              </h3>
+              <p className="mt-2 text-base text-muted-foreground">
+                {feature4.description}
+              </p>
             </div>
           </div>
         </div>

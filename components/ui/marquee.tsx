@@ -1,7 +1,8 @@
 "use client";
 
+import type React from "react";
+import type { ComponentPropsWithoutRef } from "react";
 import { cn } from "@/lib/utils";
-import React, { ComponentPropsWithoutRef } from "react";
 
 interface MarqueeProps extends ComponentPropsWithoutRef<"div"> {
   /**
@@ -80,11 +81,11 @@ export function Marquee({
           .fill(0)
           .map((_, i) => (
             <div
-              key={i}
               className={cn("flex shrink-0 justify-around [gap:var(--gap)]", {
                 "flex-row": !vertical,
                 "flex-col": vertical,
               })}
+              key={i}
             >
               {children}
             </div>
@@ -92,6 +93,7 @@ export function Marquee({
       </div>
       {/* Duplicate for seamless loop */}
       <div
+        aria-hidden="true"
         className={cn("flex shrink-0 animate-marquee [gap:var(--gap)]", {
           "flex-row": !vertical,
           "flex-col": vertical,
@@ -100,17 +102,16 @@ export function Marquee({
           "animate-marquee-vertical-reverse": reverse && vertical,
           "group-hover:[animation-play-state:paused]": pauseOnHover,
         })}
-        aria-hidden="true"
       >
         {Array(repeat)
           .fill(0)
           .map((_, i) => (
             <div
-              key={i}
               className={cn("flex shrink-0 justify-around [gap:var(--gap)]", {
                 "flex-row": !vertical,
                 "flex-col": vertical,
               })}
+              key={i}
             >
               {children}
             </div>

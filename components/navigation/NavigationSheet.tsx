@@ -12,8 +12,6 @@ import {
 } from "@/components/ui/sheet";
 
 const NavigationSheet = () => {
-
-
   const navItems = [
     { href: "#features", label: "Features" },
     { href: "#pricing", label: "Pricing" },
@@ -24,7 +22,7 @@ const NavigationSheet = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="rounded-full">
+        <Button className="rounded-full" size="icon" variant="ghost">
           <Menu className="h-5 w-5" />
           <span className="sr-only">Toggle menu</span>
         </Button>
@@ -33,18 +31,18 @@ const NavigationSheet = () => {
         <SheetHeader>
           <SheetTitle>Menu</SheetTitle>
         </SheetHeader>
-        <nav className="flex flex-col gap-4 mt-8">
+        <nav className="mt-8 flex flex-col gap-4">
           {navItems.map((item) => (
             <a
-              key={item.href}
+              className="font-medium text-lg transition-colors hover:text-primary"
               href={item.href}
-              className="text-lg font-medium hover:text-primary transition-colors"
+              key={item.href}
             >
               {item.label}
             </a>
           ))}
-          <div className="flex flex-col gap-3 mt-4 pt-4 border-t">
-            <Button asChild variant="outline" className="w-full rounded-full">
+          <div className="mt-4 flex flex-col gap-3 border-t pt-4">
+            <Button asChild className="w-full rounded-full" variant="outline">
               <Link href="/sign-in">Sign In</Link>
             </Button>
             <Button asChild className="w-full rounded-full">

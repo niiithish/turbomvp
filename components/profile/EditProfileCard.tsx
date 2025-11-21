@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { ProfileManager } from './ProfileManager';
+import { ProfileManager } from "./ProfileManager";
 
 /**
  * EditProfileCard - Wrapper component for profile editing

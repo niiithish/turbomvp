@@ -1,22 +1,28 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Switch } from '@/components/ui/switch';
+import { useState } from "react";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
 
 export function Preferences() {
   const [preferences, setPreferences] = useState({
-    timezone: 'utc',
-    language: 'en',
+    timezone: "utc",
+    language: "en",
     use24Hour: true,
   });
 
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold">Preferences</h2>
-        <p className="text-sm text-muted-foreground">
+        <h2 className="font-semibold text-lg">Preferences</h2>
+        <p className="text-muted-foreground text-sm">
           Manage your application preferences
         </p>
       </div>
@@ -25,14 +31,18 @@ export function Preferences() {
         <div className="space-y-2">
           <Label>Timezone</Label>
           <Select
+            onValueChange={(value) =>
+              setPreferences({ ...preferences, timezone: value })
+            }
             value={preferences.timezone}
-            onValueChange={(value) => setPreferences({ ...preferences, timezone: value })}
           >
             <SelectTrigger>
               <SelectValue placeholder="Select timezone" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="utc">UTC (Coordinated Universal Time)</SelectItem>
+              <SelectItem value="utc">
+                UTC (Coordinated Universal Time)
+              </SelectItem>
               <SelectItem value="est">EST (Eastern Standard Time)</SelectItem>
               <SelectItem value="pst">PST (Pacific Standard Time)</SelectItem>
               <SelectItem value="ist">IST (Indian Standard Time)</SelectItem>
@@ -44,8 +54,10 @@ export function Preferences() {
         <div className="space-y-2">
           <Label>Language</Label>
           <Select
+            onValueChange={(value) =>
+              setPreferences({ ...preferences, language: value })
+            }
             value={preferences.language}
-            onValueChange={(value) => setPreferences({ ...preferences, language: value })}
           >
             <SelectTrigger>
               <SelectValue placeholder="Select language" />
@@ -65,13 +77,15 @@ export function Preferences() {
         <div className="flex items-center justify-between">
           <div className="space-y-0.5">
             <Label className="text-base">24 hour time format</Label>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               Example: 20:00 PM, 12-hour format if switch off
             </p>
           </div>
           <Switch
             checked={preferences.use24Hour}
-            onCheckedChange={(checked) => setPreferences({ ...preferences, use24Hour: checked })}
+            onCheckedChange={(checked) =>
+              setPreferences({ ...preferences, use24Hour: checked })
+            }
           />
         </div>
       </div>

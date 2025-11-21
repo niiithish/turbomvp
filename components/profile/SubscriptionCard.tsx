@@ -1,35 +1,43 @@
 "use client";
 
-import { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { CreditCard, ExternalLink, Sparkles } from "lucide-react";
-import { toast } from "sonner";
 import Link from "next/link";
+import { useState } from "react";
+import { toast } from "sonner";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 interface SubscriptionCardProps {
   subscriptionStatus?: string;
   subscriptionEndsAt?: string | null;
 }
 
-export function SubscriptionCard({ 
-  subscriptionStatus = "free", 
-  subscriptionEndsAt 
+export function SubscriptionCard({
+  subscriptionStatus = "free",
+  subscriptionEndsAt,
 }: SubscriptionCardProps) {
   const [loading, setLoading] = useState(false);
 
   const isPremium = ["active", "trialing"].includes(subscriptionStatus);
   const isCanceled = subscriptionStatus === "canceled";
-  const hasGracePeriod = isCanceled && subscriptionEndsAt && new Date(subscriptionEndsAt) > new Date();
+  const hasGracePeriod =
+    isCanceled &&
+    subscriptionEndsAt &&
+    new Date(subscriptionEndsAt) > new Date();
 
   const handleManageSubscription = async () => {
     try {
       setLoading(true);
-      
+
       // Redirect to Dodo customer portal
       window.location.href = "/api/customer-portal";
-      
     } catch (error) {
       console.error("Portal error:", error);
       toast.error("Failed to open subscription portal. Please try again.");
@@ -40,10 +48,18 @@ export function SubscriptionCard({
 
   const getStatusBadge = () => {
     if (isPremium) {
-      return <Badge className="bg-gradient-to-r from-purple-500 to-pink-500">Premium</Badge>;
+      return (
+        <Badge className="bg-gradient-to-r from-purple-500 to-pink-500">
+          Premium
+        </Badge>
+      );
     }
     if (hasGracePeriod) {
-      return <Badge variant="outline" className="border-orange-500 text-orange-500">Canceled</Badge>;
+      return (
+        <Badge className="border-orange-500 text-orange-500" variant="outline">
+          Canceled
+        </Badge>
+      );
     }
     return <Badge variant="secondary">Free</Badge>;
   };
@@ -69,22 +85,20 @@ export function SubscriptionCard({
           </div>
           {getStatusBadge()}
         </div>
-        <CardDescription>
-          {getStatusDescription()}
-        </CardDescription>
+        <CardDescription>{getStatusDescription()}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {/* Current Plan Info */}
-        <div className="rounded-sm border p-4 space-y-3">
+        <div className="space-y-3 rounded-sm border p-4">
           <div className="flex items-center justify-between">
-            <span className="text-sm font-medium">Current Plan</span>
-            <span className="text-lg font-bold">
+            <span className="font-medium text-sm">Current Plan</span>
+            <span className="font-bold text-lg">
               {isPremium || hasGracePeriod ? "Premium" : "Free"}
             </span>
           </div>
-          
+
           {isPremium && (
-            <div className="space-y-2 text-sm text-muted-foreground">
+            <div className="space-y-2 text-muted-foreground text-sm">
               <div className="flex items-center gap-2">
                 <Sparkles className="h-4 w-4 text-primary" />
                 <span>Unlimited projects</span>
@@ -101,9 +115,9 @@ export function SubscriptionCard({
           )}
 
           {hasGracePeriod && (
-            <div className="text-sm text-orange-600 dark:text-orange-400">
-              Your subscription has been canceled but you still have access until{" "}
-              {new Date(subscriptionEndsAt!).toLocaleDateString()}
+            <div className="text-orange-600 text-sm dark:text-orange-400">
+              Your subscription has been canceled but you still have access
+              until {new Date(subscriptionEndsAt!).toLocaleDateString()}
             </div>
           )}
         </div>
@@ -112,10 +126,10 @@ export function SubscriptionCard({
         <div className="flex flex-col gap-2">
           {isPremium || hasGracePeriod ? (
             <Button
-              onClick={handleManageSubscription}
-              disabled={loading}
-              variant="outline"
               className="w-full"
+              disabled={loading}
+              onClick={handleManageSubscription}
+              variant="outline"
             >
               <ExternalLink className="mr-2 h-4 w-4" />
               {loading ? "Loading..." : "Manage Subscription"}
@@ -130,8 +144,8 @@ export function SubscriptionCard({
           )}
         </div>
 
-        {!isPremium && !hasGracePeriod && (
-          <p className="text-xs text-center text-muted-foreground">
+        {!(isPremium || hasGracePeriod) && (
+          <p className="text-center text-muted-foreground text-xs">
             Get access to all premium features for $29/month
           </p>
         )}

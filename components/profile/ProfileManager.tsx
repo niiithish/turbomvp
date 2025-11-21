@@ -1,28 +1,39 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from "react";
+
 // import { useSessionOptimized } from '@/components/auth/SessionProvider';
 
 // Mock session hook since auth component is missing
 const useSessionOptimized = () => ({
   session: {
     user: {
-      id: 'mock-user-id',
-      name: 'Mock User',
-      email: 'mock@example.com',
-      image: null
-    }
+      id: "mock-user-id",
+      name: "Mock User",
+      email: "mock@example.com",
+      image: null,
+    },
   },
-  isLoading: false
+  isLoading: false,
 });
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { updateProfileAction, getProfileAction } from '@/lib/actions/profile-actions';
-import { Loading03Icon, FloppyDiskIcon, UserIcon } from 'hugeicons-react';
-import { toast } from 'sonner';
+
+import { FloppyDiskIcon, Loading03Icon, UserIcon } from "hugeicons-react";
+import { toast } from "sonner";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  getProfileAction,
+  updateProfileAction,
+} from "@/lib/actions/profile-actions";
 
 interface Profile {
   id: string;
@@ -44,9 +55,9 @@ export function ProfileManager() {
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [formData, setFormData] = useState({
-    first_name: '',
-    last_name: '',
-    username: '',
+    first_name: "",
+    last_name: "",
+    username: "",
   });
 
   // Load existing profile on component mount
@@ -66,28 +77,29 @@ export function ProfileManager() {
       if (result.success && result.profile) {
         setProfile(result.profile);
         setFormData({
-          first_name: result.profile.first_name || '',
-          last_name: result.profile.last_name || '',
-          username: result.profile.username || '',
+          first_name: result.profile.first_name || "",
+          last_name: result.profile.last_name || "",
+          username: result.profile.username || "",
         });
       } else {
-        toast.error(result.error || 'Failed to load profile');
+        toast.error(result.error || "Failed to load profile");
       }
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleInputChange = (field: keyof typeof formData) => (e: { target: { value: string } }) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: e.target.value
-    }));
-  };
+  const handleInputChange =
+    (field: keyof typeof formData) => (e: { target: { value: string } }) => {
+      setFormData((prev) => ({
+        ...prev,
+        [field]: e.target.value,
+      }));
+    };
 
   const handleSave = async () => {
     if (!user) {
-      toast.error('Please sign in to update your profile');
+      toast.error("Please sign in to update your profile");
       return;
     }
 
@@ -97,17 +109,17 @@ export function ProfileManager() {
       const updateResult = await updateProfileAction(formData);
 
       if (updateResult.success) {
-        toast.success('Profile updated successfully');
+        toast.success("Profile updated successfully");
         await loadProfile();
       } else {
-        toast.error(updateResult.error || 'Failed to update profile');
+        toast.error(updateResult.error || "Failed to update profile");
         if (updateResult.details) {
-          console.error('Profile update error:', updateResult.details);
+          console.error("Profile update error:", updateResult.details);
         }
       }
     } catch (error) {
-      toast.error('Failed to update profile. Please try again.');
-      console.error('Profile update error:', error);
+      toast.error("Failed to update profile. Please try again.");
+      console.error("Profile update error:", error);
     } finally {
       setIsSaving(false);
     }
@@ -115,7 +127,7 @@ export function ProfileManager() {
 
   if (sessionLoading || isLoading) {
     return (
-      <Card className="w-full max-w-2xl mx-auto">
+      <Card className="mx-auto w-full max-w-2xl">
         <CardHeader>
           <CardTitle>Profile Manager</CardTitle>
           <CardDescription>Loading your profile...</CardDescription>
@@ -129,10 +141,12 @@ export function ProfileManager() {
 
   if (!user) {
     return (
-      <Card className="w-full max-w-2xl mx-auto">
+      <Card className="mx-auto w-full max-w-2xl">
         <CardHeader>
           <CardTitle>Profile Manager</CardTitle>
-          <CardDescription>Please sign in to manage your profile.</CardDescription>
+          <CardDescription>
+            Please sign in to manage your profile.
+          </CardDescription>
         </CardHeader>
       </Card>
     );
@@ -146,29 +160,30 @@ export function ProfileManager() {
   };
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
+    <Card className="mx-auto w-full max-w-2xl">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <UserIcon className="h-5 w-5" />
           Profile Manager
         </CardTitle>
-        <CardDescription>
-          Manage your profile information.
-        </CardDescription>
+        <CardDescription>Manage your profile information.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         {/* Profile Header */}
         <div className="flex items-center gap-4">
           <Avatar className="h-16 w-16">
-            <AvatarImage src={user.image || undefined} alt={user.name || 'User'} />
-            <AvatarFallback>
-              {getInitials()}
-            </AvatarFallback>
+            <AvatarImage
+              alt={user.name || "User"}
+              src={user.image || undefined}
+            />
+            <AvatarFallback>{getInitials()}</AvatarFallback>
           </Avatar>
           <div>
-            <h3 className="text-lg font-medium">{user.name || 'Anonymous User'}</h3>
-            <p className="text-sm text-muted-foreground">{user.email}</p>
-            <p className="text-xs text-muted-foreground">User ID: {user.id}</p>
+            <h3 className="font-medium text-lg">
+              {user.name || "Anonymous User"}
+            </h3>
+            <p className="text-muted-foreground text-sm">{user.email}</p>
+            <p className="text-muted-foreground text-xs">User ID: {user.id}</p>
           </div>
         </div>
 
@@ -179,18 +194,18 @@ export function ProfileManager() {
               <Label htmlFor="first_name">First Name</Label>
               <Input
                 id="first_name"
-                value={formData.first_name}
-                onChange={handleInputChange('first_name')}
+                onChange={handleInputChange("first_name")}
                 placeholder="Enter your first name"
+                value={formData.first_name}
               />
             </div>
             <div className="space-y-2">
               <Label htmlFor="last_name">Last Name</Label>
               <Input
                 id="last_name"
-                value={formData.last_name}
-                onChange={handleInputChange('last_name')}
+                onChange={handleInputChange("last_name")}
                 placeholder="Enter your last name"
+                value={formData.last_name}
               />
             </div>
           </div>
@@ -199,19 +214,21 @@ export function ProfileManager() {
             <Label htmlFor="username">Username</Label>
             <Input
               id="username"
-              value={formData.username}
-              onChange={handleInputChange('username')}
+              onChange={handleInputChange("username")}
               placeholder="Enter your username"
+              value={formData.username}
             />
           </div>
 
           {/* Profile Status */}
           {profile && (
-            <div className="bg-muted/50 p-3 rounded-sm">
-              <h4 className="font-medium text-sm mb-1">Profile Status</h4>
-              <div className="text-xs text-muted-foreground space-y-1">
+            <div className="rounded-sm bg-muted/50 p-3">
+              <h4 className="mb-1 font-medium text-sm">Profile Status</h4>
+              <div className="space-y-1 text-muted-foreground text-xs">
                 <p>Profile ID: {profile.id}</p>
-                <p>Last updated: {new Date(profile.updated_at).toLocaleString()}</p>
+                <p>
+                  Last updated: {new Date(profile.updated_at).toLocaleString()}
+                </p>
                 <p>Created: {new Date(profile.created_at).toLocaleString()}</p>
               </div>
             </div>
@@ -219,29 +236,28 @@ export function ProfileManager() {
         </div>
 
         {/* Actions */}
-        <Button
-          onClick={handleSave}
-          disabled={isSaving}
-          className="w-full"
-        >
+        <Button className="w-full" disabled={isSaving} onClick={handleSave}>
           {isSaving ? (
             <>
-              <Loading03Icon className="h-4 w-4 mr-2 animate-spin" />
+              <Loading03Icon className="mr-2 h-4 w-4 animate-spin" />
               Updating Profile...
             </>
           ) : (
             <>
-              <FloppyDiskIcon className="h-4 w-4 mr-2" />
+              <FloppyDiskIcon className="mr-2 h-4 w-4" />
               Update Profile
             </>
           )}
         </Button>
 
         {/* Instructions */}
-        <div className="text-xs text-muted-foreground bg-muted/30 p-3 rounded-sm">
-          <p className="font-medium mb-1">How it works:</p>
-          <ul className="list-disc list-inside space-y-1">
-            <li>Update your profile information and click "Update Profile" to save changes</li>
+        <div className="rounded-sm bg-muted/30 p-3 text-muted-foreground text-xs">
+          <p className="mb-1 font-medium">How it works:</p>
+          <ul className="list-inside list-disc space-y-1">
+            <li>
+              Update your profile information and click "Update Profile" to save
+              changes
+            </li>
             <li>Your email is managed through your account settings</li>
             <li>Changes are saved to your profile database</li>
           </ul>

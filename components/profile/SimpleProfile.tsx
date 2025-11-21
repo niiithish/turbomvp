@@ -1,16 +1,26 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { UserIcon, PencilEdit01Icon, Mail01Icon, Calendar01Icon } from 'hugeicons-react';
-import { getProfileAction } from '@/lib/actions/profile-actions';
-import { toast } from 'sonner';
-import Link from 'next/link';
-import { SubscriptionCard } from './SubscriptionCard';
-import { SocialAccountsCard } from './SocialAccountsCard';
+import {
+  Calendar01Icon,
+  Mail01Icon,
+  PencilEdit01Icon,
+  UserIcon,
+} from "hugeicons-react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { getProfileAction } from "@/lib/actions/profile-actions";
+import { SocialAccountsCard } from "./SocialAccountsCard";
+import { SubscriptionCard } from "./SubscriptionCard";
 
 interface Profile {
   id: string;
@@ -29,11 +39,11 @@ interface Profile {
 export function SimpleProfile() {
   // Mock user data since auth is removed
   const user = {
-    id: 'mock-user-id',
-    name: 'Mock User',
-    email: 'mock@example.com',
+    id: "mock-user-id",
+    name: "Mock User",
+    email: "mock@example.com",
     image: null,
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
   };
   const sessionLoading = false;
 
@@ -52,10 +62,10 @@ export function SimpleProfile() {
       if (result.success && result.profile) {
         setProfile(result.profile);
       } else {
-        toast.error(result.error || 'Failed to load profile');
+        toast.error(result.error || "Failed to load profile");
       }
     } catch (error) {
-      toast.error('Failed to load profile');
+      toast.error("Failed to load profile");
       console.error(error);
     } finally {
       setIsLoading(false);
@@ -66,22 +76,22 @@ export function SimpleProfile() {
     if (profile?.first_name && profile?.last_name) {
       return `${profile.first_name[0]}${profile.last_name[0]}`;
     }
-    return user.name?.[0] || user.email[0] || 'U';
+    return user.name?.[0] || user.email[0] || "U";
   };
 
   if (sessionLoading || isLoading) {
     return (
-      <Card className="w-full max-w-2xl mx-auto">
+      <Card className="mx-auto w-full max-w-2xl">
         <CardHeader>
           <CardTitle>Loading Profile</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="animate-pulse space-y-4">
             <div className="flex items-center gap-4">
-              <div className="h-16 w-16 bg-muted rounded-full"></div>
+              <div className="h-16 w-16 rounded-full bg-muted" />
               <div className="space-y-2">
-                <div className="h-4 bg-muted rounded w-32"></div>
-                <div className="h-3 bg-muted rounded w-48"></div>
+                <div className="h-4 w-32 rounded bg-muted" />
+                <div className="h-3 w-48 rounded bg-muted" />
               </div>
             </div>
           </div>
@@ -92,21 +102,23 @@ export function SimpleProfile() {
 
   if (!user) {
     return (
-      <Card className="w-full max-w-2xl mx-auto">
+      <Card className="mx-auto w-full max-w-2xl">
         <CardHeader>
           <CardTitle>Authentication Required</CardTitle>
-          <CardDescription>Please sign in to view your profile information.</CardDescription>
+          <CardDescription>
+            Please sign in to view your profile information.
+          </CardDescription>
         </CardHeader>
       </Card>
     );
   }
 
   return (
-    <div className="space-y-6 w-full max-w-2xl mx-auto">
+    <div className="mx-auto w-full max-w-2xl space-y-6">
       {/* Subscription Card */}
       <SubscriptionCard
-        subscriptionStatus={profile?.subscriptionStatus}
         subscriptionEndsAt={profile?.subscriptionEndsAt}
+        subscriptionStatus={profile?.subscriptionStatus}
       />
 
       {/* Social Accounts Card */}
@@ -127,16 +139,19 @@ export function SimpleProfile() {
           {/* Profile Header */}
           <div className="flex items-center gap-4">
             <Avatar className="h-16 w-16">
-              <AvatarImage src={user?.image || undefined} alt={user?.name || 'User'} />
+              <AvatarImage
+                alt={user?.name || "User"}
+                src={user?.image || undefined}
+              />
               <AvatarFallback className="text-lg">
                 {getInitials()}
               </AvatarFallback>
             </Avatar>
             <div className="space-y-1">
               <h3 className="font-semibold text-lg">
-                {user?.name || 'Anonymous User'}
+                {user?.name || "Anonymous User"}
               </h3>
-              <p className="text-sm text-muted-foreground flex items-center gap-1">
+              <p className="flex items-center gap-1 text-muted-foreground text-sm">
                 <Mail01Icon className="h-3 w-3" />
                 {user?.email}
               </p>
@@ -147,20 +162,26 @@ export function SimpleProfile() {
           <div className="grid gap-3 pt-2">
             <div className="flex items-center justify-between text-sm">
               <span className="text-muted-foreground">First Name</span>
-              <span className="font-medium">{profile?.first_name || 'Not set'}</span>
+              <span className="font-medium">
+                {profile?.first_name || "Not set"}
+              </span>
             </div>
             <div className="flex items-center justify-between text-sm">
               <span className="text-muted-foreground">Last Name</span>
-              <span className="font-medium">{profile?.last_name || 'Not set'}</span>
+              <span className="font-medium">
+                {profile?.last_name || "Not set"}
+              </span>
             </div>
             <div className="flex items-center justify-between text-sm">
               <span className="text-muted-foreground">Username</span>
-              <span className="font-medium">{profile?.username || 'Not set'}</span>
+              <span className="font-medium">
+                {profile?.username || "Not set"}
+              </span>
             </div>
             {user?.createdAt && (
               <div className="flex items-center justify-between text-sm">
                 <span className="text-muted-foreground">Member Since</span>
-                <span className="font-medium flex items-center gap-1">
+                <span className="flex items-center gap-1 font-medium">
                   <Calendar01Icon className="h-3 w-3" />
                   {new Date(user.createdAt).toLocaleDateString()}
                 </span>
@@ -170,7 +191,7 @@ export function SimpleProfile() {
 
           {/* Edit Profile Button */}
           <div className="pt-4">
-            <Button asChild variant="default" className="w-full">
+            <Button asChild className="w-full" variant="default">
               <Link href="/profile/edit">
                 <PencilEdit01Icon className="mr-2 h-4 w-4" />
                 Edit Profile

@@ -1,23 +1,21 @@
-"use client"
-
-import React from "react"
+"use client";
 
 import {
   Alert02Icon,
   CancelCircleIcon,
+  CheckmarkCircle01Icon,
   InformationCircleIcon,
   Loading03Icon,
-  CheckmarkCircle01Icon,
-} from "hugeicons-react"
-import { useTheme } from "next-themes"
-import { Toaster as Sonner, type ToasterProps } from "sonner"
+} from "hugeicons-react";
+import { useTheme } from "next-themes";
+import type React from "react";
+import { Toaster as Sonner, type ToasterProps } from "sonner";
 
 const Toaster = ({ ...props }: ToasterProps) => {
-  const { theme = "system" } = useTheme()
+  const { theme = "system" } = useTheme();
 
   return (
     <Sonner
-      theme={theme as ToasterProps["theme"]}
       className="toaster group"
       icons={{
         success: <CheckmarkCircle01Icon className="size-4" />,
@@ -34,9 +32,10 @@ const Toaster = ({ ...props }: ToasterProps) => {
           "--border-radius": "var(--radius)",
         } as React.CSSProperties
       }
+      theme={theme as ToasterProps["theme"]}
       {...props}
     />
-  )
-}
+  );
+};
 
-export { Toaster }
+export { Toaster };

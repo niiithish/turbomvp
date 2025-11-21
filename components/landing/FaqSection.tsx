@@ -1,11 +1,14 @@
 import {
+  Header as AccordionHeader,
+  Trigger as AccordionTrigger,
+} from "@radix-ui/react-accordion";
+import { PlusIcon } from "lucide-react";
+import {
   Accordion,
   AccordionContent,
   AccordionItem,
 } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
-import * as AccordionPrimitive from "@radix-ui/react-accordion";
-import { PlusIcon } from "lucide-react";
 
 const faq = [
   {
@@ -50,49 +53,51 @@ const faq = [
   },
 ];
 
-const FAQ = () => {
-  return (
-    <div id="faq" className="min-h-screen flex items-center justify-center px-(--container-padding-x) py-(--section-padding-y)">
-      <div className="w-full max-w-2xl">
-        <h2 className="text-4xl md:text-5xl leading-[1.15] font-semibold tracking-tighter">
-          AI SaaS Template FAQs
-        </h2>
-        <p className="mt-2 text-xl text-muted-foreground">
-          Everything you need to know about building your AI SaaS with this template.
-        </p>
+const FAQ = () => (
+  <div
+    className="flex min-h-screen items-center justify-center px-(--container-padding-x) py-(--section-padding-y-lg)"
+    id="faq"
+  >
+    <div className="w-full max-w-2xl">
+      <h2 className="font-semibold text-4xl leading-[1.15] tracking-tighter md:text-5xl">
+        AI SaaS Template FAQs
+      </h2>
+      <p className="mt-2 text-muted-foreground text-xl">
+        Everything you need to know about building your AI SaaS with this
+        template.
+      </p>
 
-        <Accordion
-          type="single"
-          collapsible
-          className="mt-8 sm:mt-10 space-y-4"
-          defaultValue="question-0"
-        >
-          {faq.map(({ question, answer }, index) => (
-            <AccordionItem
-              key={question}
-              value={`question-${index}`}
-              className="border border-border/50 rounded-sm px-6 py-2 bg-background/50 hover:bg-accent/50 transition-colors"
-            >
-              <AccordionPrimitive.Header className="flex">
-                <AccordionPrimitive.Trigger
-                  className={cn(
-                    "flex flex-1 items-center justify-between py-4 font-semibold tracking-tight transition-all [&[data-state=open]>svg]:rotate-45 cursor-pointer",
-                    "text-start text-lg"
-                  )}
-                >
-                  {question}
-                  <PlusIcon className="h-5 w-5 shrink-0 text-muted-foreground transition-transform duration-200" />
-                </AccordionPrimitive.Trigger>
-              </AccordionPrimitive.Header>
-              <AccordionContent className="text-base text-muted-foreground pb-4">
-                {answer}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </div>
+      <Accordion
+        className="mt-8 space-y-4 sm:mt-10"
+        collapsible
+        defaultValue="question-0"
+        type="single"
+      >
+        {faq.map(({ question, answer }, index) => (
+          <AccordionItem
+            className="rounded-sm border border-border/50 bg-background/50 px-6 py-2 transition-colors hover:bg-accent/50"
+            key={question}
+            value={`question-${index}`}
+          >
+            <AccordionHeader className="flex">
+              <AccordionTrigger
+                className={cn(
+                  "flex flex-1 cursor-pointer items-center justify-between py-4 font-semibold tracking-tight transition-all [&[data-state=open]>svg]:rotate-45",
+                  "text-start text-lg"
+                )}
+              >
+                {question}
+                <PlusIcon className="h-5 w-5 shrink-0 text-muted-foreground transition-transform duration-200" />
+              </AccordionTrigger>
+            </AccordionHeader>
+            <AccordionContent className="pb-4 text-base text-muted-foreground">
+              {answer}
+            </AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
     </div>
-  );
-};
+  </div>
+);
 
 export default FAQ;

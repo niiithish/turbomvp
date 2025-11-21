@@ -23,6 +23,8 @@ type PasswordResetEmailProps = {
   logoUrl?: string;
 };
 
+const nameSplitRegex = /\s+/;
+
 export function PasswordResetEmail({
   resetUrl,
   userEmail,
@@ -34,12 +36,16 @@ export function PasswordResetEmail({
   const brand = appName ?? "AI SaaS";
   const previewText = "Reset your password";
   const greetingName =
-    (userName && userName.trim().split(/\s+/)[0]) || (userEmail ? userEmail.split("@")[0] : "there");
+    userName?.trim().split(nameSplitRegex)[0] ||
+    (userEmail ? userEmail.split("@")[0] : "there");
 
   return (
     <Html>
       <Head>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Geist&display=swap"
+          rel="stylesheet"
+        />
       </Head>
       <Preview>{previewText}</Preview>
       <Tailwind>
@@ -63,16 +69,16 @@ export function PasswordResetEmail({
               <Section className="p-8">
                 <Section className="mb-8 text-center">
                   <Img
-                    src={logoUrl}
-                    width={48}
                     alt={`${brand} logo`}
                     className="mx-auto block"
+                    src={logoUrl}
                     style={{ display: "block", height: "auto" }}
+                    width={48}
                   />
                 </Section>
 
                 <Heading
-                  className="m-0 mb-5 text-[24px] font-semibold leading-[1.3] text-center"
+                  className="m-0 mb-5 text-center font-semibold text-[24px] leading-[1.3]"
                   style={{ color: emailTheme.text, letterSpacing: "-0.01em" }}
                 >
                   Reset your password
@@ -89,17 +95,22 @@ export function PasswordResetEmail({
                   className="mt-0 mb-5 text-[14px] leading-[1.6]"
                   style={{ color: emailTheme.secondaryText }}
                 >
-                  We received a request to {" "}
-                  <span style={{ fontWeight: 500 }}>reset the password</span>
-                  {" "}for your account{" "}
-                  {userEmail && <span style={{ color: emailTheme.primary }}>{userEmail}</span>}.
-                  {!userEmail && ""} Click the button below to choose a new password.
+                  We received a request to{" "}
+                  <span style={{ fontWeight: 500 }}>reset the password</span>{" "}
+                  for your account{" "}
+                  {userEmail && (
+                    <span style={{ color: emailTheme.primary }}>
+                      {userEmail}
+                    </span>
+                  )}
+                  .{!userEmail && ""} Click the button below to choose a new
+                  password.
                 </Text>
 
                 <Section className="my-6 text-center">
                   <Button
-                    href={resetUrl}
                     className="inline-block text-center no-underline"
+                    href={resetUrl}
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
@@ -143,15 +154,16 @@ export function PasswordResetEmail({
                   className="mt-0 mb-3 text-[12px] leading-normal"
                   style={{ color: emailTheme.mutedText }}
                 >
-                  This link expires in {expirationMinutes} minutes. Email sent by {brand}.
+                  This link expires in {expirationMinutes} minutes. Email sent
+                  by {brand}.
                 </Text>
 
                 <Text
                   className="mt-3 mb-4 text-[12px] leading-normal"
                   style={{ color: emailTheme.mutedText }}
                 >
-                  If you didn't request a password reset, you can safely ignore this email. Your password will remain
-                  unchanged.
+                  If you didn't request a password reset, you can safely ignore
+                  this email. Your password will remain unchanged.
                 </Text>
               </Section>
             </Section>

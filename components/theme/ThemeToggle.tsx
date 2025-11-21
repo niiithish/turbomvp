@@ -1,32 +1,33 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Moon02Icon, Sun01Icon } from "hugeicons-react"
-import { useTheme } from "@/hooks/use-theme"
+import { Moon02Icon, Sun01Icon } from "hugeicons-react";
+import { useTheme } from "@/hooks/use-theme";
 
 export function ThemeToggle() {
-  const { isDark, setTheme, mounted } = useTheme()
+  const { isDark, setTheme, mounted } = useTheme();
 
   if (!mounted) {
-    return <div className="h-8 w-[62px] rounded-full bg-card border border-border" /> // Skeleton/placeholder
+    return (
+      <div className="h-8 w-[62px] rounded-full border border-border bg-card" />
+    ); // Skeleton/placeholder
   }
 
   return (
     <div
-      className="relative flex h-8 w-[62px] cursor-pointer items-center rounded-full bg-card p-1 border border-border gap-[2px]"
-      onClick={() => setTheme(isDark ? "light" : "dark")}
-      role="switch"
       aria-checked={isDark}
       aria-label="Toggle theme"
+      className="relative flex h-8 w-[62px] cursor-pointer items-center gap-[2px] rounded-full border border-border bg-card p-1"
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      role="switch"
     >
       <div
         className={`flex h-6 w-6 items-center justify-center rounded-full transition-all duration-200 ${
-          !isDark ? "bg-sidebar-accent" : ""
+          isDark ? "" : "bg-sidebar-accent"
         }`}
       >
         <Sun01Icon
           className={`h-4 w-4 transition-colors duration-200 ${
-            !isDark ? "text-foreground" : "text-muted-foreground"
+            isDark ? "text-muted-foreground" : "text-foreground"
           }`}
         />
       </div>
@@ -42,5 +43,5 @@ export function ThemeToggle() {
         />
       </div>
     </div>
-  )
+  );
 }

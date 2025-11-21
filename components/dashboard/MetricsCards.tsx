@@ -1,5 +1,5 @@
-import { RevenueCard } from "./RevenueCard"
-import { ActiveUsersCard } from "./ActiveUsersCard"
+import { ActiveUsersCard } from "./ActiveUsersCard";
+import { RevenueCard } from "./RevenueCard";
 
 export function MetricsCards() {
   return (
@@ -7,5 +7,5 @@ export function MetricsCards() {
       <RevenueCard />
       <ActiveUsersCard />
     </div>
-  )
+  );
 }

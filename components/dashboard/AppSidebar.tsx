@@ -1,6 +1,5 @@
-"use client"
+"use client";
 
-import * as React from "react"
 import {
   IconCamera,
   IconChartBar,
@@ -9,12 +8,13 @@ import {
   IconFileDescription,
   IconInnerShadowTop,
   IconListDetails,
-} from "@tabler/icons-react"
-import { Comment01Icon, HelpCircleIcon, Settings02Icon } from "hugeicons-react"
+} from "@tabler/icons-react";
+import { Comment01Icon, HelpCircleIcon, Settings02Icon } from "hugeicons-react";
+import type * as React from "react";
 
-import { NavMain } from "@/components/navigation/NavMain"
-import { NavSecondary } from "@/components/navigation/NavSecondary"
-import { NavUser } from "@/components/navigation/NavUser"
+import { NavMain } from "@/components/navigation/NavMain";
+import { NavSecondary } from "@/components/navigation/NavSecondary";
+import { NavUser } from "@/components/navigation/NavUser";
 import {
   Sidebar,
   SidebarContent,
@@ -23,7 +23,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 const data = {
   user: {
@@ -113,7 +113,7 @@ const data = {
       icon: Settings02Icon,
     },
   ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -125,9 +125,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               asChild
               className="data-[slot=sidebar-menu-button]:p-1.5!"
             >
-              <a href="#">
+              <a href="/">
                 <IconInnerShadowTop className="size-5!" />
-                <span className="text-base font-semibold">Logoipsum</span>
+                <span className="font-semibold text-base">Logoipsum</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -135,11 +135,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        <NavSecondary className="mt-auto" items={data.navSecondary} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

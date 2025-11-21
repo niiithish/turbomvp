@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { authClient } from "@/auth/auth-client";
 import { Button } from "@/components/ui/button";
-import { LogOut } from "lucide-react";
 
 export function LogoutButton() {
   const [isLoading, setIsLoading] = useState(false);
@@ -12,7 +12,7 @@ export function LogoutButton() {
 
   const handleLogout = async () => {
     setIsLoading(true);
-    
+
     try {
       await authClient.signOut();
       router.push("/login");
@@ -25,12 +25,12 @@ export function LogoutButton() {
 
   return (
     <Button
-      variant="outline"
-      size="sm"
-      onClick={handleLogout}
       disabled={isLoading}
+      onClick={handleLogout}
+      size="sm"
+      variant="outline"
     >
-      <LogOut className="h-4 w-4 mr-2" />
+      <LogOut className="mr-2 h-4 w-4" />
       {isLoading ? "Signing out..." : "Sign out"}
     </Button>
   );

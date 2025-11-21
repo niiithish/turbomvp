@@ -1,34 +1,39 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { UserIcon, CreditCardIcon, Analytics01Icon, ArrowLeft01Icon } from 'hugeicons-react';
+import {
+  Analytics01Icon,
+  ArrowLeft01Icon,
+  CreditCardIcon,
+  UserIcon,
+} from "hugeicons-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
+  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarHeader,
-} from '@/components/ui/sidebar';
+} from "@/components/ui/sidebar";
 
 const sidebarItems = [
   {
-    title: 'Profile',
-    href: '/settings',
+    title: "Profile",
+    href: "/settings",
     icon: UserIcon,
   },
   {
-    title: 'Billing',
-    href: '/settings/billing',
+    title: "Billing",
+    href: "/settings/billing",
     icon: CreditCardIcon,
   },
   {
-    title: 'Usage',
-    href: '/settings/usage',
+    title: "Usage",
+    href: "/settings/usage",
     icon: Analytics01Icon,
   },
 ];
@@ -59,8 +64,8 @@ export function SettingsSidebar() {
                 <SidebarMenuItem key={item.href}>
                   <SidebarMenuButton
                     asChild
-                    isActive={pathname === item.href}
                     className="data-[active=true]:bg-sidebar-active-bg"
+                    isActive={pathname === item.href}
                   >
                     <Link href={item.href}>
                       <item.icon className="size-4" />

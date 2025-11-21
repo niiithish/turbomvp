@@ -5,8 +5,8 @@ export default function BillingPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-medium">Billing</h3>
-        <p className="text-sm text-muted-foreground">
+        <h3 className="font-medium text-lg">Billing</h3>
+        <p className="text-muted-foreground text-sm">
           Manage your billing information and subscription plan.
         </p>
       </div>

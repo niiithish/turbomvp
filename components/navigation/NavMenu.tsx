@@ -10,41 +10,39 @@ interface NavMenuProps {
   className?: string;
 }
 
-const NavMenu = ({ className }: NavMenuProps) => {
-  return (
-    <NavigationMenu className={className}>
-      <NavigationMenuList>
-        <NavigationMenuItem>
-          <NavigationMenuLink asChild>
-            <a href="#features" className={navigationMenuTriggerStyle()}>
-              Features
-            </a>
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuLink asChild>
-            <a href="#pricing" className={navigationMenuTriggerStyle()}>
-              Pricing
-            </a>
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuLink asChild>
-            <a href="#testimonials" className={navigationMenuTriggerStyle()}>
-              Testimonials
-            </a>
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuLink asChild>
-            <a href="#faq" className={navigationMenuTriggerStyle()}>
-              FAQ
-            </a>
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-      </NavigationMenuList>
-    </NavigationMenu>
-  );
-};
+const NavMenu = ({ className }: NavMenuProps) => (
+  <NavigationMenu className={className}>
+    <NavigationMenuList>
+      <NavigationMenuItem>
+        <NavigationMenuLink asChild>
+          <a className={navigationMenuTriggerStyle()} href="#features">
+            Features
+          </a>
+        </NavigationMenuLink>
+      </NavigationMenuItem>
+      <NavigationMenuItem>
+        <NavigationMenuLink asChild>
+          <a className={navigationMenuTriggerStyle()} href="#pricing">
+            Pricing
+          </a>
+        </NavigationMenuLink>
+      </NavigationMenuItem>
+      <NavigationMenuItem>
+        <NavigationMenuLink asChild>
+          <a className={navigationMenuTriggerStyle()} href="#testimonials">
+            Testimonials
+          </a>
+        </NavigationMenuLink>
+      </NavigationMenuItem>
+      <NavigationMenuItem>
+        <NavigationMenuLink asChild>
+          <a className={navigationMenuTriggerStyle()} href="#faq">
+            FAQ
+          </a>
+        </NavigationMenuLink>
+      </NavigationMenuItem>
+    </NavigationMenuList>
+  </NavigationMenu>
+);
 
 export default NavMenu;

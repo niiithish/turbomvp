@@ -1,14 +1,20 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { ViewIcon, ViewOffSlashIcon } from "hugeicons-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { authClient } from "@/auth/auth-client";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ViewIcon, ViewOffSlashIcon } from "hugeicons-react";
 
 export default function SignupPage() {
   const [name, setName] = useState("");
@@ -36,7 +42,7 @@ export default function SignupPage() {
       } else {
         router.push("/login?message=Account created successfully");
       }
-    } catch (err) {
+    } catch (_err) {
       setError("An unexpected error occurred");
     } finally {
       setIsLoading(false);
@@ -53,45 +59,45 @@ export default function SignupPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="space-y-2">
               <Label htmlFor="name">Name</Label>
               <Input
                 id="name"
-                type="text"
-                placeholder="Enter your name"
-                value={name}
                 onChange={(e) => setName(e.target.value)}
+                placeholder="Enter your name"
                 required
+                type="text"
+                value={name}
               />
             </div>
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
-                type="email"
-                placeholder="Enter your email"
-                value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
                 required
+                type="email"
+                value={email}
               />
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <div className="relative">
                 <Input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Create a password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
                   className="pr-10"
+                  id="password"
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Create a password"
+                  required
+                  type={showPassword ? "text" : "password"}
+                  value={password}
                 />
                 <button
-                  type="button"
+                  className="-translate-y-1/2 absolute top-1/2 right-3 cursor-pointer text-muted-foreground transition-colors hover:text-foreground"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                  type="button"
                 >
                   {showPassword ? (
                     <ViewOffSlashIcon size={20} />
@@ -101,16 +107,14 @@ export default function SignupPage() {
                 </button>
               </div>
             </div>
-            {error && (
-              <div className="text-sm text-destructive">{error}</div>
-            )}
-            <Button type="submit" className="w-full" disabled={isLoading}>
+            {error && <div className="text-destructive text-sm">{error}</div>}
+            <Button className="w-full" disabled={isLoading} type="submit">
               {isLoading ? "Creating account..." : "Sign up"}
             </Button>
           </form>
           <div className="mt-4 text-center text-sm">
             Already have an account?{" "}
-            <Link href="/login" className="text-primary hover:underline">
+            <Link className="text-primary hover:underline" href="/login">
               Sign in
             </Link>
           </div>
