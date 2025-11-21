@@ -10,3 +10,6 @@ export const auth = betterAuth({
     enabled: true,
   },
 });
+
+// Re-export for easier imports
+export { auth as betterAuth };
