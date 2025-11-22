@@ -1,10 +1,8 @@
 "use client";
 
 import {
-  IconCreditCard,
   IconDotsVertical,
   IconLogout,
-  IconNotification,
   IconUserCircle,
 } from "@tabler/icons-react";
 
@@ -53,7 +51,7 @@ export function NavUser({
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
               size="lg"
             >
-              <Avatar className="h-8 w-8 rounded-sm grayscale">
+              <Avatar className="h-8 w-8 rounded-sm">
                 <AvatarImage alt={displayName} src={user.avatar} />
                 <AvatarFallback className="rounded-sm">{initials}</AvatarFallback>
               </Avatar>
@@ -93,14 +91,6 @@ export function NavUser({
                   <IconUserCircle />
                   Account
                 </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconCreditCard />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconNotification />
-                Notifications
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
