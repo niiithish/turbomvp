@@ -21,10 +21,7 @@ export default function CtaSection() {
               <div className="absolute inset-0 rounded-full bg-primary/20 blur-2xl" />
 
               {/* Icon */}
-              <SparklesIcon
-                className="h-32 w-32 text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] sm:h-40 sm:w-40"
-                variant="solid"
-              />
+              <SparklesIcon className="h-32 w-32 text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] sm:h-40 sm:w-40" />
             </div>
           </div>
 
