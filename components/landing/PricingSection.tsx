@@ -1,8 +1,7 @@
 "use client";
 import NumberFlow from "@number-flow/react";
 import { motion } from "framer-motion";
-import { Tick02Icon } from "hugeicons-react";
-import { ArrowRight01Icon } from "hugeicons-react";
+import { ArrowRight01Icon, Tick02Icon } from "hugeicons-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {

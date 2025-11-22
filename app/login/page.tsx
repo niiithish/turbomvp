@@ -4,15 +4,11 @@ import { ViewIcon, ViewOffSlashIcon } from "hugeicons-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
+import { FaGithub } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 import { authClient } from "@/auth/auth-client";
+import { Logo } from "@/components/shared/Logo";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
@@ -32,6 +28,25 @@ function LoginForm() {
       setMessage(msg);
     }
   }, [searchParams]);
+
+  const handleSocialSignIn = async (provider: "github" | "google") => {
+    setIsLoading(true);
+    setError("");
+    try {
+      const data = await authClient.signIn.social({
+        provider,
+        callbackURL: "/dashboard",
+      });
+
+      if (data?.error) {
+        setError(data.error.message || "An error occurred");
+        setIsLoading(false);
+      }
+    } catch (_err) {
+      setError("An unexpected error occurred");
+      setIsLoading(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,24 +73,32 @@ function LoginForm() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle>Welcome back</CardTitle>
-          <CardDescription>
-            Enter your email and password to sign in to your account
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          {message && (
-            <div className="mb-4 rounded-md bg-green-50 p-3 text-green-600 text-sm">
-              {message}
-            </div>
-          )}
-          <form className="space-y-4" onSubmit={handleSubmit}>
+    <div className="flex min-h-screen flex-col items-center justify-center bg-muted/40 p-4">
+      <div className="w-full max-w-md space-y-6 rounded-xl border bg-background p-8 shadow-lg">
+        <div className="flex flex-col items-center text-center">
+          <div className="mb-6">
+            <Logo />
+          </div>
+          <h1 className="font-semibold text-2xl tracking-tight">
+            Welcome back
+          </h1>
+          <p className="mt-1 text-muted-foreground text-sm">
+            Please enter your details to login.
+          </p>
+        </div>
+
+        {message && (
+          <div className="rounded-md bg-green-50 p-3 text-center text-green-600 text-sm">
+            {message}
+          </div>
+        )}
+
+        <form className="space-y-4" onSubmit={handleSubmit}>
+          <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
+                className="h-11 border-0 bg-muted/50"
                 id="email"
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
@@ -88,7 +111,7 @@ function LoginForm() {
               <Label htmlFor="password">Password</Label>
               <div className="relative">
                 <Input
-                  className="pr-10"
+                  className="h-11 border-0 bg-muted/50 pr-10"
                   id="password"
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter your password"
@@ -108,20 +131,72 @@ function LoginForm() {
                   )}
                 </button>
               </div>
+              <div className="flex justify-end">
+                <Link
+                  className="text-muted-foreground text-sm hover:text-primary"
+                  href="/forgot-password"
+                >
+                  Forgot Password?
+                </Link>
+              </div>
             </div>
-            {error && <div className="text-destructive text-sm">{error}</div>}
-            <Button className="w-full" disabled={isLoading} type="submit">
-              {isLoading ? "Signing in..." : "Sign in"}
-            </Button>
-          </form>
-          <div className="mt-4 text-center text-sm">
-            Don't have an account?{" "}
-            <Link className="text-primary hover:underline" href="/signup">
-              Sign up
-            </Link>
           </div>
-        </CardContent>
-      </Card>
+
+          {error && (
+            <div className="text-center text-destructive text-sm">{error}</div>
+          )}
+
+          <Button
+            className="h-11 w-full bg-primary text-primary-foreground hover:bg-primary/90"
+            disabled={isLoading}
+            type="submit"
+          >
+            {isLoading ? "Signing in..." : "Login"}
+          </Button>
+        </form>
+
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <span className="w-full border-t" />
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-background px-2 text-muted-foreground">OR</span>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <Button
+            className="h-11"
+            disabled={isLoading}
+            onClick={() => handleSocialSignIn("google")}
+            type="button"
+            variant="outline"
+          >
+            <FcGoogle className="mr-2 h-4 w-4" />
+            With Google
+          </Button>
+          <Button
+            className="h-11"
+            disabled={isLoading}
+            onClick={() => handleSocialSignIn("github")}
+            type="button"
+            variant="outline"
+          >
+            <FaGithub className="mr-2 h-4 w-4" />
+            With GitHub
+          </Button>
+        </div>
+
+        <div className="text-center text-muted-foreground text-sm">
+          Don't have an account?{" "}
+          <Link
+            className="font-medium text-primary hover:underline"
+            href="/signup"
+          >
+            Register now
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

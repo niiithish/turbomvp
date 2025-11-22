@@ -1,8 +1,8 @@
 "use client";
 
 import {
-  MoreVerticalIcon,
   Logout01Icon,
+  MoreVerticalIcon,
   UserCircleIcon,
 } from "hugeicons-react";
 

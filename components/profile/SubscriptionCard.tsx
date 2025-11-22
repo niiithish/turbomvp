@@ -1,6 +1,6 @@
 "use client";
 
-import { CreditCard, LinkForward, Sparkles01 } from "hugeicons-react";
+import { CreditCardIcon, LinkForwardIcon, SparklesIcon } from "hugeicons-react";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -81,7 +81,7 @@ export function SubscriptionCard({
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <CreditCard className="h-5 w-5" />
+            <CreditCardIcon className="h-5 w-5" />
             <CardTitle>Subscription</CardTitle>
           </div>
           {getStatusBadge()}
@@ -101,15 +101,15 @@ export function SubscriptionCard({
           {isPremium && (
             <div className="space-y-2 text-muted-foreground text-sm">
               <div className="flex items-center gap-2">
-                <Sparkles01 className="h-4 w-4 text-primary" />
+                <SparklesIcon className="h-4 w-4 text-primary" />
                 <span>Unlimited projects</span>
               </div>
               <div className="flex items-center gap-2">
-                <Sparkles01 className="h-4 w-4 text-primary" />
+                <SparklesIcon className="h-4 w-4 text-primary" />
                 <span>Priority support</span>
               </div>
               <div className="flex items-center gap-2">
-                <Sparkles01 className="h-4 w-4 text-primary" />
+                <SparklesIcon className="h-4 w-4 text-primary" />
                 <span>Advanced analytics</span>
               </div>
             </div>
@@ -132,13 +132,13 @@ export function SubscriptionCard({
               onClick={handleManageSubscription}
               variant="outline"
             >
-              <LinkForward className="mr-2 h-4 w-4" />
+              <LinkForwardIcon className="mr-2 h-4 w-4" />
               {loading ? "Loading..." : "Manage Subscription"}
             </Button>
           ) : (
             <Button asChild className="w-full">
               <Link href="/pricing">
-                <Sparkles01 className="mr-2 h-4 w-4" />
+                <SparklesIcon className="mr-2 h-4 w-4" />
                 Upgrade to Premium
               </Link>
             </Button>

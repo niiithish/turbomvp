@@ -1,8 +1,8 @@
 "use client";
 
 import { AddCircleIcon } from "hugeicons-react";
-import type React from "react";
 import { usePathname } from "next/navigation";
+import type React from "react";
 import {
   SidebarGroup,
   SidebarGroupContent,

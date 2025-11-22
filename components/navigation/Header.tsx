@@ -60,7 +60,11 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <Button asChild className="hidden sm:inline-flex" variant="outline">
+              <Button
+                asChild
+                className="hidden sm:inline-flex"
+                variant="outline"
+              >
                 <Link href="/login">Sign In</Link>
               </Button>
               <Button asChild>

@@ -1,6 +1,11 @@
 "use client";
 
-import { GithubIcon, Linkedin02Icon, Mail01Icon, TwitterIcon } from "hugeicons-react";
+import {
+  GithubIcon,
+  Linkedin02Icon,
+  Mail01Icon,
+  TwitterIcon,
+} from "hugeicons-react";
 import Link from "next/link";
 import { Logo } from "@/components/shared/Logo";
 import { Button } from "@/components/ui/button";

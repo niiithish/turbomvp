@@ -1,14 +1,16 @@
 "use client";
 
 import {
-  Camera01Icon,
   Analytics01Icon,
+  Camera01Icon,
+  Comment01Icon,
   DashboardCircleIcon,
   File01Icon,
+  HelpCircleIcon,
   ListViewIcon,
   MagicWand01Icon,
+  Settings02Icon,
 } from "hugeicons-react";
-import { Comment01Icon, HelpCircleIcon, Settings02Icon } from "hugeicons-react";
 import type * as React from "react";
 
 import { NavMain } from "@/components/navigation/NavMain";

@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useProfileUpdate } from "@/hooks/use-profile-update";
 
+const ALLOWED_IMAGE_TYPES = /^image\/(jpeg|png)$/;
+
 type PersonalDetailsProps = {
   user: {
     firstName?: string | null;
@@ -42,7 +44,7 @@ export function PersonalDetails({ user }: PersonalDetailsProps) {
       return;
     }
 
-    if (!file.type.match(/^image\/(jpeg|png)$/)) {
+    if (!file.type.match(ALLOWED_IMAGE_TYPES)) {
       toast.error("Invalid file type. Please upload PNG or JPEG.");
       return;
     }
