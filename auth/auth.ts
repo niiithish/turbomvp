@@ -23,21 +23,7 @@ export const auth = betterAuth({
         type: "string",
         required: false,
       },
-      timezone: {
-        type: "string",
-        required: false,
-        defaultValue: "utc",
-      },
-      language: {
-        type: "string",
-        required: false,
-        defaultValue: "en",
-      },
-      use24Hour: {
-        type: "boolean",
-        required: false,
-        defaultValue: true,
-      },
+
     },
   },
 

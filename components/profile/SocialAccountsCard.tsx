@@ -47,7 +47,7 @@ export function SocialAccountsCard() {
     try {
       await authClient.linkSocial({
         provider,
-        callbackURL: "/profile",
+        callbackURL: "/settings",
       });
     } catch (e) {
       toast.error("Failed to initiate linking");

@@ -88,9 +88,11 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <IconUserCircle />
-                Account
+              <DropdownMenuItem asChild>
+                <a href="/settings">
+                  <IconUserCircle />
+                  Account
+                </a>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <IconCreditCard />

@@ -2,7 +2,7 @@
 
 import { authClient } from "@/auth/auth-client";
 import { PersonalDetails } from "@/components/profile/PersonalDetails";
-import { Preferences } from "@/components/profile/Preferences";
+
 import { SecuritySettings } from "@/components/profile/SecuritySettings";
 import { SocialAccountsCard } from "@/components/profile/SocialAccountsCard";
 import { Loader2 } from "lucide-react";
@@ -35,10 +35,7 @@ export function ProfileContent() {
       {/* @ts-ignore - Component needs update to accept props */}
       <SecuritySettings user={user} />
 
-      <div className="pt-4">
-        {/* @ts-ignore - Component needs update to accept props */}
-        <Preferences user={user} />
-      </div>
+
 
       <div className="pt-4">
         <SocialAccountsCard />
