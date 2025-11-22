@@ -19,7 +19,7 @@ export default function VideoSection() {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
               className="absolute top-0 left-0 h-full w-full"
-              src="https://www.youtube.com/embed/xwJhhPCweWk"
+              src="https://www.youtube.com/embed/P4XVvma2Iyc"
               title="Product Demo"
             />
           </div>
