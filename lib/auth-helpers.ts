@@ -1,8 +1,8 @@
+import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { auth } from "@/auth/auth";
-import { db } from "@/lib/db";
 import { users } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { db } from "@/lib/db";
 
 /**
  * Get the current user from BetterAuth session
@@ -48,4 +48,3 @@ export async function getCurrentUserId() {
 
   return session?.user?.id ?? null;
 }
-

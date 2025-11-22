@@ -17,7 +17,11 @@ const LogoCloud = () => (
         </p>
 
         <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
-          <Marquee className="[--duration:30s] [--gap:3rem]" pauseOnHover repeat={6}>
+          <Marquee
+            className="[--duration:30s] [--gap:3rem]"
+            pauseOnHover
+            repeat={6}
+          >
             {logos.map(({ id, Component }) => (
               <div
                 className="flex h-12 w-32 shrink-0 items-center justify-center opacity-70 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"

@@ -1,11 +1,10 @@
 "use client";
 
+import { Loader2 } from "lucide-react";
 import { authClient } from "@/auth/auth-client";
 import { PersonalDetails } from "@/components/profile/PersonalDetails";
-
 import { SecuritySettings } from "@/components/profile/SecuritySettings";
 import { SocialAccountsCard } from "@/components/profile/SocialAccountsCard";
-import { Loader2 } from "lucide-react";
 
 export function ProfileContent() {
   const { data: session, isPending } = authClient.useSession();
@@ -34,8 +33,6 @@ export function ProfileContent() {
 
       {/* @ts-ignore - Component needs update to accept props */}
       <SecuritySettings user={user} />
-
-
 
       <div className="pt-4">
         <SocialAccountsCard />

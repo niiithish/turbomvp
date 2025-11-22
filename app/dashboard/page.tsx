@@ -1,13 +1,11 @@
-import { currentUser } from "@/lib/auth-helpers";
-import { DashboardMetrics } from "@/components/dashboard/DashboardMetrics";
 import ChartAreaAxes from "@/components/dashboard/ChartAreaAxes";
 import ChartBarActive from "@/components/dashboard/ChartBarActive";
-import TableWithActions, {
-  title as tableTitle,
-} from "@/components/dashboard/TableWithActions";
+import { DashboardMetrics } from "@/components/dashboard/DashboardMetrics";
+import TableWithActions from "@/components/dashboard/TableWithActions";
+import { currentUser } from "@/lib/auth-helpers";
 
 export default async function DashboardPage() {
-  const user = await currentUser();
+  const _user = await currentUser();
 
   return (
     <div className="flex flex-col gap-6 p-6">
@@ -16,10 +14,10 @@ export default async function DashboardPage() {
 
       {/* Charts Section */}
       <div className="grid gap-6 lg:grid-cols-5">
-        <div className="lg:col-span-3 min-w-0">
+        <div className="min-w-0 lg:col-span-3">
           <ChartAreaAxes />
         </div>
-        <div className="lg:col-span-2 min-w-0">
+        <div className="min-w-0 lg:col-span-2">
           <ChartBarActive />
         </div>
       </div>

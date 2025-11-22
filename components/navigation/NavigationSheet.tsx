@@ -2,6 +2,8 @@
 
 import { Menu } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -11,9 +13,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { ThemeToggle } from "@/components/theme/ThemeToggle";
-
-import { useState } from "react";
 
 const NavigationSheet = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,7 +24,7 @@ const NavigationSheet = () => {
   ];
 
   return (
-    <Sheet open={isOpen} onOpenChange={setIsOpen}>
+    <Sheet onOpenChange={setIsOpen} open={isOpen}>
       <SheetTrigger asChild>
         <Button className="rounded-full" size="icon" variant="ghost">
           <Menu className="h-5 w-5" />
@@ -57,10 +56,14 @@ const NavigationSheet = () => {
             <ThemeToggle />
           </div>
           <Button asChild className="w-full rounded-full" variant="outline">
-            <Link href="/sign-in" onClick={() => setIsOpen(false)}>Sign In</Link>
+            <Link href="/sign-in" onClick={() => setIsOpen(false)}>
+              Sign In
+            </Link>
           </Button>
           <Button asChild className="w-full rounded-full">
-            <Link href="/sign-up" onClick={() => setIsOpen(false)}>Sign Up</Link>
+            <Link href="/sign-up" onClick={() => setIsOpen(false)}>
+              Sign Up
+            </Link>
           </Button>
         </SheetFooter>
       </SheetContent>

@@ -7,16 +7,16 @@ import {
   Link02Icon,
   Loading03Icon,
 } from "hugeicons-react";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
 import { authClient } from "@/auth/auth-client";
+import { Button } from "@/components/ui/button";
 import { getLinkedAccounts, unlinkAccount } from "@/lib/actions/auth-actions";
 
-interface SocialAccount {
+type SocialAccount = {
   provider: "google" | "github";
   linked: boolean;
-}
+};
 
 export function SocialAccountsCard() {
   const [socialAccounts, setSocialAccounts] = useState<SocialAccount[]>([
@@ -49,7 +49,7 @@ export function SocialAccountsCard() {
         provider,
         callbackURL: "/settings",
       });
-    } catch (e) {
+    } catch (_e) {
       toast.error("Failed to initiate linking");
       setLinkingProvider(null);
     }
@@ -64,7 +64,7 @@ export function SocialAccountsCard() {
         )
       );
       toast.success(`Unlinked ${provider} account`);
-    } catch (e) {
+    } catch (_e) {
       toast.error("Failed to unlink account");
     }
   };

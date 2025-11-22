@@ -110,9 +110,9 @@ const data = {
   ],
 };
 
-export function AppSidebar({ 
+export function AppSidebar({
   user,
-  ...props 
+  ...props
 }: React.ComponentProps<typeof Sidebar> & {
   user: {
     firstName?: string | null;
@@ -143,12 +143,14 @@ export function AppSidebar({
         <NavSecondary className="mt-auto" items={data.navSecondary} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={{
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-          avatar: user.image || "/avatars/default.jpg",
-        }} />
+        <NavUser
+          user={{
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            avatar: user.image || "/avatars/default.jpg",
+          }}
+        />
       </SidebarFooter>
     </Sidebar>
   );

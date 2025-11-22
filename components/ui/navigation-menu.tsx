@@ -1,3 +1,4 @@
+// biome-ignore lint/performance/noNamespaceImport: Radix UI recommends namespace imports
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { cva } from "class-variance-authority";
 import { ArrowDown01Icon } from "hugeicons-react";

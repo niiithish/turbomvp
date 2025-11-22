@@ -37,6 +37,7 @@ export default function SignupPage() {
         password,
         firstName,
         lastName,
+        // biome-ignore lint/suspicious/noExplicitAny: Extending default signup type
       } as any);
 
       if (result.error) {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useTheme as useNextTheme } from "next-themes";
-import * as React from "react";
+import React from "react";
 
 export function useTheme() {
   const { theme, systemTheme, setTheme } = useNextTheme();

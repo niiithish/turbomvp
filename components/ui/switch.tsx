@@ -1,5 +1,6 @@
 "use client";
 
+// biome-ignore lint/performance/noNamespaceImport: Radix UI recommends namespace imports
 import * as SwitchPrimitive from "@radix-ui/react-switch";
 import type * as React from "react";
 

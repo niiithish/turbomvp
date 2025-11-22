@@ -12,8 +12,7 @@ import {
 const features = [
   {
     title: "Automated reports",
-    description:
-      "Generate reports effortlessly and stay informed with ease.",
+    description: "Generate reports effortlessly and stay informed with ease.",
     icon: Analytics01Icon,
   },
   {
@@ -50,35 +49,36 @@ const features = [
 
 export function WhyChooseUs() {
   return (
-    <section className="py-24 bg-background text-foreground">
+    <section className="bg-background py-24 text-foreground">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
+        <div className="mx-auto mb-16 max-w-3xl text-center">
+          <h2 className="mb-4 font-bold text-3xl text-foreground md:text-4xl">
             Why peoples choose Brightly
           </h2>
-          <p className="text-muted-foreground text-lg">
-            Unlock the full potential of your business with unparalleled efficiency and productivity.
+          <p className="text-lg text-muted-foreground">
+            Unlock the full potential of your business with unparalleled
+            efficiency and productivity.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature, index) => (
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {features.map((feature) => (
             <div
-              key={index}
-              className="group relative p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/20 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 overflow-hidden"
+              className="group relative overflow-hidden rounded-2xl border border-border/50 bg-card p-8 transition-all duration-300 hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5"
+              key={feature.title}
             >
               {/* Gradient background effect on hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              
+              <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
               <div className="relative z-10 flex flex-col items-center text-center">
-                <div className="mb-6 p-3 rounded-xl bg-primary/10 text-primary group-hover:scale-110 transition-transform duration-300">
-                  <feature.icon className="w-6 h-6" />
+                <div className="mb-6 rounded-xl bg-primary/10 p-3 text-primary transition-transform duration-300 group-hover:scale-110">
+                  <feature.icon className="h-6 w-6" />
                 </div>
-                
-                <h3 className="text-xl font-semibold mb-3 text-foreground">
+
+                <h3 className="mb-3 font-semibold text-foreground text-xl">
                   {feature.title}
                 </h3>
-                
+
                 <p className="text-muted-foreground leading-relaxed">
                   {feature.description}
                 </p>

@@ -55,28 +55,25 @@ const faq = [
 
 const FAQ = () => (
   <div
-    className="flex min-h-screen items-center justify-center px-6 md:px-8 py-24 md:py-32"
+    className="flex min-h-screen items-center justify-center px-6 py-24 md:px-8 md:py-32"
     id="faq"
   >
     <div className="w-full max-w-7xl">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+      <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:gap-16">
         {/* Left Column - Header */}
-        <div className="lg:sticky lg:top-24 text-center lg:text-left mx-auto lg:mx-0">
+        <div className="mx-auto text-center lg:sticky lg:top-24 lg:mx-0 lg:text-left">
           <h2 className="font-semibold text-4xl leading-[1.15] tracking-tighter md:text-5xl">
             Frequently Asked Questions
           </h2>
-          <p className="mt-4 text-muted-foreground text-lg md:text-xl">
-            Everything you need to know—features, benefits, and common questions answered clearly
+          <p className="mt-4 text-lg text-muted-foreground md:text-xl">
+            Everything you need to know—features, benefits, and common questions
+            answered clearly
           </p>
         </div>
 
         {/* Right Column - FAQ Items */}
         <div>
-          <Accordion
-            className="space-y-4"
-            collapsible
-            type="single"
-          >
+          <Accordion className="space-y-4" collapsible type="single">
             {faq.map(({ question, answer }, index) => (
               <AccordionItem
                 className="rounded-sm border border-border/50 bg-background/50 px-6 py-2 transition-colors hover:bg-accent/50"

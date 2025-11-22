@@ -1,5 +1,6 @@
 "use client";
 
+import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { authClient } from "@/auth/auth-client";
@@ -16,13 +17,12 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Loader2 } from "lucide-react";
 
-interface SecuritySettingsProps {
+type SecuritySettingsProps = {
   user: {
     email: string;
   };
-}
+};
 
 export function SecuritySettings({ user }: SecuritySettingsProps) {
   const [email, setEmail] = useState(user.email);
@@ -34,7 +34,7 @@ export function SecuritySettings({ user }: SecuritySettingsProps) {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleUpdateEmail = async () => {
+  const handleUpdateEmail = () => {
     // TODO: Implement email change flow (requires verification)
     toast.info("Email update requires verification flow (Not implemented)");
   };
@@ -44,7 +44,7 @@ export function SecuritySettings({ user }: SecuritySettingsProps) {
       toast.error("Passwords don't match");
       return;
     }
-    
+
     setIsLoading(true);
     try {
       const { error } = await authClient.changePassword({
@@ -61,7 +61,7 @@ export function SecuritySettings({ user }: SecuritySettingsProps) {
       toast.success("Password updated successfully");
       setPasswords({ current: "", new: "", confirm: "" });
       setIsSheetOpen(false);
-    } catch (e) {
+    } catch (_e) {
       toast.error("An error occurred");
     } finally {
       setIsLoading(false);
@@ -75,13 +75,13 @@ export function SecuritySettings({ user }: SecuritySettingsProps) {
         <div className="flex items-center gap-4">
           <Input
             className="flex-1"
+            disabled
             id="email"
             onChange={(e) => setEmail(e.target.value)}
             type="email"
-            value={email}
-            disabled // Disable email edit for now as flow is complex
+            value={email} // Disable email edit for now as flow is complex
           />
-          <Button onClick={handleUpdateEmail} variant="outline" disabled>
+          <Button disabled onClick={handleUpdateEmail} variant="outline">
             Update Email
           </Button>
 
@@ -143,8 +143,10 @@ export function SecuritySettings({ user }: SecuritySettingsProps) {
                 <SheetClose asChild>
                   <Button variant="outline">Cancel</Button>
                 </SheetClose>
-                <Button onClick={handleUpdatePassword} disabled={isLoading}>
-                  {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                <Button disabled={isLoading} onClick={handleUpdatePassword}>
+                  {isLoading && (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  )}
                   Update Password
                 </Button>
               </SheetFooter>

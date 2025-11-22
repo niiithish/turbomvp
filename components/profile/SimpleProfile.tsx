@@ -7,7 +7,7 @@ import {
   UserIcon,
 } from "hugeicons-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -22,7 +22,7 @@ import { getProfileAction } from "@/lib/actions/profile-actions";
 import { SocialAccountsCard } from "./SocialAccountsCard";
 import { SubscriptionCard } from "./SubscriptionCard";
 
-interface Profile {
+type Profile = {
   id: string;
   user_id: string;
   email: string;
@@ -34,7 +34,7 @@ interface Profile {
   updated_at: string;
   subscriptionStatus?: string;
   subscriptionEndsAt?: string | null;
-}
+};
 
 export function SimpleProfile() {
   // Mock user data since auth is removed
@@ -51,12 +51,7 @@ export function SimpleProfile() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Load profile on mount
-  useEffect(() => {
-    loadProfile();
-  }, []);
-
-  const loadProfile = async () => {
+  const loadProfile = useCallback(async () => {
     setIsLoading(true);
     try {
       const result = await getProfileAction();
@@ -71,7 +66,12 @@ export function SimpleProfile() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
+
+  // Load profile on mount
+  useEffect(() => {
+    loadProfile();
+  }, [loadProfile]);
 
   const getInitials = () => {
     if (profile?.first_name && profile?.last_name) {
@@ -83,11 +83,15 @@ export function SimpleProfile() {
     return user.email[0].toUpperCase();
   };
 
-  const displayName = profile?.first_name && profile?.last_name
-    ? `${profile.first_name} ${profile.last_name}`
-    : user.firstName && user.lastName
-      ? `${user.firstName} ${user.lastName}`
-      : "Anonymous User";
+  const displayName = (() => {
+    if (profile?.first_name && profile?.last_name) {
+      return `${profile.first_name} ${profile.last_name}`;
+    }
+    if (user.firstName && user.lastName) {
+      return `${user.firstName} ${user.lastName}`;
+    }
+    return "Anonymous User";
+  })();
 
   if (sessionLoading || isLoading) {
     return (
@@ -149,18 +153,13 @@ export function SimpleProfile() {
           {/* Profile Header */}
           <div className="flex items-center gap-4">
             <Avatar className="h-16 w-16">
-              <AvatarImage
-                alt={displayName}
-                src={user?.image || undefined}
-              />
+              <AvatarImage alt={displayName} src={user?.image || undefined} />
               <AvatarFallback className="text-lg">
                 {getInitials()}
               </AvatarFallback>
             </Avatar>
             <div className="space-y-1">
-              <h3 className="font-semibold text-lg">
-                {displayName}
-              </h3>
+              <h3 className="font-semibold text-lg">{displayName}</h3>
               <p className="flex items-center gap-1 text-muted-foreground text-sm">
                 <Mail01Icon className="h-3 w-3" />
                 {user?.email}

@@ -1,10 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 export default function Hero() {
   return (
-    <div className="relative flex min-h-screen w-full flex-col items-center justify-center gap-16 overflow-hidden px-6 md:px-8 py-12 md:py-16">
+    <div className="relative flex min-h-screen w-full flex-col items-center justify-center gap-16 overflow-hidden px-6 py-12 md:px-8 md:py-16">
       <div className="relative z-10 mx-auto max-w-4xl text-center">
         <div className="mt-6 text-center">
           <h1 className="font-semibold text-4xl leading-[1.15] tracking-tighter md:text-5xl">
@@ -30,9 +31,8 @@ export default function Hero() {
           <div className="absolute inset-0 rounded-[inherit] bg-primary/10 blur-[100px]" />
         </div>
 
-        <div className="relative aspect-[20/9] overflow-hidden rounded-2xl border border-primary/20 bg-accent shadow-[0_0_50px_-12px_var(--primary)]">
-          {/* biome-ignore lint/performance/noImgElement: External image */}
-          <img
+        <div className="relative aspect-20/9 overflow-hidden rounded-2xl border border-primary/20 bg-accent shadow-[0_0_50px_-12px_var(--primary)]">
+          <Image
             alt="Screenshot"
             className="mx-auto object-cover"
             height={540}

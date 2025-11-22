@@ -77,19 +77,20 @@ export function Marquee({
           "group-hover:[animation-play-state:paused]": pauseOnHover,
         })}
       >
-        {Array(repeat)
-          .fill(0)
-          .map((_, i) => (
-            <div
-              className={cn("flex shrink-0 justify-around [gap:var(--gap)]", {
-                "flex-row": !vertical,
-                "flex-col": vertical,
-              })}
-              key={i}
-            >
-              {children}
-            </div>
-          ))}
+        {new Array(repeat).fill(0).map((_, i) => (
+          <div
+            className={cn("flex shrink-0 justify-around [gap:var(--gap)]", {
+              "flex-row": !vertical,
+              "flex-col": vertical,
+            })}
+            key={`marquee-1-${
+              // biome-ignore lint/suspicious/noArrayIndexKey: Static array with fixed length
+              i
+            }`}
+          >
+            {children}
+          </div>
+        ))}
       </div>
       {/* Duplicate for seamless loop */}
       <div
@@ -103,19 +104,20 @@ export function Marquee({
           "group-hover:[animation-play-state:paused]": pauseOnHover,
         })}
       >
-        {Array(repeat)
-          .fill(0)
-          .map((_, i) => (
-            <div
-              className={cn("flex shrink-0 justify-around [gap:var(--gap)]", {
-                "flex-row": !vertical,
-                "flex-col": vertical,
-              })}
-              key={i}
-            >
-              {children}
-            </div>
-          ))}
+        {new Array(repeat).fill(0).map((_, i) => (
+          <div
+            className={cn("flex shrink-0 justify-around [gap:var(--gap)]", {
+              "flex-row": !vertical,
+              "flex-col": vertical,
+            })}
+            key={`marquee-2-${
+              // biome-ignore lint/suspicious/noArrayIndexKey: Static array with fixed length
+              i
+            }`}
+          >
+            {children}
+          </div>
+        ))}
       </div>
     </div>
   );

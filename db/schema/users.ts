@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, boolean } from "drizzle-orm/pg-core";
+import { boolean, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 
 export const users = pgTable("user", {
   id: text("id").primaryKey(),
@@ -6,10 +6,10 @@ export const users = pgTable("user", {
   emailVerified: boolean("emailVerified").notNull().default(false),
   image: text("image"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().notNull().$onUpdate(() => new Date()),
+  updatedAt: timestamp("updatedAt")
+    .defaultNow()
+    .notNull()
+    .$onUpdate(() => new Date()),
   firstName: text("firstName"),
   lastName: text("lastName"),
-
 });
-
-

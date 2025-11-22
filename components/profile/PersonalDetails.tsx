@@ -1,21 +1,21 @@
 "use client";
 
 import { Camera01Icon } from "hugeicons-react";
-import { useState, useEffect, useRef } from "react";
+import { useRef } from "react";
+import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useProfileUpdate } from "@/hooks/use-profile-update";
-import { toast } from "sonner";
 
-interface PersonalDetailsProps {
+type PersonalDetailsProps = {
   user: {
     firstName?: string | null;
     lastName?: string | null;
     image?: string | null;
     name?: string | null;
   };
-}
+};
 
 export function PersonalDetails({ user }: PersonalDetailsProps) {
   // Derive name parts if not explicitly set
@@ -38,7 +38,9 @@ export function PersonalDetails({ user }: PersonalDetailsProps) {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (!file) return;
+    if (!file) {
+      return;
+    }
 
     if (file.size > 5 * 1024 * 1024) {
       toast.error("Image size should be less than 5MB");
@@ -56,12 +58,18 @@ export function PersonalDetails({ user }: PersonalDetailsProps) {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-6">
-        <div 
+        <button
           className="group relative cursor-pointer"
           onClick={handleImageClick}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              handleImageClick();
+            }
+          }}
+          type="button"
         >
           <Avatar className="h-20 w-20 border-2 border-border transition-all group-hover:border-primary">
-            <AvatarImage src={data.image} className="object-cover" />
+            <AvatarImage className="object-cover" src={data.image} />
             <AvatarFallback>
               {data.firstName?.[0] || user.name?.[0] || "U"}
               {data.lastName?.[0]}
@@ -71,13 +79,13 @@ export function PersonalDetails({ user }: PersonalDetailsProps) {
             <Camera01Icon className="size-6 text-white" />
           </div>
           <input
-            ref={fileInputRef}
-            type="file"
             accept="image/png, image/jpeg, image/svg+xml"
             className="hidden"
             onChange={handleFileChange}
+            ref={fileInputRef}
+            type="file"
           />
-        </div>
+        </button>
         <div className="space-y-1">
           <h3 className="font-medium">Profile photo</h3>
           <p className="text-muted-foreground text-sm">
@@ -90,21 +98,21 @@ export function PersonalDetails({ user }: PersonalDetailsProps) {
         <div className="space-y-2">
           <Label htmlFor="firstName">First Name</Label>
           <Input
+            disabled={isLoading}
             id="firstName"
             onChange={(e) => updateField("firstName", e.target.value)}
             placeholder="Enter first name"
             value={data.firstName}
-            disabled={isLoading}
           />
         </div>
         <div className="space-y-2">
           <Label htmlFor="lastName">Last Name</Label>
           <Input
+            disabled={isLoading}
             id="lastName"
             onChange={(e) => updateField("lastName", e.target.value)}
             placeholder="Enter last name"
             value={data.lastName}
-            disabled={isLoading}
           />
         </div>
       </div>

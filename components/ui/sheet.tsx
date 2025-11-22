@@ -1,5 +1,6 @@
 "use client";
 
+// biome-ignore lint/performance/noNamespaceImport: Radix UI recommends namespace imports
 import * as SheetPrimitive from "@radix-ui/react-dialog";
 import { Cancel01Icon } from "hugeicons-react";
 import type * as React from "react";
@@ -35,7 +36,7 @@ function SheetOverlay({
   return (
     <SheetPrimitive.Overlay
       className={cn(
-        "fade-out-0 fade-in-0 fixed inset-0 z-50 bg-black/60 backdrop-blur-sm animate-out animate-in transition-all duration-300",
+        "fade-out-0 fade-in-0 fixed inset-0 z-50 animate-in animate-out bg-black/60 backdrop-blur-sm transition-all duration-300",
         className
       )}
       data-slot="sheet-overlay"
@@ -57,7 +58,7 @@ function SheetContent({
       <SheetOverlay />
       <SheetPrimitive.Content
         className={cn(
-          "fixed z-50 flex flex-col gap-4 bg-background shadow-2xl transition-all ease-out animate-out animate-in duration-200 data-[state=open]:duration-300",
+          "fixed z-50 flex animate-in animate-out flex-col gap-4 bg-background shadow-2xl transition-all duration-200 ease-out data-[state=open]:duration-300",
           side === "right" &&
             "slide-out-to-right slide-in-from-right inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm",
           side === "left" &&
@@ -72,7 +73,7 @@ function SheetContent({
         {...props}
       >
         {children}
-        <SheetPrimitive.Close className="absolute top-4 right-4 rounded-sm p-1.5 opacity-70 ring-offset-background transition-all hover:opacity-100 hover:bg-muted focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none">
+        <SheetPrimitive.Close className="absolute top-4 right-4 rounded-sm p-1.5 opacity-70 ring-offset-background transition-all hover:bg-muted hover:opacity-100 focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none">
           <Cancel01Icon className="size-4" />
           <span className="sr-only">Close</span>
         </SheetPrimitive.Close>

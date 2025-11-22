@@ -35,7 +35,8 @@ const Toaster = ({ ...props }: ToasterProps) => {
       theme={theme as ToasterProps["theme"]}
       toastOptions={{
         classNames: {
-          toast: "group toast group-[.toaster]:bg-transparent group-[.toaster]:text-foreground group-[.toaster]:border-0 group-[.toaster]:shadow-none w-full flex justify-center",
+          toast:
+            "group toast group-[.toaster]:bg-transparent group-[.toaster]:text-foreground group-[.toaster]:border-0 group-[.toaster]:shadow-none w-full flex justify-center",
           description: "group-[.toast]:text-muted-foreground",
           actionButton:
             "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",

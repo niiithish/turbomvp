@@ -1,12 +1,7 @@
-import { currentUser } from "@/lib/auth-helpers";
 import { redirect } from "next/navigation";
 import { AppSidebar } from "@/components/dashboard/AppSidebar";
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
-import { Separator } from "@/components/ui/separator";
+import { NotificationsPopover } from "@/components/notifications/NotificationsPopover";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -15,8 +10,13 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { ThemeToggle } from "@/components/theme/ThemeToggle";
-import { NotificationsPopover } from "@/components/notifications/NotificationsPopover";
+import { Separator } from "@/components/ui/separator";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+import { currentUser } from "@/lib/auth-helpers";
 
 export default async function DashboardLayout({
   children,
@@ -33,10 +33,10 @@ export default async function DashboardLayout({
     <SidebarProvider>
       <AppSidebar user={user} />
       <SidebarInset>
-        <header className="sticky top-0 z-10 flex h-16 shrink-0 items-center gap-2 transition-all duration-300 ease-in-out border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+        <header className="sticky top-0 z-10 flex h-16 shrink-0 items-center gap-2 border-b bg-background/95 backdrop-blur transition-all duration-300 ease-in-out group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 supports-[backdrop-filter]:bg-background/60">
           <div className="flex items-center gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
-            <Separator orientation="vertical" className="mr-2 h-4" />
+            <Separator className="mr-2 h-4" orientation="vertical" />
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
@@ -49,14 +49,12 @@ export default async function DashboardLayout({
               </BreadcrumbList>
             </Breadcrumb>
           </div>
-          <div className="ml-auto px-4 flex items-center gap-3 mr-2">
+          <div className="mr-2 ml-auto flex items-center gap-3 px-4">
             <ThemeToggle />
             <NotificationsPopover />
           </div>
         </header>
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          {children}
-        </div>
+        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</div>
       </SidebarInset>
     </SidebarProvider>
   );

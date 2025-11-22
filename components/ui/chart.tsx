@@ -1,7 +1,16 @@
 "use client";
 
-import * as React from "react";
-import * as RechartsPrimitive from "recharts";
+import {
+  type ComponentProps,
+  type ComponentType,
+  type CSSProperties,
+  createContext,
+  type ReactNode,
+  useContext,
+  useId,
+  useMemo,
+} from "react";
+import { Legend, ResponsiveContainer, Tooltip } from "recharts";
 
 import { cn } from "@/lib/utils";
 
@@ -11,8 +20,8 @@ const THEMES = { light: "", dark: ".dark" } as const;
 export type ChartConfig = {
   // eslint-disable-next-line no-unused-vars
   [k in string]: {
-    label?: React.ReactNode;
-    icon?: React.ComponentType;
+    label?: ReactNode;
+    icon?: ComponentType;
   } & (
     | { color?: string; theme?: never }
     | { color?: never; theme: Record<keyof typeof THEMES, string> }
@@ -23,10 +32,10 @@ type ChartContextProps = {
   config: ChartConfig;
 };
 
-const ChartContext = React.createContext<ChartContextProps | null>(null);
+const ChartContext = createContext<ChartContextProps | null>(null);
 
 function useChart() {
-  const context = React.useContext(ChartContext);
+  const context = useContext(ChartContext);
 
   if (!context) {
     throw new Error("useChart must be used within a <ChartContainer />");
@@ -41,13 +50,11 @@ function ChartContainer({
   children,
   config,
   ...props
-}: React.ComponentProps<"div"> & {
+}: ComponentProps<"div"> & {
   config: ChartConfig;
-  children: React.ComponentProps<
-    typeof RechartsPrimitive.ResponsiveContainer
-  >["children"];
+  children: ComponentProps<typeof ResponsiveContainer>["children"];
 }) {
-  const uniqueId = React.useId();
+  const uniqueId = useId();
   const chartId = `chart-${id || uniqueId.replace(/:/g, "")}`;
 
   return (
@@ -62,9 +69,9 @@ function ChartContainer({
         {...props}
       >
         <ChartStyle config={config} id={chartId} />
-        <RechartsPrimitive.ResponsiveContainer minWidth={0} minHeight={0}>
+        <ResponsiveContainer minHeight={0} minWidth={0}>
           {children}
-        </RechartsPrimitive.ResponsiveContainer>
+        </ResponsiveContainer>
       </div>
     </ChartContext.Provider>
   );
@@ -72,7 +79,7 @@ function ChartContainer({
 
 const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
   const colorConfig = Object.entries(config).filter(
-    ([, config]) => config.theme || config.color
+    ([, itemConfig]) => itemConfig.theme || itemConfig.color
   );
 
   if (!colorConfig.length) {
@@ -81,6 +88,7 @@ const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
 
   return (
     <style
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: Required for dynamic CSS generation
       dangerouslySetInnerHTML={{
         __html: Object.entries(THEMES)
           .map(
@@ -103,7 +111,103 @@ ${colorConfig
   );
 };
 
-const ChartTooltip = RechartsPrimitive.Tooltip;
+const ChartTooltip = Tooltip;
+
+// Helper component to render tooltip item
+function TooltipItem({
+  item,
+  index,
+  config,
+  nameKey,
+  color,
+  indicator,
+  hideIndicator,
+  nestLabel,
+  tooltipLabel,
+  formatter,
+}: {
+  // biome-ignore lint/suspicious/noExplicitAny: Recharts uses any for item type
+  item: any;
+  index: number;
+  config: ChartConfig;
+  nameKey?: string;
+  color?: string;
+  indicator: "line" | "dot" | "dashed";
+  hideIndicator: boolean;
+  nestLabel: boolean;
+  tooltipLabel: ReactNode;
+  // biome-ignore lint/suspicious/noExplicitAny: Recharts uses any for formatter parameters
+  formatter?: (
+    value: any,
+    name: any,
+    item: any,
+    index: number,
+    payload: any
+  ) => ReactNode;
+}) {
+  const key = `${nameKey || item.name || item.dataKey || "value"}`;
+  const itemConfig = getPayloadConfigFromPayload(config, item, key);
+  const indicatorColor = color || item.payload.fill || item.color;
+
+  return (
+    <div
+      className={cn(
+        "flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground",
+        indicator === "dot" && "items-center"
+      )}
+      key={item.dataKey}
+    >
+      {formatter && item?.value !== undefined && item.name ? (
+        formatter(item.value, item.name, item, index, item.payload)
+      ) : (
+        <>
+          {itemConfig?.icon ? (
+            <itemConfig.icon />
+          ) : (
+            !hideIndicator && (
+              <div
+                className={cn(
+                  "shrink-0 rounded-[2px] border-(--color-border) bg-(--color-bg)",
+                  {
+                    "h-2.5 w-2.5": indicator === "dot",
+                    "w-1": indicator === "line",
+                    "w-0 border-[1.5px] border-dashed bg-transparent":
+                      indicator === "dashed",
+                    "my-0.5": nestLabel && indicator === "dashed",
+                  }
+                )}
+                style={
+                  {
+                    "--color-bg": indicatorColor,
+                    "--color-border": indicatorColor,
+                  } as CSSProperties
+                }
+              />
+            )
+          )}
+          <div
+            className={cn(
+              "flex flex-1 justify-between leading-none",
+              nestLabel ? "items-end" : "items-center"
+            )}
+          >
+            <div className="grid gap-1.5">
+              {nestLabel ? tooltipLabel : null}
+              <span className="text-muted-foreground">
+                {itemConfig?.label || item.name}
+              </span>
+            </div>
+            {item.value && (
+              <span className="font-medium font-mono text-foreground tabular-nums">
+                {item.value.toLocaleString()}
+              </span>
+            )}
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
 
 function ChartTooltipContent({
   active,
@@ -119,29 +223,32 @@ function ChartTooltipContent({
   color,
   nameKey,
   labelKey,
-}: React.ComponentProps<"div"> & {
+}: ComponentProps<"div"> & {
   active?: boolean;
+  // biome-ignore lint/suspicious/noExplicitAny: Recharts uses any for payload
   payload?: any[];
   hideLabel?: boolean;
   hideIndicator?: boolean;
   indicator?: "line" | "dot" | "dashed";
   label?: string;
-  labelFormatter?: (label: any, payload: any[]) => React.ReactNode;
+  // biome-ignore lint/suspicious/noExplicitAny: Recharts uses any for label and payload
+  labelFormatter?: (label: any, payload: any[]) => ReactNode;
   labelClassName?: string;
+  // biome-ignore lint/suspicious/noExplicitAny: Recharts uses any for formatter parameters
   formatter?: (
     value: any,
     name: any,
     item: any,
     index: number,
     payload: any
-  ) => React.ReactNode;
+  ) => ReactNode;
   color?: string;
   nameKey?: string;
   labelKey?: string;
 }) {
   const { config } = useChart();
 
-  const tooltipLabel = React.useMemo(() => {
+  const tooltipLabel = useMemo(() => {
     if (hideLabel || !payload?.length) {
       return null;
     }
@@ -186,7 +293,7 @@ function ChartTooltipContent({
   return (
     <div
       className={cn(
-        "grid min-w-[8rem] items-start gap-1.5 rounded-sm border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl",
+        "grid min-w-32 items-start gap-1.5 rounded-sm border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl",
         className
       )}
     >
@@ -194,76 +301,27 @@ function ChartTooltipContent({
       <div className="grid gap-1.5">
         {payload
           .filter((item) => item.type !== "none")
-          .map((item, index) => {
-            const key = `${nameKey || item.name || item.dataKey || "value"}`;
-            const itemConfig = getPayloadConfigFromPayload(config, item, key);
-            const indicatorColor = color || item.payload.fill || item.color;
-
-            return (
-              <div
-                className={cn(
-                  "flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground",
-                  indicator === "dot" && "items-center"
-                )}
-                key={item.dataKey}
-              >
-                {formatter && item?.value !== undefined && item.name ? (
-                  formatter(item.value, item.name, item, index, item.payload)
-                ) : (
-                  <>
-                    {itemConfig?.icon ? (
-                      <itemConfig.icon />
-                    ) : (
-                      !hideIndicator && (
-                        <div
-                          className={cn(
-                            "shrink-0 rounded-[2px] border-(--color-border) bg-(--color-bg)",
-                            {
-                              "h-2.5 w-2.5": indicator === "dot",
-                              "w-1": indicator === "line",
-                              "w-0 border-[1.5px] border-dashed bg-transparent":
-                                indicator === "dashed",
-                              "my-0.5": nestLabel && indicator === "dashed",
-                            }
-                          )}
-                          style={
-                            {
-                              "--color-bg": indicatorColor,
-                              "--color-border": indicatorColor,
-                            } as React.CSSProperties
-                          }
-                        />
-                      )
-                    )}
-                    <div
-                      className={cn(
-                        "flex flex-1 justify-between leading-none",
-                        nestLabel ? "items-end" : "items-center"
-                      )}
-                    >
-                      <div className="grid gap-1.5">
-                        {nestLabel ? tooltipLabel : null}
-                        <span className="text-muted-foreground">
-                          {itemConfig?.label || item.name}
-                        </span>
-                      </div>
-                      {item.value && (
-                        <span className="font-medium font-mono text-foreground tabular-nums">
-                          {item.value.toLocaleString()}
-                        </span>
-                      )}
-                    </div>
-                  </>
-                )}
-              </div>
-            );
-          })}
+          .map((item, index) => (
+            <TooltipItem
+              color={color}
+              config={config}
+              formatter={formatter}
+              hideIndicator={hideIndicator}
+              index={index}
+              indicator={indicator}
+              item={item}
+              key={item.dataKey}
+              nameKey={nameKey}
+              nestLabel={nestLabel}
+              tooltipLabel={tooltipLabel}
+            />
+          ))}
       </div>
     </div>
   );
 }
 
-const ChartLegend = RechartsPrimitive.Legend;
+const ChartLegend = Legend;
 
 function ChartLegendContent({
   className,
@@ -271,7 +329,8 @@ function ChartLegendContent({
   payload,
   verticalAlign = "bottom",
   nameKey,
-}: React.ComponentProps<"div"> & {
+}: ComponentProps<"div"> & {
+  // biome-ignore lint/suspicious/noExplicitAny: Recharts uses any for payload
   payload?: any[];
   verticalAlign?: "top" | "middle" | "bottom";
   hideIcon?: boolean;

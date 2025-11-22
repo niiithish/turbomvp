@@ -22,7 +22,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`sticky top-0 z-50 border-b bg-background h-16 md:transition-all md:duration-300 ${isScrolled ? "md:h-12" : ""}`}
+      className={`sticky top-0 z-50 h-16 border-b bg-background md:transition-all md:duration-300 ${isScrolled ? "md:h-12" : ""}`}
     >
       <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div

@@ -11,5 +11,8 @@ export const session = pgTable("session", {
   ipAddress: text("ipAddress"),
   userAgent: text("userAgent"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().notNull().$onUpdate(() => new Date()),
+  updatedAt: timestamp("updatedAt")
+    .defaultNow()
+    .notNull()
+    .$onUpdate(() => new Date()),
 });

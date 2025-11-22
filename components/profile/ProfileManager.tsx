@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 // import { useSessionOptimized } from '@/components/auth/SessionProvider';
 
@@ -36,7 +36,7 @@ import {
   updateProfileAction,
 } from "@/lib/actions/profile-actions";
 
-interface Profile {
+type Profile = {
   id: string;
   user_id: string;
   email: string;
@@ -46,7 +46,7 @@ interface Profile {
   avatar_url: string | null;
   created_at: string;
   updated_at: string;
-}
+};
 
 export function ProfileManager() {
   const { session, isLoading: sessionLoading } = useSessionOptimized();
@@ -62,14 +62,10 @@ export function ProfileManager() {
   });
 
   // Load existing profile on component mount
-  useEffect(() => {
-    if (!sessionLoading && user) {
-      loadProfile();
+  const loadProfile = useCallback(async () => {
+    if (!user) {
+      return;
     }
-  }, [sessionLoading, user]);
-
-  const loadProfile = async () => {
-    if (!user) return;
 
     setIsLoading(true);
     try {
@@ -88,7 +84,13 @@ export function ProfileManager() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [user]);
+
+  useEffect(() => {
+    if (!sessionLoading && user) {
+      loadProfile();
+    }
+  }, [sessionLoading, user, loadProfile]);
 
   const handleInputChange =
     (field: keyof typeof formData) => (e: { target: { value: string } }) => {
@@ -163,12 +165,15 @@ export function ProfileManager() {
     return user.email[0].toUpperCase();
   };
 
-  const displayName =
-    formData.first_name && formData.last_name
-      ? `${formData.first_name} ${formData.last_name}`
-      : user.firstName && user.lastName
-        ? `${user.firstName} ${user.lastName}`
-        : user.email;
+  const displayName = (() => {
+    if (formData.first_name && formData.last_name) {
+      return `${formData.first_name} ${formData.last_name}`;
+    }
+    if (user.firstName && user.lastName) {
+      return `${user.firstName} ${user.lastName}`;
+    }
+    return user.email;
+  })();
 
   return (
     <Card className="mx-auto w-full max-w-2xl">
@@ -183,16 +188,11 @@ export function ProfileManager() {
         {/* Profile Header */}
         <div className="flex items-center gap-4">
           <Avatar className="h-16 w-16">
-            <AvatarImage
-              alt={displayName}
-              src={user.image || undefined}
-            />
+            <AvatarImage alt={displayName} src={user.image || undefined} />
             <AvatarFallback>{getInitials()}</AvatarFallback>
           </Avatar>
           <div>
-            <h3 className="font-medium text-lg">
-              {displayName}
-            </h3>
+            <h3 className="font-medium text-lg">{displayName}</h3>
             <p className="text-muted-foreground text-sm">{user.email}</p>
             <p className="text-muted-foreground text-xs">User ID: {user.id}</p>
           </div>

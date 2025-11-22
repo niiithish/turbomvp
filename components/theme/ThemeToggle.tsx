@@ -2,23 +2,25 @@
 
 import { Moon02Icon, Sun01Icon } from "hugeicons-react";
 import { useTheme } from "@/hooks/use-theme";
+import { cn } from "@/lib/utils";
 
 export function ThemeToggle({ className }: { className?: string }) {
   const { isDark, setTheme, mounted } = useTheme();
 
   if (!mounted) {
-    return (
-      <div className={`h-8 w-[62px] rounded-full border border-border bg-card ${className || ""}`} />
-    ); // Skeleton/placeholder
+    return <div />; // Skeleton/placeholder
   }
 
   return (
-    <div
+    <button
       aria-checked={isDark}
-      aria-label="Toggle theme"
-      className={`relative flex h-8 w-[62px] cursor-pointer items-center gap-[2px] rounded-full border border-border bg-muted/30 p-1 ${className || ""}`}
+      className={cn(
+        "relative h-7 w-12 cursor-pointer rounded-full bg-secondary transition-colors duration-200 ease-in-out hover:bg-secondary/80",
+        className
+      )}
       onClick={() => setTheme(isDark ? "light" : "dark")}
       role="switch"
+      type="button"
     >
       <div
         className={`flex h-6 w-6 items-center justify-center rounded-full transition-all duration-200 ${
@@ -42,6 +44,6 @@ export function ThemeToggle({ className }: { className?: string }) {
           }`}
         />
       </div>
-    </div>
+    </button>
   );
 }

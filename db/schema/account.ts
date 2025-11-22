@@ -16,5 +16,8 @@ export const account = pgTable("account", {
   idToken: text("idToken"),
   password: text("password"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().notNull().$onUpdate(() => new Date()),
+  updatedAt: timestamp("updatedAt")
+    .defaultNow()
+    .notNull()
+    .$onUpdate(() => new Date()),
 });

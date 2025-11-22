@@ -1,5 +1,6 @@
 "use client";
 
+// biome-ignore lint/performance/noNamespaceImport: Radix UI recommends namespace imports
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { ArrowDown01Icon, ArrowUp01Icon, Tick01Icon } from "hugeicons-react";
 import type * as React from "react";

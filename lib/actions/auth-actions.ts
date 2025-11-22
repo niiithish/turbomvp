@@ -1,10 +1,10 @@
 "use server";
 
-import { db } from "@/lib/db";
-import { account } from "@/db/schema";
-import { eq, and } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { auth } from "@/auth/auth";
+import { account } from "@/db/schema";
+import { db } from "@/lib/db";
 
 export async function getLinkedAccounts() {
   const session = await auth.api.getSession({
@@ -35,7 +35,10 @@ export async function unlinkAccount(providerId: string) {
   await db
     .delete(account)
     .where(
-      and(eq(account.userId, session.user.id), eq(account.providerId, providerId))
+      and(
+        eq(account.userId, session.user.id),
+        eq(account.providerId, providerId)
+      )
     );
 
   return { success: true };

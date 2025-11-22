@@ -6,9 +6,9 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 
-interface NavMenuProps {
+type NavMenuProps = {
   className?: string;
-}
+};
 
 const NavMenu = ({ className }: NavMenuProps) => (
   <NavigationMenu className={className}>

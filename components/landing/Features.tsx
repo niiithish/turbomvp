@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 type Feature = {
   title: string;
   description: string;
@@ -62,10 +64,9 @@ const Features = ({
           {/* Feature 1 - Big Left (7 cols) */}
           <div className="flex flex-col justify-between rounded-xl border border-border bg-card p-8 shadow-sm transition-all duration-300 hover:shadow-md lg:col-span-7">
             <div className="mb-8 flex w-full flex-1 items-center justify-center overflow-hidden rounded-lg bg-muted/20">
-              {/* biome-ignore lint/performance/noImgElement: External image */}
-              <img
+              <Image
                 alt={feature1.title}
-                className="aspect-[16/9] h-[300px] w-full object-cover"
+                className="aspect-video h-[300px] w-full object-cover"
                 height={300}
                 src={feature1.image}
                 width={533}
@@ -84,8 +85,7 @@ const Features = ({
           {/* Feature 2 - Small Right (5 cols) */}
           <div className="flex flex-col justify-between rounded-xl border border-border bg-card p-8 shadow-sm transition-all duration-300 hover:shadow-md lg:col-span-5">
             <div className="mb-8 flex w-full flex-1 items-center justify-center overflow-hidden rounded-lg bg-muted/20">
-              {/* biome-ignore lint/performance/noImgElement: External image */}
-              <img
+              <Image
                 alt={feature2.title}
                 className="aspect-square h-[300px] w-full object-cover"
                 height={300}
@@ -107,7 +107,7 @@ const Features = ({
           {/* Feature 3 - Small Left (5 cols) */}
           <div className="flex flex-col justify-between rounded-xl border border-border bg-card p-8 shadow-sm transition-all duration-300 hover:shadow-md lg:col-span-5">
             <div className="mb-8 flex w-full flex-1 items-center justify-center overflow-hidden rounded-lg bg-muted/20">
-              <img
+              <Image
                 alt={feature3.title}
                 className="aspect-square h-[300px] w-full object-cover"
                 height={300}
@@ -128,10 +128,9 @@ const Features = ({
           {/* Feature 4 - Big Right (7 cols) */}
           <div className="flex flex-col justify-between rounded-xl border border-border bg-card p-8 shadow-sm transition-all duration-300 hover:shadow-md lg:col-span-7">
             <div className="mb-8 flex w-full flex-1 items-center justify-center overflow-hidden rounded-lg bg-muted/20">
-              {/* biome-ignore lint/performance/noImgElement: External image */}
-              <img
+              <Image
                 alt={feature4.title}
-                className="aspect-[16/9] h-[300px] w-full object-cover"
+                className="aspect-video h-[300px] w-full object-cover"
                 height={300}
                 src={feature4.image}
                 width={533}

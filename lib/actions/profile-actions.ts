@@ -1,4 +1,4 @@
-export async function getProfileAction() {
+export function getProfileAction() {
   return {
     success: true,
     profile: {
@@ -16,10 +16,10 @@ export async function getProfileAction() {
   };
 }
 
-export async function updateProfileAction(data: any) {
+export function updateProfileAction(_data: unknown) {
   return {
     success: true,
     error: null as string | null,
-    details: null as any,
+    details: null,
   };
 }

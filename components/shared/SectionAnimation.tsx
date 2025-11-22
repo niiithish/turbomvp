@@ -4,11 +4,11 @@ import { motion } from "framer-motion";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-interface SectionAnimationProps {
+type SectionAnimationProps = {
   children: ReactNode;
   className?: string;
   delay?: number;
-}
+};
 
 export default function SectionAnimation({
   children,

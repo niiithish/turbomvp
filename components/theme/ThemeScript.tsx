@@ -3,6 +3,7 @@
 export function ThemeScript() {
   return (
     <script
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: Theme script must run before hydration
       dangerouslySetInnerHTML={{
         __html: `
           (function() {

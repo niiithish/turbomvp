@@ -14,10 +14,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-interface SubscriptionCardProps {
+type SubscriptionCardProps = {
   subscriptionStatus?: string;
   subscriptionEndsAt?: string | null;
-}
+};
 
 export function SubscriptionCard({
   subscriptionStatus = "free",
@@ -32,6 +32,7 @@ export function SubscriptionCard({
     subscriptionEndsAt &&
     new Date(subscriptionEndsAt) > new Date();
 
+  // biome-ignore lint/suspicious/useAwait: Async function required for consistency
   const handleManageSubscription = async () => {
     try {
       setLoading(true);
@@ -49,7 +50,7 @@ export function SubscriptionCard({
   const getStatusBadge = () => {
     if (isPremium) {
       return (
-        <Badge className="bg-gradient-to-r from-purple-500 to-pink-500">
+        <Badge className="bg-linear-to-r from-purple-500 to-pink-500">
           Premium
         </Badge>
       );
@@ -65,8 +66,8 @@ export function SubscriptionCard({
   };
 
   const getStatusDescription = () => {
-    if (hasGracePeriod) {
-      const endDate = new Date(subscriptionEndsAt!).toLocaleDateString();
+    if (hasGracePeriod && subscriptionEndsAt) {
+      const endDate = new Date(subscriptionEndsAt).toLocaleDateString();
       return `Your premium access will end on ${endDate}`;
     }
     if (isPremium) {
@@ -114,10 +115,10 @@ export function SubscriptionCard({
             </div>
           )}
 
-          {hasGracePeriod && (
+          {hasGracePeriod && subscriptionEndsAt && (
             <div className="text-orange-600 text-sm dark:text-orange-400">
               Your subscription has been canceled but you still have access
-              until {new Date(subscriptionEndsAt!).toLocaleDateString()}
+              until {new Date(subscriptionEndsAt).toLocaleDateString()}
             </div>
           )}
         </div>

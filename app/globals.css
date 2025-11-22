@@ -71,7 +71,6 @@
   --sidebar-ring: oklch(0.408 0.123 38.172);
 }
 
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -161,7 +160,7 @@
   .animate-in[data-state="open"] {
     animation: fade-in 0.3s ease-out forwards;
   }
-  
+
   [data-state="closed"] .animate-out,
   .animate-out[data-state="closed"] {
     animation: fade-out 0.3s ease-in forwards;
@@ -171,48 +170,48 @@
   .slide-in-from-right[data-state="open"] {
     animation-name: slide-in-from-right;
   }
-  
+
   [data-state="closed"] .slide-out-to-right,
   .slide-out-to-right[data-state="closed"] {
     animation-name: slide-out-to-right;
   }
-  
+
   [data-state="open"] .slide-in-from-left,
   .slide-in-from-left[data-state="open"] {
     animation-name: slide-in-from-left;
   }
-  
+
   [data-state="closed"] .slide-out-to-left,
   .slide-out-to-left[data-state="closed"] {
     animation-name: slide-out-to-left;
   }
-  
+
   [data-state="open"] .slide-in-from-top,
   .slide-in-from-top[data-state="open"] {
     animation-name: slide-in-from-top;
   }
-  
+
   [data-state="closed"] .slide-out-to-top,
   .slide-out-to-top[data-state="closed"] {
     animation-name: slide-out-to-top;
   }
-  
+
   [data-state="open"] .slide-in-from-bottom,
   .slide-in-from-bottom[data-state="open"] {
     animation-name: slide-in-from-bottom;
   }
-  
+
   [data-state="closed"] .slide-out-to-bottom,
   .slide-out-to-bottom[data-state="closed"] {
     animation-name: slide-out-to-bottom;
   }
-  
+
   .fade-in-0 {
-      /* Helper for fade in */
+    /* Helper for fade in */
   }
-  
+
   .fade-out-0 {
-      /* Helper for fade out */
+    /* Helper for fade out */
   }
 }
 
