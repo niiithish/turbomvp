@@ -5,40 +5,40 @@ import { Button } from "@/components/ui/button";
 
 const testimonials = [
   {
-    name: "Rakibull Hasan",
-    handle: "@rakibull",
-    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
-    text: "Aurix delivers AI insights that empower smarter decisions and accelerate sustainable business growth daily. Aurix delivers AI insights that empower sempower",
+    name: "Sarah Chen",
+    handle: "@sarahcodes",
+    avatar: "https://randomuser.me/api/portraits/women/32.jpg",
+    text: "This starter kit saved me weeks of development time. The authentication and database setup is flawless.",
   },
   {
-    name: "Yeasin Arafat",
-    handle: "@yeasin",
+    name: "Alex Rivera",
+    handle: "@arivera",
     avatar: "https://randomuser.me/api/portraits/men/44.jpg",
-    text: "Aurix delivers AI insights that empower smarter decisions and accelerate sustainable business growth daily. Aurix delivers AI insights that empower sempower",
+    text: "Finally a Next.js starter that doesn't feel bloated. Clean code, great structure, and easy to customize.",
   },
   {
-    name: "Safayet Ahmed",
-    handle: "@asafayet",
+    name: "Mike Johnson",
+    handle: "@mikej",
     avatar: "https://randomuser.me/api/portraits/men/86.jpg",
-    text: "Aurix delivers AI insights that empower smarter decisions and accelerate sustainable business growth daily. Aurix delivers AI insights that empower sempower",
+    text: "I launched my SaaS in a weekend using this kit. The pre-built components are a lifesaver.",
   },
   {
-    name: "Miksa Fruzsina",
-    handle: "@miksa",
+    name: "Emily Zhang",
+    handle: "@emilyz",
     avatar: "https://randomuser.me/api/portraits/women/44.jpg",
-    text: "Aurix delivers AI insights that empower smarter decisions and accelerate sustainable business growth daily. Aurix delivers AI insights that empower sempower",
+    text: "The documentation is excellent. I was able to integrate my own AI features without breaking anything.",
   },
   {
-    name: "Jhon Doe",
-    handle: "@jhon",
+    name: "David Kim",
+    handle: "@dkim",
     avatar: "https://randomuser.me/api/portraits/men/11.jpg",
-    text: "Aurix delivers AI insights that empower smarter decisions and accelerate sustainable business growth daily. Aurix delivers AI insights that empower sempower",
+    text: "Best open source starter I've found. The tech stack is modern and the performance is top notch.",
   },
   {
-    name: "Jane Doe",
-    handle: "@jane",
+    name: "Lisa Patel",
+    handle: "@lpatel",
     avatar: "https://randomuser.me/api/portraits/women/22.jpg",
-    text: "Aurix delivers AI insights that empower smarter decisions and accelerate sustainable business growth daily. Aurix delivers AI insights that empower sempower",
+    text: "Highly recommend this for anyone looking to build a SaaS. It handles all the boring stuff so you can focus on your product.",
   },
 ];
 
@@ -78,18 +78,17 @@ const TestimonialSection = () => {
         {/* Left Content */}
         <div className="mx-auto max-w-xl space-y-8 text-center lg:mx-0 lg:text-left">
           <h2 className="mb-4 font-bold text-4xl text-foreground tracking-tight md:text-5xl">
-            What people are <br />
-            saying about Brightly
+            What developers are <br />
+            saying about this kit
           </h2>
           <p className="max-w-md text-lg text-muted-foreground">
-            Hear from real users who have transformed their workflows with the
-            power of Ticksy
+            Join thousands of developers building faster with this starter kit.
           </p>
           <Button
             className="h-12 rounded-(--radius) bg-primary px-8 text-base text-primary-foreground shadow-md shadow-primary/20 hover:bg-primary/90"
             size="lg"
           >
-            Get started
+            View on GitHub
           </Button>
         </div>
 

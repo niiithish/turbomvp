@@ -9,16 +9,16 @@ export default function Hero() {
       <div className="relative z-10 mx-auto max-w-4xl text-center">
         <div className="mt-6 text-center">
           <h1 className="font-semibold text-4xl leading-[1.15] tracking-tighter md:text-5xl">
-            Organize your day, master <br /> your productivity flow
+            Launch your SaaS in <br /> minutes, not months
           </h1>
         </div>
         <p className="mx-auto mt-6 max-w-2xl text-muted-foreground text-xl">
-          Manage projects effortlessly with smart tools, stay on track, meet
-          deadlines, and keep your team productive.
+          The ultimate Next.js starter kit with everything you need to build,
+          launch, and scale your SaaS application.
         </p>
         <div className="mt-10 flex items-center justify-center gap-4">
           <Button asChild className="text-base" size="lg">
-            <Link href="https://github.com">Get started</Link>
+            <Link href="https://github.com">View on GitHub</Link>
           </Button>
         </div>
       </div>

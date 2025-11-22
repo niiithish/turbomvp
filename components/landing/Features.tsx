@@ -16,33 +16,33 @@ type FeaturesProps = {
 };
 
 const Features = ({
-  title = "Focus on what matters",
-  description = "Explore powerful features designed to help teams plan, track, and deliver tasks with ease.",
+  title = "Everything you need to ship",
+  description = "A complete stack for building modern SaaS applications. Don't waste time on boilerplate.",
   feature1 = {
-    title: "Stay organized & manage tasks easily",
+    title: "Next.js 15 & React 19",
     description:
-      "Prioritize, track progress, and manage everything in one place for a smoother workflow.",
+      "Built on the latest and greatest web technologies for maximum performance and developer experience.",
     image:
       "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
   },
   feature2 = {
-    title: "AI teammate",
+    title: "Authentication Ready",
     description:
-      "Oasis AI handles tasks and predicts timelines to keep you on track.",
+      "Secure authentication powered by BetterAuth. Social logins, email/password, and more out of the box.",
     image:
       "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
   },
   feature3 = {
-    title: "Team collaboration",
+    title: "Type-Safe Database",
     description:
-      "Work seamlessly with your team. Share, assign, and succeed together.",
+      "Drizzle ORM for type-safe database interactions. Works with Postgres, MySQL, and SQLite.",
     image:
       "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
   },
   feature4 = {
-    title: "Powerful data integration without limits",
+    title: "Beautiful UI Components",
     description:
-      "Easily integrate data from any source to create a seamless, automated, and unified workflow system.",
+      "Pre-built components using Shadcn UI and Tailwind CSS. Accessible, customizable, and ready to use.",
     image:
       "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg",
   },

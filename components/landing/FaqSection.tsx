@@ -12,44 +12,34 @@ import { cn } from "@/lib/utils";
 
 const faq = [
   {
-    question: "What AI models can I integrate with this template?",
+    question: "What is included in this starter kit?",
     answer:
-      "The template is designed to work with any AI model API including OpenAI, Anthropic Claude, Google AI, and custom models. You can easily integrate multiple AI providers and switch between them based on your needs and costs.",
+      "This kit includes Next.js 15, React 19, Tailwind CSS, Shadcn UI, BetterAuth for authentication, Drizzle ORM for database management, and Stripe for payments (coming soon).",
   },
   {
-    question: "Can I customize the authentication flow?",
+    question: "Is this free to use?",
     answer:
-      "Yes! The template uses Clerk authentication which supports extensive customization including social logins (Google, GitHub, Discord), enterprise SSO, multi-factor authentication, and custom user attributes. You can fully brand the auth experience.",
+      "Yes, this project is open source and available under the MIT license. You can use it for personal and commercial projects.",
   },
   {
-    question: "How do I add my own AI features?",
+    question: "How do I deploy this?",
     answer:
-      "The template provides a clean architecture for adding AI features. Create API routes for your AI logic, add components for the UI, and connect to your preferred AI providers. The documentation includes step-by-step guides for common AI features.",
+      "You can deploy this to any hosting provider that supports Next.js, such as Vercel, Netlify, or a VPS. The project is optimized for Vercel.",
   },
   {
-    question: "What hosting providers are supported?",
+    question: "Which database does it use?",
     answer:
-      "The template works with any hosting provider that supports Next.js applications. Vercel is recommended for the best experience, but it also works perfectly on Netlify, Railway, DigitalOcean, AWS, Google Cloud, and traditional VPS hosting.",
+      "It uses Drizzle ORM which supports PostgreSQL, MySQL, and SQLite. By default, it's configured for PostgreSQL (e.g. Neon, Supabase).",
   },
   {
-    question: "Can I use this with existing AI services?",
+    question: "How can I customize the design?",
     answer:
-      "Absolutely! The template is provider-agnostic. Whether you're using existing AI APIs, running your own models, or planning to switch providers in the future, the architecture supports easy integration and migration between different AI services.",
+      "The project uses Tailwind CSS and Shadcn UI. You can easily customize the theme in `globals.css` and modify components in the `components` directory.",
   },
   {
-    question: "What's included in the free template vs premium add-ons?",
+    question: "Do you offer support?",
     answer:
-      "The free MIT-licensed template includes all core features: authentication, payments, database, UI components, and deployment setup. Premium add-ons (coming soon) will include pre-built AI integrations, analytics dashboards, email automation, and advanced components to accelerate development even further.",
-  },
-  {
-    question: "How long does it take to set up and deploy?",
-    answer:
-      "Initial setup takes 15-30 minutes: clone the repo, configure environment variables for Clerk, Polar, and Supabase, and you're ready to develop. Deployment to production typically takes 5-10 minutes on Vercel. Most developers have a functional AI SaaS running within their first day.",
-  },
-  {
-    question: "Do I need to be an expert in React/Next.js?",
-    answer:
-      "Basic React and Next.js knowledge is helpful, but the template is extensively documented and includes examples for common patterns. It's designed to be a learning resource as well as a production foundation, perfect for developers looking to build AI applications.",
+      "Since this is an open source project, support is community-driven. You can open issues on GitHub or contribute to the project.",
   },
 ];
 

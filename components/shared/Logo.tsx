@@ -67,6 +67,6 @@ export const Logo = () => (
         fill="var(--primary)"
       />
     </svg>
-    <span className="font-bold text-xl">Acme</span>
+    <span className="font-bold text-xl">BlitzMVP</span>
   </Link>
 );

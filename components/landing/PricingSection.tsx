@@ -90,8 +90,7 @@ const PricingSection = () => {
             Pick the perfect plan
           </h1>
           <p className="text-lg text-muted-foreground">
-            Stay organized, hit your goals, and scale your productivity—on your
-            terms.
+            Simple, transparent pricing for your SaaS.
           </p>
         </div>
         <div className="relative mx-auto flex items-center rounded-sm bg-border/20 p-1 md:mx-0">

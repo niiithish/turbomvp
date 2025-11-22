@@ -11,38 +11,39 @@ import {
 
 const features = [
   {
-    title: "Automated reports",
-    description: "Generate reports effortlessly and stay informed with ease.",
+    title: "Production Ready",
+    description:
+      "Built with best practices for performance, SEO, and accessibility.",
     icon: Analytics01Icon,
   },
   {
-    title: "Seamless integration",
+    title: "Easy Customization",
     description:
-      "Effortlessly connect Aurix with your existing tools for a unified workflow.",
+      "Clean code structure and modular components make it easy to adapt to your needs.",
     icon: Link02Icon,
   },
   {
-    title: "Boost productivity",
+    title: "Developer Experience",
     description:
-      "Automate routine tasks to save time and enhance your team's efficiency.",
+      "Type-safety, linting, and formatting out of the box for a smooth workflow.",
     icon: DashboardSpeed01Icon,
   },
   {
-    title: "24/7 AI support",
+    title: "Open Source",
     description:
-      "Get round-the-clock assistance with Aurix's AI, always ready to help.",
+      "Free to use and modify. Contribute back to the community on GitHub.",
     icon: HeadsetIcon,
   },
   {
-    title: "Data security & compliance",
+    title: "Secure by Default",
     description:
-      "Protect your business with advanced encryption and compliance standards.",
+      "Authentication and database security best practices implemented from the start.",
     icon: Shield01Icon,
   },
   {
-    title: "Intuitive user experience",
+    title: "Modern Stack",
     description:
-      "Start using Aurix quickly with a user-friendly, straightforward interface.",
+      "Leverage the power of Next.js 15, React 19, Tailwind CSS, and more.",
     icon: Layout01Icon,
   },
 ];
@@ -53,11 +54,11 @@ export function WhyChooseUs() {
       <div className="container mx-auto px-4 md:px-6">
         <div className="mx-auto mb-16 max-w-3xl text-center">
           <h2 className="mb-4 font-bold text-3xl text-foreground md:text-4xl">
-            Why peoples choose Brightly
+            Why developers choose this starter
           </h2>
           <p className="text-lg text-muted-foreground">
-            Unlock the full potential of your business with unparalleled
-            efficiency and productivity.
+            Jumpstart your development with a solid foundation and focus on
+            building your product.
           </p>
         </div>
 

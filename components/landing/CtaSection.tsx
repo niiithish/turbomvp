@@ -21,21 +21,21 @@ export default function CtaSection() {
               <div className="absolute inset-0 rounded-full bg-primary/20 blur-2xl" />
 
               {/* Icon */}
-              <SparklesIcon className="h-32 w-32 text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] sm:h-40 sm:w-40" />
+              <SparklesIcon className="h-32 w-32 text-primary drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] sm:h-40 sm:w-40" />
             </div>
           </div>
 
           {/* Text Content (Right) */}
           <div className="max-w-xl flex-1 text-center lg:text-left">
-            <h2 className="font-bold text-3xl text-white tracking-tight sm:text-4xl lg:text-5xl">
-              Time to transform your{" "}
-              <span className="bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
-                productivity game.
+            <h2 className="font-semibold text-4xl leading-[1.15] tracking-tighter md:text-5xl">
+              Ready to build your{" "}
+              <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+                next big thing?
               </span>
             </h2>
-            <p className="mt-6 text-gray-400 text-lg leading-8">
-              Join thousands of forward-thinking companies already using
-              Brightly to dominate their industries.
+            <p className="mt-4 text-lg text-muted-foreground md:text-xl">
+              Get the source code and start building your SaaS today. Open
+              source and free to use.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
               <Button
@@ -43,7 +43,7 @@ export default function CtaSection() {
                 className="h-12 rounded-lg bg-primary px-8 font-medium text-base text-primary-foreground shadow-[0_0_20px_-5px_var(--color-primary)] hover:bg-primary/90"
                 size="lg"
               >
-                <Link href="/signup">Get started</Link>
+                <Link href="https://github.com">Get the code</Link>
               </Button>
             </div>
           </div>

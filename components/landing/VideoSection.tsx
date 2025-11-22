@@ -9,8 +9,8 @@ export default function VideoSection() {
             Accelerate Your Development
           </h2>
           <p className="text-center text-muted-foreground text-xl lg:max-w-2xl">
-            Watch how our AI-powered SaaS template helps you skip the
-            boilerplate and ship your product in record time.
+            Watch how this SaaS starter kit helps you skip the boilerplate and
+            ship your product in record time.
           </p>
         </div>
         <div className="mx-auto max-w-5xl">
