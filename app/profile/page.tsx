@@ -1,10 +1,7 @@
 import { ArrowLeft01Icon } from "hugeicons-react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PersonalDetails } from "@/components/profile/PersonalDetails";
-import { Preferences } from "@/components/profile/Preferences";
-import { SecuritySettings } from "@/components/profile/SecuritySettings";
-import { SocialAccountsCard } from "@/components/profile/SocialAccountsCard";
+import { ProfileContent } from "@/components/profile/ProfileContent";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
@@ -36,19 +33,7 @@ export default function ProfilePage() {
         </div>
       </div>
 
-      <div className="space-y-8">
-        <PersonalDetails />
-
-        <SecuritySettings />
-
-        <div className="pt-4">
-          <Preferences />
-        </div>
-
-        <div className="pt-4">
-          <SocialAccountsCard />
-        </div>
-      </div>
+      <ProfileContent />
     </div>
   );
 }

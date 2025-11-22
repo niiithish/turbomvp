@@ -9,7 +9,8 @@ const useSessionOptimized = () => ({
   session: {
     user: {
       id: "mock-user-id",
-      name: "Mock User",
+      firstName: "Mock",
+      lastName: "User",
       email: "mock@example.com",
       image: null,
     },
@@ -156,8 +157,18 @@ export function ProfileManager() {
     if (formData.first_name && formData.last_name) {
       return `${formData.first_name[0]}${formData.last_name[0]}`;
     }
-    return user.name?.[0] || user.email[0];
+    if (user.firstName && user.lastName) {
+      return `${user.firstName[0]}${user.lastName[0]}`;
+    }
+    return user.email[0].toUpperCase();
   };
+
+  const displayName =
+    formData.first_name && formData.last_name
+      ? `${formData.first_name} ${formData.last_name}`
+      : user.firstName && user.lastName
+        ? `${user.firstName} ${user.lastName}`
+        : user.email;
 
   return (
     <Card className="mx-auto w-full max-w-2xl">
@@ -173,14 +184,14 @@ export function ProfileManager() {
         <div className="flex items-center gap-4">
           <Avatar className="h-16 w-16">
             <AvatarImage
-              alt={user.name || "User"}
+              alt={displayName}
               src={user.image || undefined}
             />
             <AvatarFallback>{getInitials()}</AvatarFallback>
           </Avatar>
           <div>
             <h3 className="font-medium text-lg">
-              {user.name || "Anonymous User"}
+              {displayName}
             </h3>
             <p className="text-muted-foreground text-sm">{user.email}</p>
             <p className="text-muted-foreground text-xs">User ID: {user.id}</p>

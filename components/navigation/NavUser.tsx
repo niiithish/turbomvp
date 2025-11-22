@@ -29,12 +29,20 @@ export function NavUser({
   user,
 }: {
   user: {
-    name: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    name?: string;
     email: string;
     avatar: string;
   };
 }) {
   const { isMobile } = useSidebar();
+  const displayName = user.firstName && user.lastName
+    ? `${user.firstName} ${user.lastName}`
+    : user.name || user.email;
+  const initials = user.firstName && user.lastName
+    ? `${user.firstName[0]}${user.lastName[0]}`
+    : (user.name?.[0] || "U");
 
   return (
     <SidebarMenu>
@@ -46,11 +54,11 @@ export function NavUser({
               size="lg"
             >
               <Avatar className="h-8 w-8 rounded-sm grayscale">
-                <AvatarImage alt={user.name} src={user.avatar} />
-                <AvatarFallback className="rounded-sm">CN</AvatarFallback>
+                <AvatarImage alt={displayName} src={user.avatar} />
+                <AvatarFallback className="rounded-sm">{initials}</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{user.name}</span>
+                <span className="truncate font-medium">{displayName}</span>
                 <span className="truncate text-muted-foreground text-xs">
                   {user.email}
                 </span>
@@ -67,11 +75,11 @@ export function NavUser({
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-sm">
-                  <AvatarImage alt={user.name} src={user.avatar} />
-                  <AvatarFallback className="rounded-sm">CN</AvatarFallback>
+                  <AvatarImage alt={displayName} src={user.avatar} />
+                  <AvatarFallback className="rounded-sm">{initials}</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">{user.name}</span>
+                  <span className="truncate font-medium">{displayName}</span>
                   <span className="truncate text-muted-foreground text-xs">
                     {user.email}
                   </span>

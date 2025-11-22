@@ -1,29 +1,82 @@
 "use client";
 
 import { Camera01Icon } from "hugeicons-react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useProfileUpdate } from "@/hooks/use-profile-update";
+import { toast } from "sonner";
 
-export function PersonalDetails() {
-  const [formData, setFormData] = useState({
-    firstName: "Niiithish",
-    lastName: "User",
-    avatar: "https://github.com/shadcn.png",
+interface PersonalDetailsProps {
+  user: {
+    firstName?: string | null;
+    lastName?: string | null;
+    image?: string | null;
+    name?: string | null;
+  };
+}
+
+export function PersonalDetails({ user }: PersonalDetailsProps) {
+  // Derive name parts if not explicitly set
+  const nameParts = user.name ? user.name.split(" ") : [];
+  const defaultFirstName = user.firstName || nameParts[0] || "";
+  const defaultLastName = user.lastName || nameParts.slice(1).join(" ") || "";
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const { data, updateField, isLoading } = useProfileUpdate({
+    initialData: {
+      firstName: defaultFirstName,
+      lastName: defaultLastName,
+      image: user.image || "",
+    },
   });
+
+  const handleImageClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("Image size should be less than 5MB");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64String = reader.result as string;
+      updateField("image", base64String);
+    };
+    reader.readAsDataURL(file);
+  };
 
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-6">
-        <div className="group relative">
-          <Avatar className="h-20 w-20 cursor-pointer border-2 border-border transition-all group-hover:border-primary">
-            <AvatarImage src={formData.avatar} />
-            <AvatarFallback>NU</AvatarFallback>
+        <div 
+          className="group relative cursor-pointer"
+          onClick={handleImageClick}
+        >
+          <Avatar className="h-20 w-20 border-2 border-border transition-all group-hover:border-primary">
+            <AvatarImage src={data.image} className="object-cover" />
+            <AvatarFallback>
+              {data.firstName?.[0] || user.name?.[0] || "U"}
+              {data.lastName?.[0]}
+            </AvatarFallback>
           </Avatar>
-          <div className="absolute inset-0 flex cursor-pointer items-center justify-center rounded-full bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">
+          <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">
             <Camera01Icon className="size-6 text-white" />
           </div>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/png, image/jpeg, image/svg+xml"
+            className="hidden"
+            onChange={handleFileChange}
+          />
         </div>
         <div className="space-y-1">
           <h3 className="font-medium">Profile photo</h3>
@@ -38,22 +91,20 @@ export function PersonalDetails() {
           <Label htmlFor="firstName">First Name</Label>
           <Input
             id="firstName"
-            onChange={(e) =>
-              setFormData({ ...formData, firstName: e.target.value })
-            }
+            onChange={(e) => updateField("firstName", e.target.value)}
             placeholder="Enter first name"
-            value={formData.firstName}
+            value={data.firstName}
+            disabled={isLoading}
           />
         </div>
         <div className="space-y-2">
           <Label htmlFor="lastName">Last Name</Label>
           <Input
             id="lastName"
-            onChange={(e) =>
-              setFormData({ ...formData, lastName: e.target.value })
-            }
+            onChange={(e) => updateField("lastName", e.target.value)}
             placeholder="Enter last name"
-            value={formData.lastName}
+            value={data.lastName}
+            disabled={isLoading}
           />
         </div>
       </div>

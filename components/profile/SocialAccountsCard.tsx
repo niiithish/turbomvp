@@ -7,9 +7,11 @@ import {
   Link02Icon,
   Loading03Icon,
 } from "hugeicons-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { authClient } from "@/auth/auth-client";
+import { getLinkedAccounts, unlinkAccount } from "@/lib/actions/auth-actions";
 
 interface SocialAccount {
   provider: "google" | "github";
@@ -18,30 +20,53 @@ interface SocialAccount {
 
 export function SocialAccountsCard() {
   const [socialAccounts, setSocialAccounts] = useState<SocialAccount[]>([
-    { provider: "google", linked: true },
+    { provider: "google", linked: false },
     { provider: "github", linked: false },
   ]);
   const [linkingProvider, setLinkingProvider] = useState<string | null>(null);
 
+  useEffect(() => {
+    const fetchAccounts = async () => {
+      try {
+        const linked = await getLinkedAccounts();
+        setSocialAccounts((prev) =>
+          prev.map((acc) => ({
+            ...acc,
+            linked: linked.includes(acc.provider),
+          }))
+        );
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    fetchAccounts();
+  }, []);
+
   const handleLinkSocial = async (provider: "google" | "github") => {
     setLinkingProvider(provider);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setSocialAccounts((prev) =>
-      prev.map((acc) =>
-        acc.provider === provider ? { ...acc, linked: true } : acc
-      )
-    );
-    setLinkingProvider(null);
-    toast.success(`Linked ${provider} account`);
+    try {
+      await authClient.linkSocial({
+        provider,
+        callbackURL: "/profile",
+      });
+    } catch (e) {
+      toast.error("Failed to initiate linking");
+      setLinkingProvider(null);
+    }
   };
 
-  const handleUnlinkSocial = (provider: "google" | "github") => {
-    setSocialAccounts((prev) =>
-      prev.map((acc) =>
-        acc.provider === provider ? { ...acc, linked: false } : acc
-      )
-    );
-    toast.success(`Unlinked ${provider} account`);
+  const handleUnlinkSocial = async (provider: "google" | "github") => {
+    try {
+      await unlinkAccount(provider);
+      setSocialAccounts((prev) =>
+        prev.map((acc) =>
+          acc.provider === provider ? { ...acc, linked: false } : acc
+        )
+      );
+      toast.success(`Unlinked ${provider} account`);
+    } catch (e) {
+      toast.error("Failed to unlink account");
+    }
   };
 
   return (

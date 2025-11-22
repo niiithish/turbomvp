@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { toast } from "sonner";
+import { authClient } from "@/auth/auth-client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,28 +16,56 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { Loader2 } from "lucide-react";
 
-export function SecuritySettings() {
-  const [email, setEmail] = useState("niiithish@example.com");
+interface SecuritySettingsProps {
+  user: {
+    email: string;
+  };
+}
+
+export function SecuritySettings({ user }: SecuritySettingsProps) {
+  const [email, setEmail] = useState(user.email);
   const [passwords, setPasswords] = useState({
     current: "",
     new: "",
     confirm: "",
   });
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleUpdateEmail = () => {
-    toast.success("Email update verification sent");
+  const handleUpdateEmail = async () => {
+    // TODO: Implement email change flow (requires verification)
+    toast.info("Email update requires verification flow (Not implemented)");
   };
 
-  const handleUpdatePassword = () => {
+  const handleUpdatePassword = async () => {
     if (passwords.new !== passwords.confirm) {
       toast.error("Passwords don't match");
       return;
     }
-    toast.success("Password updated successfully");
-    setPasswords({ current: "", new: "", confirm: "" });
-    setIsSheetOpen(false);
+    
+    setIsLoading(true);
+    try {
+      const { error } = await authClient.changePassword({
+        currentPassword: passwords.current,
+        newPassword: passwords.new,
+        revokeOtherSessions: true,
+      });
+
+      if (error) {
+        toast.error(error.message || "Failed to update password");
+        return;
+      }
+
+      toast.success("Password updated successfully");
+      setPasswords({ current: "", new: "", confirm: "" });
+      setIsSheetOpen(false);
+    } catch (e) {
+      toast.error("An error occurred");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -50,8 +79,9 @@ export function SecuritySettings() {
             onChange={(e) => setEmail(e.target.value)}
             type="email"
             value={email}
+            disabled // Disable email edit for now as flow is complex
           />
-          <Button onClick={handleUpdateEmail} variant="outline">
+          <Button onClick={handleUpdateEmail} variant="outline" disabled>
             Update Email
           </Button>
 
@@ -113,7 +143,10 @@ export function SecuritySettings() {
                 <SheetClose asChild>
                   <Button variant="outline">Cancel</Button>
                 </SheetClose>
-                <Button onClick={handleUpdatePassword}>Update Password</Button>
+                <Button onClick={handleUpdatePassword} disabled={isLoading}>
+                  {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  Update Password
+                </Button>
               </SheetFooter>
             </SheetContent>
           </Sheet>

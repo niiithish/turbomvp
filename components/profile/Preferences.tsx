@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -10,12 +9,23 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
+import { useProfileUpdate } from "@/hooks/use-profile-update";
 
-export function Preferences() {
-  const [preferences, setPreferences] = useState({
-    timezone: "utc",
-    language: "en",
-    use24Hour: true,
+interface PreferencesProps {
+  user: {
+    timezone?: string | null;
+    language?: string | null;
+    use24Hour?: boolean | null;
+  };
+}
+
+export function Preferences({ user }: PreferencesProps) {
+  const { data, updateField, isLoading } = useProfileUpdate({
+    initialData: {
+      timezone: user.timezone || "utc",
+      language: user.language || "en",
+      use24Hour: user.use24Hour ?? true,
+    },
   });
 
   return (
@@ -31,10 +41,9 @@ export function Preferences() {
         <div className="space-y-2">
           <Label>Timezone</Label>
           <Select
-            onValueChange={(value) =>
-              setPreferences({ ...preferences, timezone: value })
-            }
-            value={preferences.timezone}
+            onValueChange={(value) => updateField("timezone", value)}
+            value={data.timezone!}
+            disabled={isLoading}
           >
             <SelectTrigger>
               <SelectValue placeholder="Select timezone" />
@@ -54,10 +63,9 @@ export function Preferences() {
         <div className="space-y-2">
           <Label>Language</Label>
           <Select
-            onValueChange={(value) =>
-              setPreferences({ ...preferences, language: value })
-            }
-            value={preferences.language}
+            onValueChange={(value) => updateField("language", value)}
+            value={data.language!}
+            disabled={isLoading}
           >
             <SelectTrigger>
               <SelectValue placeholder="Select language" />
@@ -82,10 +90,9 @@ export function Preferences() {
             </p>
           </div>
           <Switch
-            checked={preferences.use24Hour}
-            onCheckedChange={(checked) =>
-              setPreferences({ ...preferences, use24Hour: checked })
-            }
+            checked={data.use24Hour!}
+            onCheckedChange={(checked) => updateField("use24Hour", checked)}
+            disabled={isLoading}
           />
         </div>
       </div>

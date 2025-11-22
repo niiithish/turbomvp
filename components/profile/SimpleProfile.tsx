@@ -40,7 +40,8 @@ export function SimpleProfile() {
   // Mock user data since auth is removed
   const user = {
     id: "mock-user-id",
-    name: "Mock User",
+    firstName: "Mock",
+    lastName: "User",
     email: "mock@example.com",
     image: null,
     createdAt: new Date().toISOString(),
@@ -76,8 +77,17 @@ export function SimpleProfile() {
     if (profile?.first_name && profile?.last_name) {
       return `${profile.first_name[0]}${profile.last_name[0]}`;
     }
-    return user.name?.[0] || user.email[0] || "U";
+    if (user.firstName && user.lastName) {
+      return `${user.firstName[0]}${user.lastName[0]}`;
+    }
+    return user.email[0].toUpperCase();
   };
+
+  const displayName = profile?.first_name && profile?.last_name
+    ? `${profile.first_name} ${profile.last_name}`
+    : user.firstName && user.lastName
+      ? `${user.firstName} ${user.lastName}`
+      : "Anonymous User";
 
   if (sessionLoading || isLoading) {
     return (
@@ -140,7 +150,7 @@ export function SimpleProfile() {
           <div className="flex items-center gap-4">
             <Avatar className="h-16 w-16">
               <AvatarImage
-                alt={user?.name || "User"}
+                alt={displayName}
                 src={user?.image || undefined}
               />
               <AvatarFallback className="text-lg">
@@ -149,7 +159,7 @@ export function SimpleProfile() {
             </Avatar>
             <div className="space-y-1">
               <h3 className="font-semibold text-lg">
-                {user?.name || "Anonymous User"}
+                {displayName}
               </h3>
               <p className="flex items-center gap-1 text-muted-foreground text-sm">
                 <Mail01Icon className="h-3 w-3" />
