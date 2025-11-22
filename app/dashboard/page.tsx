@@ -2,7 +2,7 @@ import ChartAreaAxes from "@/components/dashboard/ChartAreaAxes";
 import ChartBarActive from "@/components/dashboard/ChartBarActive";
 import { DashboardMetrics } from "@/components/dashboard/DashboardMetrics";
 import TableWithActions from "@/components/dashboard/TableWithActions";
-import { currentUser } from "@/lib/auth-helpers";
+import { currentUser } from "@/lib/auth";
 
 export default async function DashboardPage() {
   const _user = await currentUser();
