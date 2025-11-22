@@ -1,4 +1,4 @@
-import { betterAuth } from "better-auth";
+import { betterAuth } from "better-auth/minimal";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { account, session, users } from "@/db/schema";
 import { db } from "@/lib/db";
@@ -13,7 +13,13 @@ export const auth = betterAuth({
       account,
     },
   }),
+  experimental: {
+    joins: true,
+  },
   user: {
+    changeEmail: {
+      enabled: true,
+    },
     additionalFields: {
       firstName: {
         type: "string",

@@ -34,9 +34,31 @@ export function SecuritySettings({ user }: SecuritySettingsProps) {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleUpdateEmail = () => {
-    // TODO: Implement email change flow (requires verification)
-    toast.info("Email update requires verification flow (Not implemented)");
+  const handleUpdateEmail = async () => {
+    if (!email || email === user.email) {
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const { error } = await authClient.changeEmail({
+        newEmail: email,
+        callbackURL: "/settings", // Redirect back to settings after verification
+      });
+
+      if (error) {
+        toast.error(error.message || "Failed to update email");
+        return;
+      }
+
+      toast.success(
+        "Email update initiated. Please check your inbox for verification."
+      );
+    } catch (_e) {
+      toast.error("An error occurred");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleUpdatePassword = async () => {
@@ -75,13 +97,19 @@ export function SecuritySettings({ user }: SecuritySettingsProps) {
         <div className="flex items-center gap-4">
           <Input
             className="flex-1"
-            disabled
             id="email"
             onChange={(e) => setEmail(e.target.value)}
             type="email"
-            value={email} // Disable email edit for now as flow is complex
+            value={email}
           />
-          <Button disabled onClick={handleUpdateEmail} variant="outline">
+          <Button
+            disabled={isLoading || email === user.email}
+            onClick={handleUpdateEmail}
+            variant="outline"
+          >
+            {isLoading ? (
+              <Loading03Icon className="mr-2 h-4 w-4 animate-spin" />
+            ) : null}
             Update Email
           </Button>
 

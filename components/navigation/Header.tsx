@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { signOut, useSession } from "@/auth/auth-client";
 import NavigationSheet from "@/components/navigation/NavigationSheet";
 import NavMenu from "@/components/navigation/NavMenu";
 import { Logo } from "@/components/shared/Logo";
@@ -10,6 +12,8 @@ import { Button } from "@/components/ui/button";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const { data: session } = useSession();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,12 +42,32 @@ const Navbar = () => {
           className={`flex items-center gap-3 md:transition-all md:duration-300 ${isScrolled ? "md:scale-90" : ""}`}
         >
           <ThemeToggle className="hidden md:flex" />
-          <Button asChild className="hidden sm:inline-flex" variant="outline">
-            <Link href="/sign-in">Sign In</Link>
-          </Button>
-          <Button asChild>
-            <Link href="/sign-up">Sign Up</Link>
-          </Button>
+          {session ? (
+            <>
+              <Button
+                className="hidden sm:inline-flex"
+                onClick={async () => {
+                  await signOut();
+                  router.push("/");
+                }}
+                variant="outline"
+              >
+                Logout
+              </Button>
+              <Button asChild>
+                <Link href="/dashboard">Dashboard</Link>
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button asChild className="hidden sm:inline-flex" variant="outline">
+                <Link href="/login">Sign In</Link>
+              </Button>
+              <Button asChild>
+                <Link href="/signup">Sign Up</Link>
+              </Button>
+            </>
+          )}
           {/* Mobile Menu */}
           <div className="md:hidden">
             <NavigationSheet />

@@ -18,11 +18,11 @@ const Toaster = ({ ...props }: ToasterProps) => {
     <Sonner
       className="toaster group"
       icons={{
-        success: <CheckmarkCircle01Icon className="size-4" />,
-        info: <InformationCircleIcon className="size-4" />,
-        warning: <Alert02Icon className="size-4" />,
-        error: <CancelCircleIcon className="size-4" />,
-        loading: <Loading03Icon className="size-4 animate-spin" />,
+        success: <CheckmarkCircle01Icon className="size-4 text-green-500" />,
+        info: <InformationCircleIcon className="size-4 text-blue-500" />,
+        warning: <Alert02Icon className="size-4 text-amber-500" />,
+        error: <CancelCircleIcon className="size-4 text-red-500" />,
+        loading: <Loading03Icon className="size-4 animate-spin text-muted-foreground" />,
       }}
       style={
         {
@@ -36,7 +36,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
       toastOptions={{
         classNames: {
           toast:
-            "group toast group-[.toaster]:bg-transparent group-[.toaster]:text-foreground group-[.toaster]:border-0 group-[.toaster]:shadow-none w-full flex justify-center",
+            "group toast group-[.toaster]:w-fit group-[.toaster]:max-w-[500px] group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg group-[.toaster]:data-[type=error]:border-red-500/30 group-[.toaster]:data-[type=success]:border-green-500/30 group-[.toaster]:data-[type=warning]:border-amber-500/30 group-[.toaster]:data-[type=info]:border-blue-500/30",
           description: "group-[.toast]:text-muted-foreground",
           actionButton:
             "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",

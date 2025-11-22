@@ -2,7 +2,9 @@
 
 import { Menu01Icon } from "hugeicons-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { signOut, useSession } from "@/auth/auth-client";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,6 +18,8 @@ import {
 
 const NavigationSheet = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { data: session } = useSession();
+  const router = useRouter();
   const navItems = [
     { href: "#features", label: "Features" },
     { href: "#pricing", label: "Pricing" },
@@ -55,16 +59,39 @@ const NavigationSheet = () => {
           <div className="flex w-full justify-start">
             <ThemeToggle />
           </div>
-          <Button asChild className="w-full rounded-full" variant="outline">
-            <Link href="/sign-in" onClick={() => setIsOpen(false)}>
-              Sign In
-            </Link>
-          </Button>
-          <Button asChild className="w-full rounded-full">
-            <Link href="/sign-up" onClick={() => setIsOpen(false)}>
-              Sign Up
-            </Link>
-          </Button>
+          {session ? (
+            <>
+              <Button
+                className="w-full rounded-full"
+                onClick={async () => {
+                  await signOut();
+                  setIsOpen(false);
+                  router.push("/");
+                }}
+                variant="outline"
+              >
+                Logout
+              </Button>
+              <Button asChild className="w-full rounded-full">
+                <Link href="/dashboard" onClick={() => setIsOpen(false)}>
+                  Dashboard
+                </Link>
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button asChild className="w-full rounded-full" variant="outline">
+                <Link href="/login" onClick={() => setIsOpen(false)}>
+                  Sign In
+                </Link>
+              </Button>
+              <Button asChild className="w-full rounded-full">
+                <Link href="/signup" onClick={() => setIsOpen(false)}>
+                  Sign Up
+                </Link>
+              </Button>
+            </>
+          )}
         </SheetFooter>
       </SheetContent>
     </Sheet>

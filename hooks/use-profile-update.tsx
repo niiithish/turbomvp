@@ -77,7 +77,7 @@ export function useProfileUpdate<T extends Record<string, any>>({
 
     toastIdRef.current = toast.custom(
       (_t) => (
-        <div className="mx-auto flex w-fit min-w-[350px] items-center justify-between gap-3 rounded-md border bg-background p-2 px-4 shadow-lg ring-1 ring-black/5 dark:ring-white/10">
+        <div className="flex w-full items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <InformationCircleIcon className="size-4 text-muted-foreground" />
             <p className="whitespace-nowrap font-medium text-foreground text-sm">

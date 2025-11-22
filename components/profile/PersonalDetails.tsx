@@ -42,15 +42,29 @@ export function PersonalDetails({ user }: PersonalDetailsProps) {
       return;
     }
 
-    if (file.size > 5 * 1024 * 1024) {
-      toast.error("Image size should be less than 5MB");
+    if (!file.type.match(/^image\/(jpeg|png)$/)) {
+      toast.error("Invalid file type. Please upload PNG or JPEG.");
+      return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error("Image size should be less than 2MB");
       return;
     }
 
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64String = reader.result as string;
-      updateField("image", base64String);
+
+      // Validate image integrity
+      const img = new Image();
+      img.onload = () => {
+        updateField("image", base64String);
+      };
+      img.onerror = () => {
+        toast.error("Failed to load image. The file might be corrupted.");
+      };
+      img.src = base64String;
     };
     reader.readAsDataURL(file);
   };
@@ -79,7 +93,7 @@ export function PersonalDetails({ user }: PersonalDetailsProps) {
             <Camera01Icon className="size-6 text-white" />
           </div>
           <input
-            accept="image/png, image/jpeg, image/svg+xml"
+            accept="image/png, image/jpeg"
             className="hidden"
             onChange={handleFileChange}
             ref={fileInputRef}
@@ -89,7 +103,7 @@ export function PersonalDetails({ user }: PersonalDetailsProps) {
         <div className="space-y-1">
           <h3 className="font-medium">Profile photo</h3>
           <p className="text-muted-foreground text-sm">
-            PNG, JPEG, SVG (Less than 5MB)
+            PNG, JPEG (Less than 2MB)
           </p>
         </div>
       </div>
