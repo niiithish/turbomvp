@@ -1,6 +1,13 @@
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { betterAuth } from "better-auth/minimal";
-import { account, session, users } from "@/db/schema";
+import {
+  account,
+  accountRelations,
+  session,
+  sessionRelations,
+  users,
+  usersRelations,
+} from "@/db/schema";
 import { db } from "@/lib/db";
 
 // Build social providers config conditionally
@@ -27,15 +34,14 @@ export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: "pg",
     schema: {
-      // Map our table exports to the keys that BetterAuth expects
       user: users,
-      session,
       account,
+      session,
+      usersRelations,
+      accountRelations,
+      sessionRelations,
     },
   }),
-  experimental: {
-    joins: true,
-  },
   user: {
     changeEmail: {
       enabled: true,
