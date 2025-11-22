@@ -22,7 +22,15 @@ Required environment variables:
 - `DATABASE_URL` - PostgreSQL connection string
 - `BETTER_AUTH_SECRET` - Random secret for auth (generate with `openssl rand -base64 32`)
 - `BETTER_AUTH_URL` - Your app URL (http://localhost:3000 for development)
-- OAuth credentials (if using social login)
+- `NEXT_PUBLIC_APP_URL` - Your app URL (http://localhost:3000 for development)
+
+Optional OAuth configuration (email authentication works independently):
+- `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` - Google OAuth credentials
+- `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` - GitHub OAuth credentials
+- `NEXT_PUBLIC_GOOGLE_ENABLED` - Set to "true" to show Google sign-in button
+- `NEXT_PUBLIC_GITHUB_ENABLED` - Set to "true" to show GitHub sign-in button
+
+**Note:** Email authentication works without OAuth. OAuth providers are completely optional and won't affect email sign-in/sign-up.
 
 ### 3. Initialize Database
 

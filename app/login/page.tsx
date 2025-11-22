@@ -6,11 +6,17 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
+import { toast } from "sonner";
 import { authClient } from "@/auth/auth-client";
 import { Logo } from "@/components/shared/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+
+// Check if OAuth providers are enabled
+const isGoogleEnabled = process.env.NEXT_PUBLIC_GOOGLE_ENABLED === "true";
+const isGithubEnabled = process.env.NEXT_PUBLIC_GITHUB_ENABLED === "true";
+const showOAuthDivider = isGoogleEnabled || isGithubEnabled;
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -30,6 +36,16 @@ function LoginForm() {
   }, [searchParams]);
 
   const handleSocialSignIn = async (provider: "github" | "google") => {
+    // Check if provider is enabled
+    if (provider === "google" && !isGoogleEnabled) {
+      toast.error("Google sign-in is not configured. Please contact support.");
+      return;
+    }
+    if (provider === "github" && !isGithubEnabled) {
+      toast.error("GitHub sign-in is not configured. Please contact support.");
+      return;
+    }
+
     setIsLoading(true);
     setError("");
     try {
@@ -155,37 +171,49 @@ function LoginForm() {
           </Button>
         </form>
 
-        <div className="relative">
-          <div className="absolute inset-0 flex items-center">
-            <span className="w-full border-t" />
-          </div>
-          <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">OR</span>
-          </div>
-        </div>
+        {showOAuthDivider && (
+          <>
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-background px-2 text-muted-foreground">
+                  OR
+                </span>
+              </div>
+            </div>
 
-        <div className="grid grid-cols-2 gap-4">
-          <Button
-            className="h-11"
-            disabled={isLoading}
-            onClick={() => handleSocialSignIn("google")}
-            type="button"
-            variant="outline"
-          >
-            <FcGoogle className="mr-2 h-4 w-4" />
-            With Google
-          </Button>
-          <Button
-            className="h-11"
-            disabled={isLoading}
-            onClick={() => handleSocialSignIn("github")}
-            type="button"
-            variant="outline"
-          >
-            <FaGithub className="mr-2 h-4 w-4" />
-            With GitHub
-          </Button>
-        </div>
+            <div
+              className={`grid gap-4 ${isGoogleEnabled && isGithubEnabled ? "grid-cols-2" : "grid-cols-1"}`}
+            >
+              {isGoogleEnabled && (
+                <Button
+                  className="h-11"
+                  disabled={isLoading}
+                  onClick={() => handleSocialSignIn("google")}
+                  type="button"
+                  variant="outline"
+                >
+                  <FcGoogle className="mr-2 h-4 w-4" />
+                  With Google
+                </Button>
+              )}
+              {isGithubEnabled && (
+                <Button
+                  className="h-11"
+                  disabled={isLoading}
+                  onClick={() => handleSocialSignIn("github")}
+                  type="button"
+                  variant="outline"
+                >
+                  <FaGithub className="mr-2 h-4 w-4" />
+                  With GitHub
+                </Button>
+              )}
+            </div>
+          </>
+        )}
 
         <div className="text-center text-muted-foreground text-sm">
           Don't have an account?{" "}
