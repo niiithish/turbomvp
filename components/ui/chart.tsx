@@ -138,11 +138,11 @@ function TooltipItem({
   tooltipLabel: ReactNode;
   // biome-ignore lint/suspicious/noExplicitAny: Recharts uses any for formatter parameters
   formatter?: (
-    value: any,
-    name: any,
-    item: any,
+    value: unknown,
+    name: unknown,
+    item: unknown,
     index: number,
-    payload: any
+    payload: unknown
   ) => ReactNode;
 }) {
   const key = `${nameKey || item.name || item.dataKey || "value"}`;
@@ -236,11 +236,11 @@ function ChartTooltipContent({
   labelClassName?: string;
   // biome-ignore lint/suspicious/noExplicitAny: Recharts uses any for formatter parameters
   formatter?: (
-    value: any,
-    name: any,
-    item: any,
+    value: unknown,
+    name: unknown,
+    item: unknown,
     index: number,
-    payload: any
+    payload: unknown
   ) => ReactNode;
   color?: string;
   nameKey?: string;

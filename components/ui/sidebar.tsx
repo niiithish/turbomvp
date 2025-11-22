@@ -87,7 +87,8 @@ function SidebarProvider({
   const setOpen = useCallback(
     // eslint-disable-next-line no-unused-vars
     (newValue: boolean | ((value: boolean) => boolean)) => {
-      const openState = typeof newValue === "function" ? newValue(open) : newValue;
+      const openState =
+        typeof newValue === "function" ? newValue(open) : newValue;
       if (setOpenProp) {
         setOpenProp(openState);
       } else {
@@ -95,6 +96,7 @@ function SidebarProvider({
       }
 
       // This sets the cookie to keep the sidebar state.
+      // biome-ignore lint/suspicious/noDocumentCookie: Required for sidebar state persistence
       document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`;
     },
     [setOpenProp, open]
@@ -103,7 +105,9 @@ function SidebarProvider({
   // Helper to toggle the sidebar.
   const toggleSidebar = useCallback(
     () =>
-      isMobile ? setOpenMobile((open) => !open) : setOpen((open) => !open),
+      isMobile
+        ? setOpenMobile((currentOpen) => !currentOpen)
+        : setOpen((currentOpen) => !currentOpen),
     [isMobile, setOpen]
   );
 
@@ -332,10 +336,7 @@ function SidebarInset({ className, ...props }: ComponentProps<"main">) {
   );
 }
 
-function SidebarInput({
-  className,
-  ...props
-}: ComponentProps<typeof Input>) {
+function SidebarInput({ className, ...props }: ComponentProps<typeof Input>) {
   return (
     <Input
       className={cn("h-8 w-full bg-background shadow-none", className)}
@@ -451,10 +452,7 @@ function SidebarGroupAction({
   );
 }
 
-function SidebarGroupContent({
-  className,
-  ...props
-}: ComponentProps<"div">) {
+function SidebarGroupContent({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       className={cn("w-full text-sm", className)}
@@ -591,10 +589,7 @@ function SidebarMenuAction({
   );
 }
 
-function SidebarMenuBadge({
-  className,
-  ...props
-}: ComponentProps<"div">) {
+function SidebarMenuBadge({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       className={cn(
@@ -621,10 +616,7 @@ function SidebarMenuSkeleton({
   showIcon?: boolean;
 }) {
   // Random width between 50 to 90%.
-  const width = useMemo(
-    () => `${Math.floor(Math.random() * 40) + 50}%`,
-    []
-  );
+  const width = useMemo(() => `${Math.floor(Math.random() * 40) + 50}%`, []);
 
   return (
     <div
@@ -667,10 +659,7 @@ function SidebarMenuSub({ className, ...props }: ComponentProps<"ul">) {
   );
 }
 
-function SidebarMenuSubItem({
-  className,
-  ...props
-}: ComponentProps<"li">) {
+function SidebarMenuSubItem({ className, ...props }: ComponentProps<"li">) {
   return (
     <li
       className={cn("group/menu-sub-item relative", className)}

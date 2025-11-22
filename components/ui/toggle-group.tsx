@@ -1,8 +1,13 @@
 "use client";
 
-import { Root, Item } from "@radix-ui/react-toggle-group";
+import { Item, Root } from "@radix-ui/react-toggle-group";
 import type { VariantProps } from "class-variance-authority";
-import { type ComponentProps, type CSSProperties, createContext, useContext } from "react";
+import {
+  type ComponentProps,
+  type CSSProperties,
+  createContext,
+  useContext,
+} from "react";
 import { toggleVariants } from "@/components/ui/toggle";
 import { cn } from "@/lib/utils";
 
@@ -53,8 +58,7 @@ function ToggleGroupItem({
   variant,
   size,
   ...props
-}: ComponentProps<typeof Item> &
-  VariantProps<typeof toggleVariants>) {
+}: ComponentProps<typeof Item> & VariantProps<typeof toggleVariants>) {
   const context = useContext(ToggleGroupContext);
 
   return (

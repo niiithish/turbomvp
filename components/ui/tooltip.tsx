@@ -1,6 +1,13 @@
 "use client";
 
-import { Provider, Root, Trigger, Portal, Content, Arrow } from "@radix-ui/react-tooltip";
+import {
+  Arrow,
+  Content,
+  Portal,
+  Provider,
+  Root,
+  Trigger,
+} from "@radix-ui/react-tooltip";
 import type { ComponentProps } from "react";
 
 import { cn } from "@/lib/utils";
@@ -18,9 +25,7 @@ function TooltipProvider({
   );
 }
 
-function Tooltip({
-  ...props
-}: ComponentProps<typeof Root>) {
+function Tooltip({ ...props }: ComponentProps<typeof Root>) {
   return (
     <TooltipProvider>
       <Root data-slot="tooltip" {...props} />
@@ -28,9 +33,7 @@ function Tooltip({
   );
 }
 
-function TooltipTrigger({
-  ...props
-}: ComponentProps<typeof Trigger>) {
+function TooltipTrigger({ ...props }: ComponentProps<typeof Trigger>) {
   return <Trigger data-slot="tooltip-trigger" {...props} />;
 }
 

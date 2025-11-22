@@ -1,14 +1,11 @@
 "use client";
 
-import { Root, List, Trigger, Content } from "@radix-ui/react-tabs";
+import { Content, List, Root, Trigger } from "@radix-ui/react-tabs";
 import type { ComponentProps } from "react";
 
 import { cn } from "@/lib/utils";
 
-function Tabs({
-  className,
-  ...props
-}: ComponentProps<typeof Root>) {
+function Tabs({ className, ...props }: ComponentProps<typeof Root>) {
   return (
     <Root
       className={cn("flex flex-col gap-2", className)}
@@ -18,10 +15,7 @@ function Tabs({
   );
 }
 
-function TabsList({
-  className,
-  ...props
-}: ComponentProps<typeof List>) {
+function TabsList({ className, ...props }: ComponentProps<typeof List>) {
   return (
     <List
       className={cn(
@@ -34,10 +28,7 @@ function TabsList({
   );
 }
 
-function TabsTrigger({
-  className,
-  ...props
-}: ComponentProps<typeof Trigger>) {
+function TabsTrigger({ className, ...props }: ComponentProps<typeof Trigger>) {
   return (
     <Trigger
       className={cn(
@@ -50,10 +41,7 @@ function TabsTrigger({
   );
 }
 
-function TabsContent({
-  className,
-  ...props
-}: ComponentProps<typeof Content>) {
+function TabsContent({ className, ...props }: ComponentProps<typeof Content>) {
   return (
     <Content
       className={cn("flex-1 outline-none", className)}
