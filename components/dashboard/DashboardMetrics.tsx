@@ -1,13 +1,6 @@
 import { ArrowDown01Icon, ArrowUp01Icon } from "hugeicons-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
-type MetricCardProps = {
-  title: string;
-  value: string;
-  change: number;
-  trend: "up" | "down";
-  period: string;
-};
+import type { MetricCardProps } from "@/types";
 
 function MetricCard({ title, value, change, trend, period }: MetricCardProps) {
   return (

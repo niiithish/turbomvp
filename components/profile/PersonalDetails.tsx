@@ -7,17 +7,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useProfileUpdate } from "@/hooks/use-profile-update";
+import type { PersonalDetailsProps } from "@/types";
 
 const ALLOWED_IMAGE_TYPES = /^image\/(jpeg|png)$/;
-
-type PersonalDetailsProps = {
-  user: {
-    firstName?: string | null;
-    lastName?: string | null;
-    image?: string | null;
-    name?: string | null;
-  };
-};
 
 export function PersonalDetails({ user }: PersonalDetailsProps) {
   // Derive name parts if not explicitly set

@@ -2,7 +2,6 @@
 
 import { AddCircleIcon } from "hugeicons-react";
 import { usePathname } from "next/navigation";
-import type React from "react";
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -10,15 +9,12 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import type { NavItem } from "@/types";
 
 export function NavMain({
   items,
 }: {
-  items: {
-    title: string;
-    url: string;
-    icon?: React.ComponentType<{ className?: string }>;
-  }[];
+  items: NavItem[];
 }) {
   const pathname = usePathname();
   return (

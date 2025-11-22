@@ -20,6 +20,56 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Project Structure
+
+```
+├── app/                  # Next.js App Router pages and layouts
+├── components/           # React components
+│   ├── ui/              # Shadcn UI components
+│   ├── auth/            # Authentication components
+│   ├── dashboard/       # Dashboard components
+│   ├── landing/         # Landing page components
+│   ├── navigation/      # Navigation components
+│   ├── profile/         # Profile components
+│   └── ...
+├── types/               # TypeScript type definitions
+│   ├── components.ts    # Component prop types
+│   ├── features.ts      # Domain/feature types
+│   └── index.ts         # Type barrel exports
+├── config/              # Configuration and constants
+│   ├── pricing.ts       # Pricing plans
+│   ├── features.ts      # Feature data
+│   ├── site.ts          # Site metadata
+│   └── index.ts         # Config barrel exports
+├── lib/                 # Utilities and helpers
+│   ├── actions/         # Server actions
+│   ├── utils/           # Utility functions
+│   ├── validations/     # Zod validation schemas
+│   ├── db.ts            # Database client
+│   └── ...
+├── db/schema/           # Drizzle ORM schemas
+├── auth/                # Authentication configuration
+└── hooks/               # Custom React hooks
+```
+
+### Import Conventions
+
+This project uses absolute imports with the `@/` prefix:
+
+```typescript
+// Types
+import type { Feature, PricingPlan } from "@/types";
+
+// Configuration
+import { pricingPlans, siteConfig } from "@/config";
+
+// Components
+import { Button } from "@/components/ui/button";
+
+// Utilities
+import { cn } from "@/lib/utils";
+```
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

@@ -3,11 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { authClient } from "../auth/auth-client";
-
-type UseProfileUpdateProps<T> = {
-  initialData: T;
-  onUpdate?: (data: T) => void;
-};
+import type { UseProfileUpdateProps } from "@/types";
 
 // biome-ignore lint/suspicious/noExplicitAny: Generic constraint requires any
 export function useProfileUpdate<T extends Record<string, any>>({

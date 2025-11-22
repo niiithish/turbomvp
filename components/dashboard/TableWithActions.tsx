@@ -24,17 +24,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import type { ApiCall } from "@/types";
 
 export const title = "Recent API Calls";
-
-type ApiCall = {
-  id: string;
-  user: string;
-  model: string;
-  status: string;
-  latency: string;
-  cost: number;
-};
 
 const data: ApiCall[] = [
   {

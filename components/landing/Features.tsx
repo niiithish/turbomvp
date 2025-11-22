@@ -1,51 +1,14 @@
 import Image from "next/image";
-
-type Feature = {
-  title: string;
-  description: string;
-  image: string;
-};
-
-type FeaturesProps = {
-  title?: string;
-  description?: string;
-  feature1?: Feature;
-  feature2?: Feature;
-  feature3?: Feature;
-  feature4?: Feature;
-};
+import { defaultFeatures, featuresSection } from "@/config";
+import type { FeaturesProps } from "@/types";
 
 const Features = ({
-  title = "Everything you need to ship",
-  description = "A complete stack for building modern SaaS applications. Don't waste time on boilerplate.",
-  feature1 = {
-    title: "Next.js 15 & React 19",
-    description:
-      "Built on the latest and greatest web technologies for maximum performance and developer experience.",
-    image:
-      "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg",
-  },
-  feature2 = {
-    title: "Authentication Ready",
-    description:
-      "Secure authentication powered by BetterAuth. Social logins, email/password, and more out of the box.",
-    image:
-      "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg",
-  },
-  feature3 = {
-    title: "Type-Safe Database",
-    description:
-      "Drizzle ORM for type-safe database interactions. Works with Postgres, MySQL, and SQLite.",
-    image:
-      "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-3.svg",
-  },
-  feature4 = {
-    title: "Beautiful UI Components",
-    description:
-      "Pre-built components using Shadcn UI and Tailwind CSS. Accessible, customizable, and ready to use.",
-    image:
-      "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-4.svg",
-  },
+  title = featuresSection.title,
+  description = featuresSection.description,
+  feature1 = defaultFeatures.feature1,
+  feature2 = defaultFeatures.feature2,
+  feature3 = defaultFeatures.feature3,
+  feature4 = defaultFeatures.feature4,
 }: FeaturesProps) => {
   return (
     <section className="py-24 md:py-32" id="features">

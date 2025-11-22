@@ -5,7 +5,8 @@ import {
   MoreVerticalIcon,
   UserCircleIcon,
 } from "hugeicons-react";
-
+import { useRouter } from "next/navigation";
+import { signOut } from "@/auth/auth-client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -35,6 +36,7 @@ export function NavUser({
   };
 }) {
   const { isMobile } = useSidebar();
+  const router = useRouter();
   const displayName =
     user.firstName && user.lastName
       ? `${user.firstName} ${user.lastName}`
@@ -43,6 +45,11 @@ export function NavUser({
     user.firstName && user.lastName
       ? `${user.firstName[0]}${user.lastName[0]}`
       : user.name?.[0] || "U";
+
+  const handleLogout = async () => {
+    await signOut();
+    router.push("/login");
+  };
 
   return (
     <SidebarMenu>
@@ -100,7 +107,7 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}>
               <Logout01Icon />
               Log out
             </DropdownMenuItem>
