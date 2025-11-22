@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader2 } from "lucide-react";
+import { Loading03Icon } from "hugeicons-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { authClient } from "@/auth/auth-client";
@@ -145,7 +145,7 @@ export function SecuritySettings({ user }: SecuritySettingsProps) {
                 </SheetClose>
                 <Button disabled={isLoading} onClick={handleUpdatePassword}>
                   {isLoading && (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    <Loading03Icon className="mr-2 h-4 w-4 animate-spin" />
                   )}
                   Update Password
                 </Button>

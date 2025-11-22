@@ -2,7 +2,7 @@ import {
   Header as AccordionHeader,
   Trigger as AccordionTrigger,
 } from "@radix-ui/react-accordion";
-import { PlusIcon } from "lucide-react";
+import { PlusSignIcon } from "hugeicons-react";
 import {
   Accordion,
   AccordionContent,
@@ -78,7 +78,7 @@ const FAQ = () => (
                     )}
                   >
                     {question}
-                    <PlusIcon className="h-5 w-5 shrink-0 text-muted-foreground transition-transform duration-200" />
+                    <PlusSignIcon className="h-5 w-5 shrink-0 text-muted-foreground transition-transform duration-200" />
                   </AccordionTrigger>
                 </AccordionHeader>
                 <AccordionContent className="pb-4 text-base text-muted-foreground">

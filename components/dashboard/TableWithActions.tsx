@@ -6,7 +6,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { MoreHorizontalIcon } from "lucide-react";
+import { MoreHorizontalIcon } from "hugeicons-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,

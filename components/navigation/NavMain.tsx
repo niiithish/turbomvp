@@ -1,6 +1,7 @@
 "use client";
 
-import { type Icon, IconCirclePlusFilled } from "@tabler/icons-react";
+import { AddCircleIcon } from "hugeicons-react";
+import type React from "react";
 import { usePathname } from "next/navigation";
 import {
   SidebarGroup,
@@ -16,7 +17,7 @@ export function NavMain({
   items: {
     title: string;
     url: string;
-    icon?: Icon;
+    icon?: React.ComponentType<{ className?: string }>;
   }[];
 }) {
   const pathname = usePathname();
@@ -29,7 +30,7 @@ export function NavMain({
               className="min-w-8 bg-primary text-primary-foreground duration-200 ease-linear hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground"
               tooltip="Quick Create"
             >
-              <IconCirclePlusFilled />
+              <AddCircleIcon />
               <span>Quick Create</span>
             </SidebarMenuButton>
           </SidebarMenuItem>

@@ -2,7 +2,7 @@
 import NumberFlow from "@number-flow/react";
 import { motion } from "framer-motion";
 import { Tick02Icon } from "hugeicons-react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight01Icon } from "hugeicons-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -167,7 +167,7 @@ const PricingSection = () => {
                     : "border border-border bg-secondary/50 text-secondary-foreground hover:bg-secondary/70"
                 )}
               >
-                {plan.cta} <ArrowRight className="ml-2 h-4 w-4" />
+                {plan.cta} <ArrowRight01Icon className="ml-2 h-4 w-4" />
               </Button>
 
               <div className="space-y-3">

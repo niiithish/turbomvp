@@ -1,6 +1,6 @@
 "use client";
 
-import { Github, Linkedin, Mail, Twitter } from "lucide-react";
+import { GithubIcon, Linkedin02Icon, Mail01Icon, TwitterIcon } from "hugeicons-react";
 import Link from "next/link";
 import { Logo } from "@/components/shared/Logo";
 import { Button } from "@/components/ui/button";
@@ -82,7 +82,7 @@ export default function FooterSection() {
                 type="email"
               />
               <Button className="shrink-0" size="icon">
-                <Mail className="h-4 w-4" />
+                <Mail01Icon className="h-4 w-4" />
               </Button>
             </div>
           </div>
@@ -101,17 +101,17 @@ export default function FooterSection() {
           <div className="flex items-center gap-2">
             <Button asChild className="h-8 w-8" size="icon" variant="ghost">
               <Link href="https://twitter.com" target="_blank">
-                <Twitter className="h-4 w-4" />
+                <TwitterIcon className="h-4 w-4" />
               </Link>
             </Button>
             <Button asChild className="h-8 w-8" size="icon" variant="ghost">
               <Link href="https://github.com" target="_blank">
-                <Github className="h-4 w-4" />
+                <GithubIcon className="h-4 w-4" />
               </Link>
             </Button>
             <Button asChild className="h-8 w-8" size="icon" variant="ghost">
               <Link href="https://linkedin.com" target="_blank">
-                <Linkedin className="h-4 w-4" />
+                <Linkedin02Icon className="h-4 w-4" />
               </Link>
             </Button>
           </div>

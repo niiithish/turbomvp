@@ -1,14 +1,13 @@
 "use client";
 
 import {
-  IconCamera,
-  IconChartBar,
-  IconDashboard,
-  IconFileAi,
-  IconFileDescription,
-  IconInnerShadowTop,
-  IconListDetails,
-} from "@tabler/icons-react";
+  Camera01Icon,
+  Analytics01Icon,
+  DashboardCircleIcon,
+  File01Icon,
+  ListViewIcon,
+  MagicWand01Icon,
+} from "hugeicons-react";
 import { Comment01Icon, HelpCircleIcon, Settings02Icon } from "hugeicons-react";
 import type * as React from "react";
 
@@ -30,23 +29,23 @@ const data = {
     {
       title: "Dashboard",
       url: "/dashboard",
-      icon: IconDashboard,
+      icon: DashboardCircleIcon,
     },
     {
       title: "Lifecycle",
       url: "#",
-      icon: IconListDetails,
+      icon: ListViewIcon,
     },
     {
       title: "Analytics",
       url: "#",
-      icon: IconChartBar,
+      icon: Analytics01Icon,
     },
   ],
   navClouds: [
     {
       title: "Capture",
-      icon: IconCamera,
+      icon: Camera01Icon,
       isActive: true,
       url: "#",
       items: [
@@ -62,7 +61,7 @@ const data = {
     },
     {
       title: "Proposal",
-      icon: IconFileDescription,
+      icon: File01Icon,
       url: "#",
       items: [
         {
@@ -77,7 +76,7 @@ const data = {
     },
     {
       title: "Prompts",
-      icon: IconFileAi,
+      icon: MagicWand01Icon,
       url: "#",
       items: [
         {
@@ -131,7 +130,7 @@ export function AppSidebar({
               className="data-[slot=sidebar-menu-button]:p-1.5!"
             >
               <a href="/">
-                <IconInnerShadowTop className="size-5!" />
+                <DashboardCircleIcon className="size-5!" />
                 <span className="font-semibold text-base">Logoipsum</span>
               </a>
             </SidebarMenuButton>

@@ -1,6 +1,6 @@
 "use client";
 
-import { LogOut } from "lucide-react";
+import { Logout05Icon } from "hugeicons-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { authClient } from "@/auth/auth-client";
@@ -30,7 +30,7 @@ export function LogoutButton() {
       size="sm"
       variant="outline"
     >
-      <LogOut className="mr-2 h-4 w-4" />
+      <Logout05Icon className="mr-2 h-4 w-4" />
       {isLoading ? "Signing out..." : "Sign out"}
     </Button>
   );

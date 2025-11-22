@@ -1,6 +1,6 @@
 "use client";
 
-import { CreditCard, ExternalLink, Sparkles } from "lucide-react";
+import { CreditCard, LinkForward, Sparkles01 } from "hugeicons-react";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -101,15 +101,15 @@ export function SubscriptionCard({
           {isPremium && (
             <div className="space-y-2 text-muted-foreground text-sm">
               <div className="flex items-center gap-2">
-                <Sparkles className="h-4 w-4 text-primary" />
+                <Sparkles01 className="h-4 w-4 text-primary" />
                 <span>Unlimited projects</span>
               </div>
               <div className="flex items-center gap-2">
-                <Sparkles className="h-4 w-4 text-primary" />
+                <Sparkles01 className="h-4 w-4 text-primary" />
                 <span>Priority support</span>
               </div>
               <div className="flex items-center gap-2">
-                <Sparkles className="h-4 w-4 text-primary" />
+                <Sparkles01 className="h-4 w-4 text-primary" />
                 <span>Advanced analytics</span>
               </div>
             </div>
@@ -132,13 +132,13 @@ export function SubscriptionCard({
               onClick={handleManageSubscription}
               variant="outline"
             >
-              <ExternalLink className="mr-2 h-4 w-4" />
+              <LinkForward className="mr-2 h-4 w-4" />
               {loading ? "Loading..." : "Manage Subscription"}
             </Button>
           ) : (
             <Button asChild className="w-full">
               <Link href="/pricing">
-                <Sparkles className="mr-2 h-4 w-4" />
+                <Sparkles01 className="mr-2 h-4 w-4" />
                 Upgrade to Premium
               </Link>
             </Button>

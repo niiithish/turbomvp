@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu } from "lucide-react";
+import { Menu01Icon } from "hugeicons-react";
 import Link from "next/link";
 import { useState } from "react";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
@@ -27,7 +27,7 @@ const NavigationSheet = () => {
     <Sheet onOpenChange={setIsOpen} open={isOpen}>
       <SheetTrigger asChild>
         <Button className="rounded-full" size="icon" variant="ghost">
-          <Menu className="h-5 w-5" />
+          <Menu01Icon className="h-5 w-5" />
           <span className="sr-only">Toggle menu</span>
         </Button>
       </SheetTrigger>

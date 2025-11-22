@@ -1,4 +1,4 @@
-import { Info } from "lucide-react";
+import { InformationCircleIcon } from "hugeicons-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -79,7 +79,7 @@ export function useProfileUpdate<T extends Record<string, any>>({
       (_t) => (
         <div className="mx-auto flex w-fit min-w-[350px] items-center justify-between gap-3 rounded-md border bg-background p-2 px-4 shadow-lg ring-1 ring-black/5 dark:ring-white/10">
           <div className="flex items-center gap-3">
-            <Info className="size-4 text-muted-foreground" />
+            <InformationCircleIcon className="size-4 text-muted-foreground" />
             <p className="whitespace-nowrap font-medium text-foreground text-sm">
               Your changes haven&apos;t been saved
             </p>
