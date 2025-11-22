@@ -46,6 +46,3 @@ export const auth = betterAuth({
     },
   },
 });
-
-// Re-export for easier imports
-export { auth as betterAuth };

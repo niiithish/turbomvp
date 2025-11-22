@@ -9,7 +9,7 @@ import {
   useContext,
 } from "react";
 import { toggleVariants } from "@/components/ui/toggle";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/cn";
 
 const ToggleGroupContext = createContext<
   VariantProps<typeof toggleVariants> & {

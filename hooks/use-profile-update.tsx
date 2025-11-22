@@ -2,8 +2,8 @@ import { InformationCircleIcon } from "hugeicons-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { authClient } from "../auth/auth-client";
 import type { UseProfileUpdateProps } from "@/types";
+import { authClient } from "../auth/auth-client";
 
 // biome-ignore lint/suspicious/noExplicitAny: Generic constraint requires any
 export function useProfileUpdate<T extends Record<string, any>>({

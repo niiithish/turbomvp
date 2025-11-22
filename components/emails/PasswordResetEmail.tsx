@@ -12,7 +12,7 @@ import {
   Tailwind,
   Text,
 } from "@react-email/components";
-import { emailTheme } from "@/lib/email";
+import { emailTheme } from "@/lib/email/theme";
 
 type PasswordResetEmailProps = {
   resetUrl: string;

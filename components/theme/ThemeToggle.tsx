@@ -2,7 +2,7 @@
 
 import { Moon02Icon, Sun01Icon } from "hugeicons-react";
 import { useTheme } from "@/hooks/use-theme";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/cn";
 
 export function ThemeToggle({ className }: { className?: string }) {
   const { isDark, setTheme, mounted } = useTheme();

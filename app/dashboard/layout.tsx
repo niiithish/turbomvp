@@ -16,7 +16,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { currentUser } from "@/lib/auth";
+import { currentUser } from "@/lib/auth/helpers";
 
 export default async function DashboardLayout({
   children,

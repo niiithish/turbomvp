@@ -11,8 +11,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { pricingPlans } from "@/config";
-import { cn } from "@/lib/utils";
+import { pricingPlans } from "@/config/pricing";
+import { cn } from "@/lib/utils/cn";
 import type { PricingFrequency } from "@/types";
 
 const PricingSection = () => {

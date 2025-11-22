@@ -9,7 +9,7 @@ import {
 } from "@radix-ui/react-popover";
 import type * as React from "react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/cn";
 
 function Popover({ ...props }: React.ComponentProps<typeof Root>) {
   return <Root data-slot="popover" {...props} />;

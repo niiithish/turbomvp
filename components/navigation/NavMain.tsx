@@ -11,11 +11,7 @@ import {
 } from "@/components/ui/sidebar";
 import type { NavItem } from "@/types";
 
-export function NavMain({
-  items,
-}: {
-  items: NavItem[];
-}) {
+export function NavMain({ items }: { items: NavItem[] }) {
   const pathname = usePathname();
   return (
     <SidebarGroup>

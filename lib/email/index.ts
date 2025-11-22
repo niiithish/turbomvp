@@ -1,1 +1,0 @@
-export { emailTheme } from "./theme";

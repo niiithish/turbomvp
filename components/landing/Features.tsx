@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { defaultFeatures, featuresSection } from "@/config";
+import { defaultFeatures, featuresSection } from "@/config/features";
 import type { FeaturesProps } from "@/types";
 
 const Features = ({

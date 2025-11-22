@@ -4,7 +4,7 @@ import { Indicator, Root } from "@radix-ui/react-checkbox";
 import { Tick01Icon } from "hugeicons-react";
 import type * as React from "react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/cn";
 
 function Checkbox({ className, ...props }: React.ComponentProps<typeof Root>) {
   return (

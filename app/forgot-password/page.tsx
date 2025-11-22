@@ -1,11 +1,11 @@
 "use client";
 
+import Link from "next/link";
+import { useState } from "react";
 import { Logo } from "@/components/shared/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import Link from "next/link";
-import { useState } from "react";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -33,14 +33,16 @@ export default function ForgotPasswordPage() {
             Reset your password
           </h1>
           <p className="mt-1 text-muted-foreground text-sm">
-            Enter your email address and we will send you instructions to reset your password.
+            Enter your email address and we will send you instructions to reset
+            your password.
           </p>
         </div>
 
         {isSubmitted ? (
           <div className="rounded-md bg-green-50 p-4 text-center text-green-600 text-sm">
             <p>
-              If an account exists with that email, we have sent a password reset link.
+              If an account exists with that email, we have sent a password
+              reset link.
             </p>
           </div>
         ) : (

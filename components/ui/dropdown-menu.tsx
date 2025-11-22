@@ -20,7 +20,7 @@ import {
 import { ArrowRight01Icon, CircleIcon, Tick01Icon } from "hugeicons-react";
 import type * as React from "react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/cn";
 
 function DropdownMenu({ ...props }: React.ComponentProps<typeof Root>) {
   return <Root data-slot="dropdown-menu" {...props} />;
