@@ -1,24 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TurboMVP - AI SaaS Starter Template
 
-## Getting Started
+A production-ready SaaS starter template built with Next.js 16, Better Auth, Drizzle ORM, and modern UI components. Perfect for quickly launching your AI SaaS product.
 
-First, run the development server:
+## 🚀 Quick Start
+
+### 1. Install Dependencies
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Set Up Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Copy the example environment file and fill in your credentials:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+cp .env.example .env.local
+```
+
+Required environment variables:
+- `DATABASE_URL` - PostgreSQL connection string
+- `BETTER_AUTH_SECRET` - Random secret for auth (generate with `openssl rand -base64 32`)
+- `BETTER_AUTH_URL` - Your app URL (http://localhost:3000 for development)
+- OAuth credentials (if using social login)
+
+### 3. Initialize Database
+
+Generate and run your initial database migration:
+
+```bash
+# Generate migration from schema
+pnpm drizzle-kit generate
+
+# Apply migration to database
+pnpm drizzle-kit push
+```
+
+### 4. Run Development Server
+
+```bash
+pnpm dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) to see your app.
 
 ## Project Structure
 
