@@ -26,15 +26,13 @@ Required environment variables:
 
 ### 3. Initialize Database
 
-Generate and run your initial database migration:
+Push your database schema to your PostgreSQL database:
 
 ```bash
-# Generate migration from schema
-pnpm drizzle-kit generate
-
-# Apply migration to database
-pnpm drizzle-kit push
+pnpm db:push
 ```
+
+This command will sync your database schema with the tables defined in `db/schema/`.
 
 ### 4. Run Development Server
 
