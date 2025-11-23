@@ -1,37 +1,37 @@
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { betterAuth } from "better-auth/minimal";
-import * as schema from "@/db/schema";
+import {
+  account,
+  accountRelations,
+  session,
+  sessionRelations,
+  users,
+  usersRelations,
+  verification,
+} from "@/db/schema";
 import { db } from "@/lib/db";
 import { sendEmail } from "@/lib/email";
 import { VerificationEmail } from "@/components/emails/VerificationEmail";
 import { PasswordResetEmail } from "@/components/emails/PasswordResetEmail";
 
-// Build social providers config conditionally
-const socialProviders: Record<
-  string,
-  { clientId: string; clientSecret: string }
-> = {};
-
-if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
-  socialProviders.google = {
-    clientId: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  };
-}
-
-if (process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET) {
-  socialProviders.github = {
-    clientId: process.env.GITHUB_CLIENT_ID,
-    clientSecret: process.env.GITHUB_CLIENT_SECRET,
-  };
+// Validate required environment variables
+if (!process.env.BETTER_AUTH_SECRET) {
+  throw new Error(
+    "BETTER_AUTH_SECRET is not set. Please add it to your .env file."
+  );
 }
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: "pg",
     schema: {
-      ...schema,
-      user: schema.users,
+      account,
+      accountRelations,
+      session,
+      sessionRelations,
+      user: users,
+      usersRelations,
+      verification,
     },
   }),
   // Disabled experimental joins to avoid schema relation issues
