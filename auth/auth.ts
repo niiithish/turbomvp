@@ -1,5 +1,7 @@
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { betterAuth } from "better-auth/minimal";
+import { PasswordResetEmail } from "@/components/emails/PasswordResetEmail";
+import { VerificationEmail } from "@/components/emails/VerificationEmail";
 import {
   account,
   accountRelations,
@@ -11,8 +13,6 @@ import {
 } from "@/db/schema";
 import { db } from "@/lib/db";
 import { sendEmail } from "@/lib/email";
-import { VerificationEmail } from "@/components/emails/VerificationEmail";
-import { PasswordResetEmail } from "@/components/emails/PasswordResetEmail";
 
 // Validate required environment variables
 if (!process.env.BETTER_AUTH_SECRET) {
