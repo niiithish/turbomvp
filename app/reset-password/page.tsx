@@ -70,9 +70,9 @@ function ResetPasswordForm() {
 
       router.push(
         "/login?message=" +
-        encodeURIComponent(
-          "Your password has been reset. You can now log in."
-        )
+          encodeURIComponent(
+            "Your password has been reset. You can now log in."
+          )
       );
     } catch (_error) {
       setError("An unexpected error occurred while resetting your password.");
