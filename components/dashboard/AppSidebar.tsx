@@ -116,6 +116,7 @@ export function AppSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar> & {
   user: {
+    name?: string | null;
     firstName?: string | null;
     lastName?: string | null;
     email: string;
@@ -146,6 +147,7 @@ export function AppSidebar({
       <SidebarFooter>
         <NavUser
           user={{
+            name: user.name ?? "",
             firstName: user.firstName,
             lastName: user.lastName,
             email: user.email,

@@ -1,17 +1,37 @@
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { betterAuth } from "better-auth/minimal";
-import * as schema from "@/db/schema";
+import {
+  account,
+  accountRelations,
+  session,
+  sessionRelations,
+  users,
+  usersRelations,
+  verification,
+} from "@/db/schema";
 import { db } from "@/lib/db";
 import { sendEmail } from "@/lib/email";
 import { VerificationEmail } from "@/components/emails/VerificationEmail";
 import { PasswordResetEmail } from "@/components/emails/PasswordResetEmail";
 
+// Validate required environment variables
+if (!process.env.BETTER_AUTH_SECRET) {
+  throw new Error(
+    "BETTER_AUTH_SECRET is not set. Please add it to your .env file."
+  );
+}
+
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: "pg",
     schema: {
-      ...schema,
-      user: schema.users,
+      account,
+      accountRelations,
+      session,
+      sessionRelations,
+      user: users,
+      usersRelations,
+      verification,
     },
   }),
   // Disabled experimental joins to avoid schema relation issues
