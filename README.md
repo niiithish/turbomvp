@@ -34,14 +34,13 @@ Optional OAuth configuration (email authentication works independently):
 
 ### 3. Initialize Database
 
-Apply the included migration to your database:
+Push your database schema to your PostgreSQL database:
 
 ```bash
-# Apply migration to your local database
-pnpm db:migrate
+pnpm db:push
 ```
 
-**Note:** The initial migration (`/drizzle/0000_rainy_jackal.sql`) is already included. If you modify the schema in `/db/schema/`, run `pnpm db:generate` to create new migrations.
+This command will sync your database schema with the tables defined in `db/schema/`.
 
 ### 4. Run Development Server
 

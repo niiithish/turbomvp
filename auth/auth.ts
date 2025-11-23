@@ -9,6 +9,9 @@ import {
   usersRelations,
 } from "@/db/schema";
 import { db } from "@/lib/db";
+import { sendEmail } from "@/lib/email";
+import { VerificationEmail } from "@/components/emails/VerificationEmail";
+import { PasswordResetEmail } from "@/components/emails/PasswordResetEmail";
 
 // Build social providers config conditionally
 const socialProviders: Record<
@@ -58,8 +61,32 @@ export const auth = betterAuth({
     },
   },
 
+  emailVerification: {
+    sendVerificationEmail: async ({ user, url }) => {
+      await sendEmail({
+        to: user.email,
+        subject: "Verify your email address",
+        react: VerificationEmail({
+          verificationUrl: url,
+          userEmail: user.email,
+          userName: user.name,
+        }),
+      });
+    },
+  },
   emailAndPassword: {
     enabled: true,
+    sendResetPassword: async ({ user, url }) => {
+      await sendEmail({
+        to: user.email,
+        subject: "Reset your password",
+        react: PasswordResetEmail({
+          resetUrl: url,
+          userEmail: user.email,
+          userName: user.name,
+        }),
+      });
+    },
   },
   // Only include social providers if they're properly configured
   ...(Object.keys(socialProviders).length > 0 && { socialProviders }),
