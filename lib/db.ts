@@ -9,6 +9,7 @@ import {
   sessionRelations,
   users,
   usersRelations,
+  verification,
 } from "@/db/schema";
 
 const pool = new Pool({
@@ -18,11 +19,12 @@ const pool = new Pool({
 // SINGLE drizzle client with your app schema including relations
 export const db = drizzle(pool, {
   schema: {
-    users,
-    usersRelations,
     account,
     accountRelations,
     session,
     sessionRelations,
+    users,
+    usersRelations,
+    verification,
   },
 });

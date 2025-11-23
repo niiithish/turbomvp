@@ -1,5 +1,8 @@
 import { relations } from "drizzle-orm";
 import { boolean, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm";
+import { account } from "./account";
+import { session } from "./session";
 
 export const users = pgTable("user", {
   id: text("id").primaryKey(),
@@ -21,7 +24,3 @@ export const usersRelations = relations(users, ({ many }) => ({
   accounts: many(account),
   sessions: many(session),
 }));
-
-// Import for relations (circular dependency handled by Drizzle)
-import { account } from "./account";
-import { session } from "./session";

@@ -1,13 +1,6 @@
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { betterAuth } from "better-auth/minimal";
-import {
-  account,
-  accountRelations,
-  session,
-  sessionRelations,
-  users,
-  usersRelations,
-} from "@/db/schema";
+import * as schema from "@/db/schema";
 import { db } from "@/lib/db";
 import { sendEmail } from "@/lib/email";
 import { VerificationEmail } from "@/components/emails/VerificationEmail";
@@ -37,14 +30,15 @@ export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: "pg",
     schema: {
-      user: users,
-      account,
-      session,
-      usersRelations,
-      accountRelations,
-      sessionRelations,
+      ...schema,
+      user: schema.users,
     },
   }),
+  // Disabled experimental joins to avoid schema relation issues
+  // The fallback query works perfectly fine for most use cases
+  // experimental: {
+  //   joins: true,
+  // },
   user: {
     changeEmail: {
       enabled: true,
@@ -62,6 +56,7 @@ export const auth = betterAuth({
   },
 
   emailVerification: {
+    sendOnSignUp: true,
     sendVerificationEmail: async ({ user, url }) => {
       await sendEmail({
         to: user.email,

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { authClient } from "@/auth/auth-client";
 import { Logo } from "@/components/shared/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,10 +17,17 @@ export default function ForgotPasswordPage() {
     e.preventDefault();
     setIsLoading(true);
     // TODO: Implement password reset logic
-    setTimeout(() => {
+    try {
+      await authClient.requestPasswordReset({
+        email,
+        redirectTo: "/reset-password",
+      });
+    } catch (_error) {
+      // Intentionally ignore errors here to avoid leaking whether the email exists
+    } finally {
       setIsLoading(false);
       setIsSubmitted(true);
-    }, 1000);
+    }
   };
 
   return (
