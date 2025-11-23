@@ -3,14 +3,14 @@
 import { ViewIcon, ViewOffSlashIcon } from "hugeicons-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { authClient } from "@/auth/auth-client";
 import { Logo } from "@/components/shared/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export default function ResetPasswordPage() {
+function ResetPasswordForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -26,9 +26,13 @@ export default function ResetPasswordPage() {
 
   useEffect(() => {
     if (tokenError === "INVALID_TOKEN") {
-      setError("This reset link is invalid or has expired. Please request a new one.");
+      setError(
+        "This reset link is invalid or has expired. Please request a new one."
+      );
     } else if (!token) {
-      setError("Invalid reset link. Please request a new password reset email.");
+      setError(
+        "Invalid reset link. Please request a new password reset email."
+      );
     }
   }, [token, tokenError]);
 
@@ -66,7 +70,9 @@ export default function ResetPasswordPage() {
 
       router.push(
         "/login?message=" +
-          encodeURIComponent("Your password has been reset. You can now log in."),
+        encodeURIComponent(
+          "Your password has been reset. You can now log in."
+        )
       );
     } catch (_error) {
       setError("An unexpected error occurred while resetting your password.");
@@ -75,7 +81,8 @@ export default function ResetPasswordPage() {
     }
   };
 
-  const isTokenInvalid = Boolean(error) && (!token || tokenError === "INVALID_TOKEN");
+  const isTokenInvalid =
+    Boolean(error) && (!token || tokenError === "INVALID_TOKEN");
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-muted/40 p-4">
@@ -84,7 +91,9 @@ export default function ResetPasswordPage() {
           <div className="mb-6">
             <Logo />
           </div>
-          <h1 className="font-semibold text-2xl tracking-tight">Set a new password</h1>
+          <h1 className="font-semibold text-2xl tracking-tight">
+            Set a new password
+          </h1>
           <p className="mt-1 text-muted-foreground text-sm">
             {isTokenInvalid
               ? "We couldn't validate this reset link. Please request a new password reset email."
@@ -139,9 +148,7 @@ export default function ResetPasswordPage() {
                 />
                 <button
                   className="-translate-y-1/2 absolute top-1/2 right-3 cursor-pointer text-muted-foreground transition-colors hover:text-foreground"
-                  onClick={() =>
-                    setShowConfirmPassword(!showConfirmPassword)
-                  }
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                   type="button"
                 >
                   {showConfirmPassword ? (
@@ -172,5 +179,28 @@ export default function ResetPasswordPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ResetPasswordPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen flex-col items-center justify-center bg-muted/40 p-4">
+          <div className="w-full max-w-md space-y-6 rounded-xl border bg-background p-8 shadow-lg">
+            <div className="flex flex-col items-center text-center">
+              <div className="mb-6">
+                <Logo />
+              </div>
+              <h1 className="font-semibold text-2xl tracking-tight">
+                Loading...
+              </h1>
+            </div>
+          </div>
+        </div>
+      }
+    >
+      <ResetPasswordForm />
+    </Suspense>
   );
 }

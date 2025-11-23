@@ -3,7 +3,7 @@
 import { and, eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { auth } from "@/auth/auth";
-import { account } from "@/db/schema";
+import { account, users } from "@/db/schema";
 import { db } from "@/lib/db";
 
 export async function getLinkedAccounts() {
@@ -40,6 +40,27 @@ export async function unlinkAccount(providerId: string) {
         eq(account.providerId, providerId)
       )
     );
+
+  return { success: true };
+}
+
+export async function deleteAccount(email: string) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session?.user) {
+    throw new Error("Unauthorized");
+  }
+
+  if (session.user.email !== email) {
+    throw new Error("Email does not match");
+  }
+
+  await db
+    .update(users)
+    .set({ deletedAt: new Date() })
+    .where(eq(users.id, session.user.id));
 
   return { success: true };
 }

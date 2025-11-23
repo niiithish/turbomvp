@@ -1,5 +1,5 @@
-import { boolean, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
+import { boolean, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 import { account } from "./account";
 import { session } from "./session";
 
@@ -16,6 +16,7 @@ export const users = pgTable("user", {
     .$onUpdate(() => new Date()),
   firstName: text("firstName"),
   lastName: text("lastName"),
+  deletedAt: timestamp("deletedAt"),
 });
 
 export const usersRelations = relations(users, ({ many }) => ({

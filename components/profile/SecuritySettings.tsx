@@ -4,6 +4,7 @@ import { Loading03Icon } from "hugeicons-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { authClient } from "@/auth/auth-client";
+import { DeleteAccount } from "@/components/profile/DeleteAccount";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -182,6 +183,7 @@ export function SecuritySettings({ user }: SecuritySettingsProps) {
           </Sheet>
         </div>
       </div>
+      <DeleteAccount user={user} />
     </div>
   );
 }
