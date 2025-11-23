@@ -9,7 +9,7 @@ export default function CtaSection() {
     <section className="relative w-full overflow-hidden bg-background py-24 md:py-32">
       {/* Background Gradient Effects */}
       <div className="-z-10 -translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 h-[500px] w-[500px] opacity-30">
-        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary/40 to-purple-500/40 mix-blend-screen blur-[100px]" />
+        <div className="absolute inset-0 rounded-full bg-linear-to-r from-primary/40 to-purple-500/40 mix-blend-screen blur-[100px]" />
       </div>
 
       <div className="container relative z-10 mx-auto px-4 md:px-6">
@@ -29,7 +29,7 @@ export default function CtaSection() {
           <div className="max-w-xl flex-1 text-center lg:text-left">
             <h2 className="font-semibold text-4xl leading-[1.15] tracking-tighter md:text-5xl">
               Ready to build your{" "}
-              <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent">
                 next big thing?
               </span>
             </h2>
