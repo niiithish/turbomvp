@@ -19,7 +19,6 @@ export const metadata: Metadata = {
 };
 
 import { Toaster } from "@/components/ui/sonner";
-import { ProgressBar } from "@/components/ui/progress-bar";
 
 export default function RootLayout({
   children,
@@ -39,7 +38,6 @@ export default function RootLayout({
         >
           {children}
           <Toaster position="bottom-center" />
-          <ProgressBar />
         </ThemeProvider>
       </body>
     </html>

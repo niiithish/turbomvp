@@ -117,7 +117,13 @@ export function LoginDialog({ children }: LoginDialogProps) {
 
           {showOAuthDivider && (
             <>
-              <div className={isGoogleEnabled && isGithubEnabled ? "grid grid-cols-2 gap-4" : "grid grid-cols-1 gap-4"}>
+              <div
+                className={
+                  isGoogleEnabled && isGithubEnabled
+                    ? "grid grid-cols-2 gap-4"
+                    : "grid grid-cols-1 gap-4"
+                }
+              >
                 {isGoogleEnabled && (
                   <div className="relative">
                     {lastUsedMethod === "google" && (
@@ -242,8 +248,6 @@ export function LoginDialog({ children }: LoginDialogProps) {
               </Button>
             </div>
           </form>
-
-
 
           <div className="text-center text-muted-foreground text-sm">
             Don't have an account?{" "}

@@ -96,7 +96,13 @@ export default function SignupPage() {
 
         {showOAuthDivider && (
           <>
-            <div className={isGoogleEnabled && isGithubEnabled ? "grid grid-cols-2 gap-4" : "grid grid-cols-1 gap-4"}>
+            <div
+              className={
+                isGoogleEnabled && isGithubEnabled
+                  ? "grid grid-cols-2 gap-4"
+                  : "grid grid-cols-1 gap-4"
+              }
+            >
               {isGoogleEnabled && (
                 <Button
                   className="h-11"
@@ -213,8 +219,6 @@ export default function SignupPage() {
             {isLoading ? "Creating account..." : "Sign up"}
           </Button>
         </form>
-
-
 
         <div className="text-center text-muted-foreground text-sm">
           Already have an account?{" "}

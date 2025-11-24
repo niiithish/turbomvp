@@ -115,7 +115,13 @@ export function SignupDialog({ children }: SignupDialogProps) {
 
           {showOAuthDivider && (
             <>
-              <div className={isGoogleEnabled && isGithubEnabled ? "grid grid-cols-2 gap-4" : "grid grid-cols-1 gap-4"}>
+              <div
+                className={
+                  isGoogleEnabled && isGithubEnabled
+                    ? "grid grid-cols-2 gap-4"
+                    : "grid grid-cols-1 gap-4"
+                }
+              >
                 {isGoogleEnabled && (
                   <Button
                     className="h-11"
@@ -234,8 +240,6 @@ export function SignupDialog({ children }: SignupDialogProps) {
               {isLoading ? "Creating account..." : "Sign up"}
             </Button>
           </form>
-
-
 
           <div className="text-center text-muted-foreground text-sm">
             Already have an account?{" "}

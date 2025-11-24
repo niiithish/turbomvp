@@ -16,7 +16,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       aria-checked={isDark}
       className={cn(
         "flex h-8 cursor-pointer items-center gap-1 rounded-full border bg-muted/50 p-1 transition-colors duration-200 ease-in-out",
-        "border flex h-8 cursor-pointer items-center gap-1 rounded-full bg-muted/50 p-1 transition-colors duration-200 ease-in-out",
+        "flex h-8 cursor-pointer items-center gap-1 rounded-full border bg-muted/50 p-1 transition-colors duration-200 ease-in-out",
         className
       )}
       onClick={() => setTheme(isDark ? "light" : "dark")}
