@@ -8,7 +8,6 @@ import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "sonner";
 import { authClient } from "@/auth/auth-client";
-import { Logo } from "@/components/shared/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -87,9 +86,6 @@ export default function SignupPage() {
     <div className="flex min-h-screen flex-col items-center justify-center bg-muted/40 p-4">
       <div className="w-full max-w-md space-y-6 rounded-xl border bg-background p-8 shadow-lg">
         <div className="flex flex-col items-center text-center">
-          <div className="mb-6">
-            <Logo />
-          </div>
           <h1 className="font-semibold text-2xl tracking-tight">
             Create an account
           </h1>
@@ -190,7 +186,7 @@ export default function SignupPage() {
             </div>
 
             <div
-              className={`grid gap-4 ${isGoogleEnabled && isGithubEnabled ? "grid-cols-2" : "grid-cols-1"}`}
+              className="grid grid-cols-1 gap-4"
             >
               {isGoogleEnabled && (
                 <Button

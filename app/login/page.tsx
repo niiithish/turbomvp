@@ -8,7 +8,6 @@ import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "sonner";
 import { authClient } from "@/auth/auth-client";
-import { Logo } from "@/components/shared/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -25,6 +24,7 @@ function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const [lastUsedMethod, setLastUsedMethod] = useState<string | null>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -34,6 +34,13 @@ function LoginForm() {
       setMessage(msg);
     }
   }, [searchParams]);
+
+  useEffect(() => {
+    const storedMethod = localStorage.getItem("turbomvp-last-login-method");
+    if (storedMethod) {
+      setLastUsedMethod(storedMethod);
+    }
+  }, []);
 
   const handleSocialSignIn = async (provider: "github" | "google") => {
     // Check if provider is enabled
@@ -45,6 +52,8 @@ function LoginForm() {
       toast.error("GitHub sign-in is not configured. Please contact support.");
       return;
     }
+
+    localStorage.setItem("turbomvp-last-login-method", provider);
 
     setIsLoading(true);
     setError("");
@@ -79,6 +88,7 @@ function LoginForm() {
       if (result.error) {
         setError(result.error.message || "Login failed");
       } else {
+        localStorage.setItem("turbomvp-last-login-method", "email");
         router.push("/dashboard");
       }
     } catch (_err) {
@@ -92,9 +102,6 @@ function LoginForm() {
     <div className="flex min-h-screen flex-col items-center justify-center bg-muted/40 p-4">
       <div className="w-full max-w-md space-y-6 rounded-xl border bg-background p-8 shadow-lg">
         <div className="flex flex-col items-center text-center">
-          <div className="mb-6">
-            <Logo />
-          </div>
           <h1 className="font-semibold text-2xl tracking-tight">
             Welcome back
           </h1>
@@ -162,13 +169,20 @@ function LoginForm() {
             <div className="text-center text-destructive text-sm">{error}</div>
           )}
 
-          <Button
-            className="h-11 w-full bg-primary text-primary-foreground hover:bg-primary/90"
-            disabled={isLoading}
-            type="submit"
-          >
-            {isLoading ? "Signing in..." : "Login"}
-          </Button>
+          <div className="relative">
+            {lastUsedMethod === "email" && (
+              <span className="absolute -top-2 -right-2 z-10 flex h-5 items-center justify-center bg-background px-2 text-[10px] font-medium text-primary shadow-sm border border-primary animate-in fade-in zoom-in duration-300">
+                Last used
+              </span>
+            )}
+            <Button
+              className="h-11 w-full bg-primary text-primary-foreground hover:bg-primary/90"
+              disabled={isLoading}
+              type="submit"
+            >
+              {isLoading ? "Signing in..." : "Login"}
+            </Button>
+          </div>
         </form>
 
         {showOAuthDivider && (
@@ -185,31 +199,45 @@ function LoginForm() {
             </div>
 
             <div
-              className={`grid gap-4 ${isGoogleEnabled && isGithubEnabled ? "grid-cols-2" : "grid-cols-1"}`}
+              className="grid grid-cols-1 gap-4"
             >
               {isGoogleEnabled && (
-                <Button
-                  className="h-11"
-                  disabled={isLoading}
-                  onClick={() => handleSocialSignIn("google")}
-                  type="button"
-                  variant="outline"
-                >
-                  <FcGoogle className="mr-2 h-4 w-4" />
-                  With Google
-                </Button>
+                <div className="relative">
+                  {lastUsedMethod === "google" && (
+                    <span className="absolute -top-2 -right-2 z-10 flex h-5 items-center justify-center rounded-sm bg-background px-2 text-[10px] font-medium text-primary shadow-sm border border-primary animate-in fade-in zoom-in duration-300">
+                      Last used
+                    </span>
+                  )}
+                  <Button
+                    className="h-11 w-full"
+                    disabled={isLoading}
+                    onClick={() => handleSocialSignIn("google")}
+                    type="button"
+                    variant="outline"
+                  >
+                    <FcGoogle className="mr-2 h-4 w-4" />
+                    Continue with Google
+                  </Button>
+                </div>
               )}
               {isGithubEnabled && (
-                <Button
-                  className="h-11"
-                  disabled={isLoading}
-                  onClick={() => handleSocialSignIn("github")}
-                  type="button"
-                  variant="outline"
-                >
-                  <FaGithub className="mr-2 h-4 w-4" />
-                  With GitHub
-                </Button>
+                <div className="relative">
+                  {lastUsedMethod === "github" && (
+                    <span className="absolute -top-2 -right-2 z-10 flex h-5 items-center justify-center rounded-full bg-primary px-2 text-[10px] font-medium text-primary-foreground shadow-sm ring-2 ring-background animate-in fade-in zoom-in duration-300">
+                      Last used
+                    </span>
+                  )}
+                  <Button
+                    className="h-11 w-full"
+                    disabled={isLoading}
+                    onClick={() => handleSocialSignIn("github")}
+                    type="button"
+                    variant="outline"
+                  >
+                    <FaGithub className="mr-2 h-4 w-4" />
+                    Continue with GitHub
+                  </Button>
+                </div>
               )}
             </div>
           </>

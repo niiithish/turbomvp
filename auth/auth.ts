@@ -13,6 +13,7 @@ import {
 } from "@/db/schema";
 import { db } from "@/lib/db";
 import { sendEmail } from "@/lib/email";
+import { tempMailBlocker } from "./plugins/temp-mail-blocker";
 
 // Validate required environment variables
 if (!process.env.BETTER_AUTH_SECRET) {
@@ -87,17 +88,18 @@ export const auth = betterAuth({
   socialProviders: {
     ...(process.env.GOOGLE_CLIENT_ID &&
       process.env.GOOGLE_CLIENT_SECRET && {
-        google: {
-          clientId: process.env.GOOGLE_CLIENT_ID,
-          clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        },
-      }),
+      google: {
+        clientId: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      },
+    }),
     ...(process.env.GITHUB_CLIENT_ID &&
       process.env.GITHUB_CLIENT_SECRET && {
-        github: {
-          clientId: process.env.GITHUB_CLIENT_ID,
-          clientSecret: process.env.GITHUB_CLIENT_SECRET,
-        },
-      }),
+      github: {
+        clientId: process.env.GITHUB_CLIENT_ID,
+        clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      },
+    }),
   },
+  plugins: [tempMailBlocker()],
 });
