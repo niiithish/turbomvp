@@ -22,19 +22,25 @@ Required environment variables:
 - `DATABASE_URL` - PostgreSQL connection string
 - `BETTER_AUTH_SECRET` - Random secret for auth (generate with `openssl rand -base64 32`)
 - `BETTER_AUTH_URL` - Your app URL (http://localhost:3000 for development)
-- OAuth credentials (if using social login)
+- `NEXT_PUBLIC_APP_URL` - Your app URL (http://localhost:3000 for development)
+
+Optional OAuth configuration (email authentication works independently):
+- `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` - Google OAuth credentials
+- `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` - GitHub OAuth credentials
+- `NEXT_PUBLIC_GOOGLE_ENABLED` - Set to "true" to show Google sign-in button
+- `NEXT_PUBLIC_GITHUB_ENABLED` - Set to "true" to show GitHub sign-in button
+
+**Note:** Email authentication works without OAuth. OAuth providers are completely optional and won't affect email sign-in/sign-up.
 
 ### 3. Initialize Database
 
-Generate and run your initial database migration:
+Push your database schema to your PostgreSQL database:
 
 ```bash
-# Generate migration from schema
-pnpm drizzle-kit generate
-
-# Apply migration to database
-pnpm drizzle-kit push
+pnpm db:push
 ```
+
+This command will sync your database schema with the tables defined in `db/schema/`.
 
 ### 4. Run Development Server
 
@@ -139,8 +145,41 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## 🚀 Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Database Setup (Before First Deploy)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Important:** Set up your production database before deploying:
+
+1. **Create PostgreSQL Database**
+   - Use [Vercel Postgres](https://vercel.com/docs/storage/vercel-postgres), [Neon](https://neon.tech/), [Supabase](https://supabase.com/), or any PostgreSQL provider
+
+2. **Run Migrations**
+   ```bash
+   # Set your production DATABASE_URL
+   export DATABASE_URL="postgresql://user:pass@host:5432/db"
+   
+   # Apply migrations to production database
+   pnpm db:migrate
+   ```
+
+### Deploy on Vercel
+
+1. **Push to GitHub** (or GitLab/Bitbucket)
+   
+2. **Import to Vercel**
+   - Go to [vercel.com/new](https://vercel.com/new)
+   - Import your repository
+   
+3. **Configure Environment Variables**
+   Add these in Vercel project settings:
+   - `DATABASE_URL` - Your production database connection string
+   - `BETTER_AUTH_SECRET` - Generate with `openssl rand -base64 32`
+   - `BETTER_AUTH_URL` - Your production URL (e.g., `https://yourapp.vercel.app`)
+   - OAuth credentials (if using Google/GitHub login)
+   
+4. **Deploy**
+   - Click "Deploy"
+   - Vercel will build and deploy your app
+
+**Note:** Database migrations are NOT automatically run during build. You must apply them manually to your production database before deploying.

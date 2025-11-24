@@ -3,7 +3,7 @@
 import { and, eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { auth } from "@/auth/auth";
-import { account } from "@/db/schema";
+import { account, users } from "@/db/schema";
 import { db } from "@/lib/db";
 
 export async function getLinkedAccounts() {
@@ -42,4 +42,70 @@ export async function unlinkAccount(providerId: string) {
     );
 
   return { success: true };
+}
+
+export async function deleteAccount(email: string) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session?.user) {
+    throw new Error("Unauthorized");
+  }
+
+  if (session.user.email !== email) {
+    throw new Error("Email does not match");
+  }
+
+  await db
+    .update(users)
+    .set({ deletedAt: new Date() })
+    .where(eq(users.id, session.user.id));
+
+  return { success: true };
+}
+
+export async function hasPasswordAuth(): Promise<boolean> {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session?.user) {
+    return false;
+  }
+
+  // Check if user has a credential account with password
+  const credentialAccount = await db
+    .select()
+    .from(account)
+    .where(
+      and(
+        eq(account.userId, session.user.id),
+        eq(account.providerId, "credential")
+      )
+    )
+    .limit(1);
+
+  return credentialAccount.length > 0 && !!credentialAccount[0].password;
+}
+
+export async function setUserPassword(newPassword: string) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session?.user) {
+    throw new Error("Unauthorized");
+  }
+
+  try {
+    await auth.api.setPassword({
+      body: { newPassword },
+      headers: await headers(),
+    });
+
+    return { success: true };
+  } catch (_error) {
+    throw new Error("Failed to set password");
+  }
 }

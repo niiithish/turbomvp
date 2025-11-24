@@ -31,7 +31,7 @@ export function NavMain({ items }: { items: NavItem[] }) {
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton
-                className="data-[active=true]:bg-sidebar-active-bg"
+                className="data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground"
                 isActive={pathname === item.url}
                 tooltip={item.title}
               >
