@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { signOut, useSession } from "@/auth/auth-client";
+import { Logo } from "@/components/shared/Logo";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import {
@@ -38,9 +39,9 @@ const NavigationSheet = () => {
       <SheetContent side="right">
         <SheetHeader>
           <SheetTitle className="text-left">
-            <Link href="/" onClick={() => setIsOpen(false)}>
-              Home
-            </Link>
+            <div onClick={() => setIsOpen(false)}>
+              <Logo />
+            </div>
           </SheetTitle>
         </SheetHeader>
         <nav className="flex flex-col gap-6 px-4">

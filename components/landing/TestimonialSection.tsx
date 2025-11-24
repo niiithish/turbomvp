@@ -73,7 +73,7 @@ const TestimonialCard = ({
 
 const TestimonialSection = () => {
   return (
-    <section className="mx-auto max-w-6xl overflow-hidden px-8 py-24">
+    <section id="testimonials" className="mx-auto max-w-6xl overflow-hidden px-8 py-24">
       <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
         {/* Left Content */}
         <div className="mx-auto max-w-xl space-y-8 text-center lg:mx-0 lg:text-left">

@@ -19,6 +19,7 @@ export const metadata: Metadata = {
 };
 
 import { Toaster } from "@/components/ui/sonner";
+import { TopLoadingBar } from "@/components/navigation/TopLoadingBar";
 
 export default function RootLayout({
   children,
@@ -36,6 +37,7 @@ export default function RootLayout({
           disableTransitionOnChange
           enableSystem
         >
+          <TopLoadingBar />
           {children}
           <Toaster position="bottom-center" />
         </ThemeProvider>

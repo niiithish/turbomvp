@@ -20,7 +20,7 @@ const PricingSection = () => {
   const [frequency, setFrequency] = useState<PricingFrequency>("monthly");
 
   return (
-    <div className="mx-auto max-w-6xl px-8 py-24">
+    <div id="pricing" className="mx-auto max-w-6xl px-8 py-24">
       {/* Header Section */}
       <div className="mb-12 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
         <div className="mx-auto max-w-2xl text-center md:mx-0 md:text-left">
@@ -93,7 +93,7 @@ const PricingSection = () => {
                         }}
                         value={
                           plan.price[
-                            frequency as keyof typeof plan.price
+                          frequency as keyof typeof plan.price
                           ] as number
                         }
                       />
