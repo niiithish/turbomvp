@@ -64,3 +64,48 @@ export async function deleteAccount(email: string) {
 
   return { success: true };
 }
+
+export async function hasPasswordAuth(): Promise<boolean> {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session?.user) {
+    return false;
+  }
+
+  // Check if user has a credential account with password
+  const credentialAccount = await db
+    .select()
+    .from(account)
+    .where(
+      and(
+        eq(account.userId, session.user.id),
+        eq(account.providerId, "credential")
+      )
+    )
+    .limit(1);
+
+  return credentialAccount.length > 0 && !!credentialAccount[0].password;
+}
+
+export async function setUserPassword(newPassword: string) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session?.user) {
+    throw new Error("Unauthorized");
+  }
+
+  try {
+    await auth.api.setPassword({
+      body: { newPassword },
+      headers: await headers(),
+    });
+
+    return { success: true };
+  } catch (_error) {
+    throw new Error("Failed to set password");
+  }
+}

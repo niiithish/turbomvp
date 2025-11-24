@@ -2,6 +2,7 @@
 
 import { Loading03Icon } from "hugeicons-react";
 import { authClient } from "@/auth/auth-client";
+import { DeleteAccount } from "@/components/profile/DeleteAccount";
 import { PersonalDetails } from "@/components/profile/PersonalDetails";
 import { SecuritySettings } from "@/components/profile/SecuritySettings";
 import { SocialAccountsCard } from "@/components/profile/SocialAccountsCard";
@@ -36,6 +37,10 @@ export function ProfileContent() {
 
       <div className="pt-4">
         <SocialAccountsCard />
+      </div>
+
+      <div className="pt-4">
+        <DeleteAccount user={user} />
       </div>
     </div>
   );

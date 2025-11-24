@@ -1,5 +1,7 @@
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { betterAuth } from "better-auth/minimal";
+import { emailOTP } from "better-auth/plugins";
+import { ChangeEmailOTP } from "@/components/emails/ChangeEmailOTP";
 import { PasswordResetEmail } from "@/components/emails/PasswordResetEmail";
 import { VerificationEmail } from "@/components/emails/VerificationEmail";
 import {
@@ -101,5 +103,21 @@ export const auth = betterAuth({
         },
       }),
   },
-  plugins: [tempMailBlocker()],
+  plugins: [
+    tempMailBlocker(),
+    emailOTP({
+      async sendVerificationOTP({ email, otp, type }) {
+        if (type === "email-verification") {
+          await sendEmail({
+            to: email,
+            subject: "Verify your email change",
+            react: ChangeEmailOTP({
+              otp,
+              userEmail: email,
+            }),
+          });
+        }
+      },
+    }),
+  ],
 });

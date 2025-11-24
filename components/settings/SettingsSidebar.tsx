@@ -46,8 +46,8 @@ export function SettingsSidebar() {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild size="sm">
-              <Link href="/dashboard">
+            <SidebarMenuButton asChild className="w-full">
+              <Link className="flex items-center gap-2" href="/dashboard">
                 <ArrowLeft01Icon className="size-4" />
                 <span>Back to Dashboard</span>
               </Link>
@@ -64,7 +64,7 @@ export function SettingsSidebar() {
                 <SidebarMenuItem key={item.href}>
                   <SidebarMenuButton
                     asChild
-                    className="data-[active=true]:bg-sidebar-active-bg"
+                    className="data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground"
                     isActive={pathname === item.href}
                   >
                     <Link href={item.href}>
