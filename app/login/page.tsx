@@ -171,7 +171,7 @@ function LoginForm() {
 
           <div className="relative">
             {lastUsedMethod === "email" && (
-              <span className="absolute -top-2 -right-2 z-10 flex h-5 items-center justify-center bg-background px-2 text-[10px] font-medium text-primary shadow-sm border border-primary animate-in fade-in zoom-in duration-300">
+              <span className="-top-2 -right-2 fade-in zoom-in absolute z-10 flex h-5 animate-in items-center justify-center border border-primary bg-background px-2 font-medium text-[10px] text-primary shadow-sm duration-300">
                 Last used
               </span>
             )}
@@ -198,13 +198,11 @@ function LoginForm() {
               </div>
             </div>
 
-            <div
-              className="grid grid-cols-1 gap-4"
-            >
+            <div className="grid grid-cols-1 gap-4">
               {isGoogleEnabled && (
                 <div className="relative">
                   {lastUsedMethod === "google" && (
-                    <span className="absolute -top-2 -right-2 z-10 flex h-5 items-center justify-center rounded-sm bg-background px-2 text-[10px] font-medium text-primary shadow-sm border border-primary animate-in fade-in zoom-in duration-300">
+                    <span className="-top-2 -right-2 fade-in zoom-in absolute z-10 flex h-5 animate-in items-center justify-center rounded-sm border border-primary bg-background px-2 font-medium text-[10px] text-primary shadow-sm duration-300">
                       Last used
                     </span>
                   )}
@@ -223,7 +221,7 @@ function LoginForm() {
               {isGithubEnabled && (
                 <div className="relative">
                   {lastUsedMethod === "github" && (
-                    <span className="absolute -top-2 -right-2 z-10 flex h-5 items-center justify-center rounded-full bg-primary px-2 text-[10px] font-medium text-primary-foreground shadow-sm ring-2 ring-background animate-in fade-in zoom-in duration-300">
+                    <span className="-top-2 -right-2 fade-in zoom-in absolute z-10 flex h-5 animate-in items-center justify-center rounded-full bg-primary px-2 font-medium text-[10px] text-primary-foreground shadow-sm ring-2 ring-background duration-300">
                       Last used
                     </span>
                   )}
