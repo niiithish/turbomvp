@@ -2,6 +2,7 @@
 import NumberFlow from "@number-flow/react";
 import { motion } from "framer-motion";
 import { ArrowRight01Icon, Tick02Icon } from "hugeicons-react";
+import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -79,24 +80,33 @@ const PricingSection = () => {
 
             <CardContent className="flex flex-col gap-5">
               <div className="mb-1 flex items-baseline gap-1">
-                <span className="font-bold text-4xl">
-                  <NumberFlow
-                    format={{
-                      style: "currency",
-                      currency: "USD",
-                      maximumFractionDigits: 0,
-                    }}
-                    value={
-                      plan.price[frequency as keyof typeof plan.price] as number
-                    }
-                  />
-                </span>
-                <span className="text-muted-foreground text-sm">
-                  {plan.period}
-                </span>
+                {plan.id === "enterprise" ? (
+                  <span className="font-bold text-4xl">Custom</span>
+                ) : (
+                  <>
+                    <span className="font-bold text-4xl">
+                      <NumberFlow
+                        format={{
+                          style: "currency",
+                          currency: "USD",
+                          maximumFractionDigits: 0,
+                        }}
+                        value={
+                          plan.price[
+                            frequency as keyof typeof plan.price
+                          ] as number
+                        }
+                      />
+                    </span>
+                    <span className="text-muted-foreground text-sm">
+                      {plan.period}
+                    </span>
+                  </>
+                )}
               </div>
 
               <Button
+                asChild
                 className={cn(
                   "h-11 w-full rounded-sm font-medium text-base transition-all",
                   plan.popular
@@ -104,7 +114,15 @@ const PricingSection = () => {
                     : "border border-border bg-secondary/50 text-secondary-foreground hover:bg-secondary/70"
                 )}
               >
-                {plan.cta} <ArrowRight01Icon className="ml-2 h-4 w-4" />
+                {plan.id === "enterprise" ? (
+                  <a href="mailto:contact@turbomvp.com">
+                    {plan.cta} <ArrowRight01Icon className="ml-2 h-4 w-4" />
+                  </a>
+                ) : (
+                  <Link href="/signup">
+                    {plan.cta} <ArrowRight01Icon className="ml-2 h-4 w-4" />
+                  </Link>
+                )}
               </Button>
 
               <div className="space-y-3">

@@ -47,24 +47,25 @@ export const pricingPlans: PricingPlan[] = [
     popular: true,
   },
   {
-    id: "team",
-    name: "Team",
+    id: "enterprise",
+    name: "Enterprise",
     price: {
-      monthly: 42,
-      yearly: 35, // Assuming a discount
+      monthly: 0, // Custom pricing
+      yearly: 0,
     },
     period: "/month",
-    description: "Powerful collaboration tools built for growing larger teams.",
+    description:
+      "Custom solutions and dedicated support for large organizations.",
     features: [
-      "Dedicated success manager included",
-      "Custom roles and permissions",
+      "Dedicated success manager",
+      "Custom contracts & invoicing",
       "Unlimited workflows & automations",
-      "Up to 25 teammates",
-      "Real-time analytics",
-      "Premium integrations",
-      "Priority support",
+      "Unlimited teammates",
+      "Advanced analytics & reporting",
+      "SSO & advanced security",
+      "24/7 Priority support",
     ],
-    cta: "Get Started",
+    cta: "Contact Us",
     popular: false,
   },
 ];

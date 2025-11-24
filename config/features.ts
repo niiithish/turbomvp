@@ -7,7 +7,7 @@ import type { Feature } from "@/types";
 
 export const defaultFeatures = {
   feature1: {
-    title: "Next.js 15 & React 19",
+    title: "Next.js 16 & React 19",
     description:
       "Built on the latest and greatest web technologies for maximum performance and developer experience.",
     image:
