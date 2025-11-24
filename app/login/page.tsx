@@ -116,6 +116,62 @@ function LoginForm() {
           </div>
         )}
 
+        {showOAuthDivider && (
+          <>
+            <div className={isGoogleEnabled && isGithubEnabled ? "grid grid-cols-2 gap-4" : "grid grid-cols-1 gap-4"}>
+              {isGoogleEnabled && (
+                <div className="relative">
+                  {lastUsedMethod === "google" && (
+                    <span className="-top-2 -right-2 fade-in zoom-in absolute z-10 flex h-5 animate-in items-center justify-center rounded-sm border border-primary bg-background px-2 font-medium text-[10px] text-primary shadow-sm duration-300">
+                      Last used
+                    </span>
+                  )}
+                  <Button
+                    className="h-11 w-full"
+                    disabled={isLoading}
+                    onClick={() => handleSocialSignIn("google")}
+                    type="button"
+                    variant="outline"
+                  >
+                    <FcGoogle className="mr-2 h-4 w-4" />
+                    Google
+                  </Button>
+                </div>
+              )}
+              {isGithubEnabled && (
+                <div className="relative">
+                  {lastUsedMethod === "github" && (
+                    <span className="-top-2 -right-2 fade-in zoom-in absolute z-10 flex h-5 animate-in items-center justify-center rounded-full bg-primary px-2 font-medium text-[10px] text-primary-foreground shadow-sm ring-2 ring-background duration-300">
+                      Last used
+                    </span>
+                  )}
+                  <Button
+                    className="h-11 w-full"
+                    disabled={isLoading}
+                    onClick={() => handleSocialSignIn("github")}
+                    type="button"
+                    variant="outline"
+                  >
+                    <FaGithub className="mr-2 h-4 w-4" />
+                    GitHub
+                  </Button>
+                </div>
+              )}
+            </div>
+
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-background px-2 text-muted-foreground">
+                  OR
+                </span>
+              </div>
+            </div>
+          </>
+        )}
+
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div className="space-y-4">
             <div className="space-y-2">
@@ -185,61 +241,7 @@ function LoginForm() {
           </div>
         </form>
 
-        {showOAuthDivider && (
-          <>
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t" />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">
-                  OR
-                </span>
-              </div>
-            </div>
 
-            <div className="grid grid-cols-1 gap-4">
-              {isGoogleEnabled && (
-                <div className="relative">
-                  {lastUsedMethod === "google" && (
-                    <span className="-top-2 -right-2 fade-in zoom-in absolute z-10 flex h-5 animate-in items-center justify-center rounded-sm border border-primary bg-background px-2 font-medium text-[10px] text-primary shadow-sm duration-300">
-                      Last used
-                    </span>
-                  )}
-                  <Button
-                    className="h-11 w-full"
-                    disabled={isLoading}
-                    onClick={() => handleSocialSignIn("google")}
-                    type="button"
-                    variant="outline"
-                  >
-                    <FcGoogle className="mr-2 h-4 w-4" />
-                    Continue with Google
-                  </Button>
-                </div>
-              )}
-              {isGithubEnabled && (
-                <div className="relative">
-                  {lastUsedMethod === "github" && (
-                    <span className="-top-2 -right-2 fade-in zoom-in absolute z-10 flex h-5 animate-in items-center justify-center rounded-full bg-primary px-2 font-medium text-[10px] text-primary-foreground shadow-sm ring-2 ring-background duration-300">
-                      Last used
-                    </span>
-                  )}
-                  <Button
-                    className="h-11 w-full"
-                    disabled={isLoading}
-                    onClick={() => handleSocialSignIn("github")}
-                    type="button"
-                    variant="outline"
-                  >
-                    <FaGithub className="mr-2 h-4 w-4" />
-                    Continue with GitHub
-                  </Button>
-                </div>
-              )}
-            </div>
-          </>
-        )}
 
         <div className="text-center text-muted-foreground text-sm">
           Don't have an account?{" "}

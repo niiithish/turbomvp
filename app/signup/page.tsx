@@ -73,7 +73,7 @@ export default function SignupPage() {
       if (result.error) {
         setError(result.error.message || "Signup failed");
       } else {
-        router.push("/login?message=Account created successfully");
+        router.push("/dashboard");
       }
     } catch (_err) {
       setError("An unexpected error occurred");
@@ -93,6 +93,48 @@ export default function SignupPage() {
             Enter your details to create your account
           </p>
         </div>
+
+        {showOAuthDivider && (
+          <>
+            <div className={isGoogleEnabled && isGithubEnabled ? "grid grid-cols-2 gap-4" : "grid grid-cols-1 gap-4"}>
+              {isGoogleEnabled && (
+                <Button
+                  className="h-11"
+                  disabled={isLoading}
+                  onClick={() => handleSocialSignUp("google")}
+                  type="button"
+                  variant="outline"
+                >
+                  <FcGoogle className="mr-2 h-4 w-4" />
+                  Google
+                </Button>
+              )}
+              {isGithubEnabled && (
+                <Button
+                  className="h-11"
+                  disabled={isLoading}
+                  onClick={() => handleSocialSignUp("github")}
+                  type="button"
+                  variant="outline"
+                >
+                  <FaGithub className="mr-2 h-4 w-4" />
+                  GitHub
+                </Button>
+              )}
+            </div>
+
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-background px-2 text-muted-foreground">
+                  OR
+                </span>
+              </div>
+            </div>
+          </>
+        )}
 
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div className="grid grid-cols-2 gap-4">
@@ -172,47 +214,7 @@ export default function SignupPage() {
           </Button>
         </form>
 
-        {showOAuthDivider && (
-          <>
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t" />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">
-                  OR
-                </span>
-              </div>
-            </div>
 
-            <div className="grid grid-cols-1 gap-4">
-              {isGoogleEnabled && (
-                <Button
-                  className="h-11"
-                  disabled={isLoading}
-                  onClick={() => handleSocialSignUp("google")}
-                  type="button"
-                  variant="outline"
-                >
-                  <FcGoogle className="mr-2 h-4 w-4" />
-                  Continue with Google
-                </Button>
-              )}
-              {isGithubEnabled && (
-                <Button
-                  className="h-11"
-                  disabled={isLoading}
-                  onClick={() => handleSocialSignUp("github")}
-                  type="button"
-                  variant="outline"
-                >
-                  <FaGithub className="mr-2 h-4 w-4" />
-                  Continue with GitHub
-                </Button>
-              )}
-            </div>
-          </>
-        )}
 
         <div className="text-center text-muted-foreground text-sm">
           Already have an account?{" "}
