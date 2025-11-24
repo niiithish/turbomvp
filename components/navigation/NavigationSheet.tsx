@@ -39,9 +39,13 @@ const NavigationSheet = () => {
       <SheetContent side="right">
         <SheetHeader>
           <SheetTitle className="text-left">
-            <div onClick={() => setIsOpen(false)}>
+            <button
+              className="cursor-pointer border-none bg-transparent p-0"
+              onClick={() => setIsOpen(false)}
+              type="button"
+            >
               <Logo />
-            </div>
+            </button>
           </SheetTitle>
         </SheetHeader>
         <nav className="flex flex-col gap-6 px-4">

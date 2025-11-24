@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   description: "The ultimate Next.js SaaS starter kit",
 };
 
-import { Toaster } from "@/components/ui/sonner";
 import { TopLoadingBar } from "@/components/navigation/TopLoadingBar";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function RootLayout({
   children,
