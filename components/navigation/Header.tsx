@@ -4,8 +4,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { signOut, useSession } from "@/auth/auth-client";
+import { LoginDialog } from "@/components/navigation/LoginDialog";
 import NavigationSheet from "@/components/navigation/NavigationSheet";
 import NavMenu from "@/components/navigation/NavMenu";
+import { SignupDialog } from "@/components/navigation/SignupDialog";
 import { Logo } from "@/components/shared/Logo";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { Button } from "@/components/ui/button";
@@ -60,16 +62,14 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <Button
-                asChild
-                className="hidden sm:inline-flex"
-                variant="outline"
-              >
-                <Link href="/login">Sign In</Link>
-              </Button>
-              <Button asChild>
-                <Link href="/signup">Sign Up</Link>
-              </Button>
+              <LoginDialog>
+                <Button className="hidden sm:inline-flex" variant="outline">
+                  Sign In
+                </Button>
+              </LoginDialog>
+              <SignupDialog>
+                <Button>Sign Up</Button>
+              </SignupDialog>
             </>
           )}
           {/* Mobile Menu */}
