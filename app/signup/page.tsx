@@ -195,7 +195,7 @@ export default function SignupPage() {
                   variant="outline"
                 >
                   <FcGoogle className="mr-2 h-4 w-4" />
-                  With Google
+                  Continue with Google
                 </Button>
               )}
               {isGithubEnabled && (
@@ -207,7 +207,7 @@ export default function SignupPage() {
                   variant="outline"
                 >
                   <FaGithub className="mr-2 h-4 w-4" />
-                  With GitHub
+                  Continue with GitHub
                 </Button>
               )}
             </div>
