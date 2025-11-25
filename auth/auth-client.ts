@@ -1,6 +1,6 @@
+import { dodopaymentsClient } from "@dodopayments/better-auth";
 import { emailOTPClient } from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/react";
-import { dodopaymentsClient } from "@dodopayments/better-auth";
 
 export const authClient = createAuthClient({
   baseURL: process.env.NEXT_PUBLIC_APP_URL,
