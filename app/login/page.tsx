@@ -233,7 +233,7 @@ function LoginForm() {
 
           <div className="relative">
             {lastUsedMethod === "email" && (
-              <span className="-top-2 -right-2 fade-in zoom-in absolute z-10 flex h-5 animate-in items-center justify-center border border-primary bg-background px-2 font-medium text-[10px] text-primary shadow-sm duration-300">
+              <span className="-top-2 -right-2 fade-in zoom-in absolute z-10 flex h-5 animate-in items-center justify-center rounded-sm border border-primary bg-background px-2 font-medium text-[10px] text-primary shadow-sm duration-300">
                 Last used
               </span>
             )}

@@ -1,6 +1,6 @@
 "use client";
 
-import { ViewIcon, ViewOffSlashIcon } from "hugeicons-react";
+import { Loading03Icon, ViewIcon, ViewOffSlashIcon } from "hugeicons-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -33,6 +33,7 @@ export function LoginDialog({ children }: LoginDialogProps) {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
   const [error, setError] = useState("");
   const [lastUsedMethod, setLastUsedMethod] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
@@ -91,7 +92,7 @@ export function LoginDialog({ children }: LoginDialogProps) {
         setError(result.error.message || "Login failed");
       } else {
         localStorage.setItem("turbomvp-last-login-method", "email");
-        setOpen(false);
+        setIsRedirecting(true);
         router.push("/dashboard");
       }
     } catch (_err) {
@@ -105,6 +106,12 @@ export function LoginDialog({ children }: LoginDialogProps) {
     <Dialog onOpenChange={setOpen} open={open}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="max-w-md">
+        {isRedirecting ? (
+          <div className="flex flex-col items-center justify-center gap-4 py-12">
+            <Loading03Icon className="h-8 w-8 animate-spin text-primary" />
+            <p className="font-medium text-muted-foreground">Redirecting to dashboard...</p>
+          </div>
+        ) : (
         <div className="space-y-6">
           <div className="flex flex-col items-center text-center">
             <DialogTitle className="font-semibold text-2xl tracking-tight">
@@ -235,7 +242,7 @@ export function LoginDialog({ children }: LoginDialogProps) {
 
             <div className="relative">
               {lastUsedMethod === "email" && (
-                <span className="-top-2 -right-2 fade-in zoom-in absolute z-10 flex h-5 animate-in items-center justify-center border border-primary bg-background px-2 font-medium text-[10px] text-primary shadow-sm duration-300">
+                <span className="-top-2 -right-2 fade-in zoom-in absolute z-10 flex h-5 animate-in items-center justify-center rounded-sm border border-primary bg-background px-2 font-medium text-[10px] text-primary shadow-sm duration-300">
                   Last used
                 </span>
               )}
@@ -260,6 +267,7 @@ export function LoginDialog({ children }: LoginDialogProps) {
             </Link>
           </div>
         </div>
+        )}
       </DialogContent>
     </Dialog>
   );

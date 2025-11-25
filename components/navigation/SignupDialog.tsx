@@ -1,6 +1,6 @@
 "use client";
 
-import { ViewIcon, ViewOffSlashIcon } from "hugeicons-react";
+import { Loading03Icon, ViewIcon, ViewOffSlashIcon } from "hugeicons-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -35,6 +35,7 @@ export function SignupDialog({ children }: SignupDialogProps) {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
   const [error, setError] = useState("");
   const [open, setOpen] = useState(false);
   const router = useRouter();
@@ -73,24 +74,32 @@ export function SignupDialog({ children }: SignupDialogProps) {
     setIsLoading(true);
     setError("");
 
+    const trimmedFirstName = firstName.trim();
+    const trimmedLastName = lastName.trim();
+    const trimmedEmail = email.trim();
+
+    if (!trimmedFirstName || !trimmedLastName || !trimmedEmail) {
+      setError("Please fill in all fields");
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const result = await authClient.signUp.email({
-        email,
+        email: trimmedEmail,
         password,
-        firstName,
-        lastName,
+        name: `${trimmedFirstName} ${trimmedLastName}`,
+        firstName: trimmedFirstName,
+        lastName: trimmedLastName,
         // biome-ignore lint/suspicious/noExplicitAny: Extending default signup type
       } as any);
 
       if (result.error) {
         setError(result.error.message || "Signup failed");
       } else {
-        setOpen(false);
+        setIsRedirecting(true);
         toast.success("Account created successfully!");
-        // Small delay before navigating to allow toast to show
-        setTimeout(() => {
-          router.push("/dashboard");
-        }, 1000);
+        router.push("/dashboard");
       }
     } catch (_err) {
       setError("An unexpected error occurred");
@@ -103,6 +112,12 @@ export function SignupDialog({ children }: SignupDialogProps) {
     <Dialog onOpenChange={setOpen} open={open}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="max-w-md">
+        {isRedirecting ? (
+          <div className="flex flex-col items-center justify-center gap-4 py-12">
+            <Loading03Icon className="h-8 w-8 animate-spin text-primary" />
+            <p className="font-medium text-muted-foreground">Redirecting to dashboard...</p>
+          </div>
+        ) : (
         <div className="space-y-6">
           <div className="flex flex-col items-center text-center">
             <DialogTitle className="font-semibold text-2xl tracking-tight">
@@ -252,6 +267,7 @@ export function SignupDialog({ children }: SignupDialogProps) {
             </Link>
           </div>
         </div>
+        )}
       </DialogContent>
     </Dialog>
   );

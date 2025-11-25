@@ -24,6 +24,7 @@ export default function SignupPage() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
 
@@ -61,23 +62,35 @@ export default function SignupPage() {
     setIsLoading(true);
     setError("");
 
+    const trimmedFirstName = firstName.trim();
+    const trimmedLastName = lastName.trim();
+    const trimmedEmail = email.trim();
+
+    if (!trimmedFirstName || !trimmedLastName || !trimmedEmail) {
+      setError("Please fill in all fields");
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const result = await authClient.signUp.email({
-        email,
+        email: trimmedEmail,
         password,
-        firstName,
-        lastName,
+        name: `${trimmedFirstName} ${trimmedLastName}`,
+        firstName: trimmedFirstName,
+        lastName: trimmedLastName,
         // biome-ignore lint/suspicious/noExplicitAny: Extending default signup type
       } as any);
 
       if (result.error) {
         setError(result.error.message || "Signup failed");
+        setIsLoading(false);
       } else {
+        setIsRedirecting(true);
         router.push("/dashboard");
       }
     } catch (_err) {
       setError("An unexpected error occurred");
-    } finally {
       setIsLoading(false);
     }
   };
@@ -213,10 +226,14 @@ export default function SignupPage() {
 
           <Button
             className="h-11 w-full bg-primary text-primary-foreground hover:bg-primary/90"
-            disabled={isLoading}
+            disabled={isLoading || isRedirecting}
             type="submit"
           >
-            {isLoading ? "Creating account..." : "Sign up"}
+            {isRedirecting
+              ? "Redirecting..."
+              : isLoading
+                ? "Creating account..."
+                : "Sign up"}
           </Button>
         </form>
 
