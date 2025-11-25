@@ -28,6 +28,20 @@ type BillingInfo = {
   dodoCustomerId: string | null;
 };
 
+async function handleResendVerification(email: string, callbackURL: string) {
+  const { error } = await authClient.sendVerificationEmail({
+    email,
+    callbackURL,
+  });
+  if (error) {
+    toast.error("Failed to send verification email");
+  } else {
+    toast.success("Verification email sent", {
+      description: "Please check your inbox.",
+    });
+  }
+}
+
 function PlanStatusBadge({ isPro }: { isPro: boolean }) {
   const className = isPro
     ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
@@ -146,6 +160,29 @@ export default function BillingSettingsPage() {
       // Get current session for user info
       const sessionData = await authClient.getSession();
       const user = sessionData?.data?.user;
+
+      // Require authentication
+      if (!user) {
+        setIsLoadingCheckout(false);
+        return;
+      }
+
+      // Require email verification before checkout
+      if (!user.emailVerified) {
+        toast.error("Email verification required", {
+          description: "Please verify your email address before upgrading.",
+          action: {
+            label: "Resend",
+            onClick: () =>
+              handleResendVerification(
+                user.email,
+                "/dashboard/settings/billing"
+              ),
+          },
+        });
+        setIsLoadingCheckout(false);
+        return;
+      }
 
       const { data: checkout, error } = await authClient.dodopayments.checkout({
         slug: "pro-plan",

@@ -129,6 +129,39 @@ function PricingButton({
   );
 }
 
+async function handleResendVerification(email: string, callbackURL: string) {
+  const { error } = await authClient.sendVerificationEmail({
+    email,
+    callbackURL,
+  });
+  if (error) {
+    toast.error("Failed to send verification email");
+  } else {
+    toast.success("Verification email sent", {
+      description: "Please check your inbox.",
+    });
+  }
+}
+
+async function processCheckout(slug: string, email: string, name: string) {
+  const { data: checkout, error } = await authClient.dodopayments.checkout({
+    slug,
+    customer: { email, name },
+    billing: { city: "", country: "US", state: "", street: "", zipcode: "" },
+  });
+
+  if (error) {
+    toast.error("Checkout failed", {
+      description: error.message || "Please try again later.",
+    });
+    return;
+  }
+
+  if (checkout?.url) {
+    window.location.href = checkout.url;
+  }
+}
+
 const PricingSection = () => {
   const { data: session } = authClient.useSession();
   const [frequency, setFrequency] = useState<PricingFrequency>("monthly");
@@ -164,32 +197,26 @@ const PricingSection = () => {
       const sessionData = await authClient.getSession();
       const user = sessionData?.data?.user;
 
-      const { data: checkout, error } = await authClient.dodopayments.checkout({
-        slug: plan.slug,
-        customer: {
-          email: user?.email || "",
-          name: user?.name || "Customer",
-        },
-        // Billing address is required by Dodo Payments
-        billing: {
-          city: "",
-          country: "US",
-          state: "",
-          street: "",
-          zipcode: "",
-        },
-      });
-
-      if (error) {
-        toast.error("Checkout failed", {
-          description: error.message || "Please try again later.",
-        });
+      // Require authentication
+      if (!user) {
+        setLoadingPlan(null);
         return;
       }
 
-      if (checkout?.url) {
-        window.location.href = checkout.url;
+      // Require email verification before checkout
+      if (!user.emailVerified) {
+        toast.error("Email verification required", {
+          description: "Please verify your email address before upgrading.",
+          action: {
+            label: "Resend",
+            onClick: () => handleResendVerification(user.email, "/"),
+          },
+        });
+        setLoadingPlan(null);
+        return;
       }
+
+      await processCheckout(plan.slug, user.email, user.name || "Customer");
     } catch {
       toast.error("Checkout failed", {
         description: "An unexpected error occurred. Please try again.",
