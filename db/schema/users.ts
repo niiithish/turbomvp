@@ -17,6 +17,11 @@ export const users = pgTable("user", {
   firstName: text("firstName"),
   lastName: text("lastName"),
   deletedAt: timestamp("deletedAt"),
+  // Dodo Payments fields
+  dodoCustomerId: text("dodoCustomerId"),
+  subscriptionId: text("subscriptionId"),
+  subscriptionStatus: text("subscriptionStatus"), // 'active' | 'cancelled' | 'on_hold' | null
+  plan: text("plan").default("free"), // 'free' | 'pro'
 });
 
 export const usersRelations = relations(users, ({ many }) => ({

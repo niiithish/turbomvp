@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  allowedDevOrigins: ["unfundable-facultative-nakita.ngrok-free.dev"],
   images: {
     remotePatterns: [
       {

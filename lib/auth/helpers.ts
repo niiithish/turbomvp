@@ -4,6 +4,9 @@ import { auth } from "@/auth/auth";
 import { users } from "@/db/schema";
 import { db } from "@/lib/db";
 
+/** User type from database */
+type User = typeof users.$inferSelect;
+
 /**
  * Get the current user from BetterAuth session
  * @returns The BetterAuth user object, or undefined if not authenticated
@@ -47,4 +50,25 @@ export async function getCurrentUserId() {
   });
 
   return session?.user?.id ?? null;
+}
+
+/**
+ * Check if a user has an active Pro subscription
+ * @param user - The user object from the database
+ * @returns True if the user has an active Pro subscription
+ */
+export function isPro(user: User | null): boolean {
+  if (!user) {
+    return false;
+  }
+  return user.plan === "pro" && user.subscriptionStatus === "active";
+}
+
+/**
+ * Check if the current authenticated user has an active Pro subscription
+ * @returns True if the current user has an active Pro subscription
+ */
+export async function isCurrentUserPro(): Promise<boolean> {
+  const user = await getCurrentUser();
+  return isPro(user);
 }

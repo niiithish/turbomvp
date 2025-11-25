@@ -15,6 +15,10 @@ export type PricingPlan = {
   features: string[];
   cta: string;
   popular: boolean;
+  /** Dodo Payments product ID (e.g., "pdt_xxxxxxxxxxxxxxxxxxxxx") */
+  dodoProductId?: string;
+  /** URL-friendly slug for checkout (e.g., "pro-plan") */
+  slug?: string;
 };
 
 export type PricingFrequency = "monthly" | "yearly";

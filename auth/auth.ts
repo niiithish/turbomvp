@@ -1,9 +1,18 @@
+import {
+  checkout,
+  dodopayments,
+  portal,
+  webhooks,
+} from "@dodopayments/better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { betterAuth } from "better-auth/minimal";
 import { emailOTP } from "better-auth/plugins";
+import DodoPayments from "dodopayments";
+import { eq } from "drizzle-orm";
 import { ChangeEmailOTP } from "@/components/emails/ChangeEmailOTP";
 import { PasswordResetEmail } from "@/components/emails/PasswordResetEmail";
 import { VerificationEmail } from "@/components/emails/VerificationEmail";
+import { pricingPlans } from "@/config/pricing";
 import {
   account,
   accountRelations,
@@ -23,6 +32,18 @@ if (!process.env.BETTER_AUTH_SECRET) {
     "BETTER_AUTH_SECRET is not set. Please add it to your .env file."
   );
 }
+
+// Initialize Dodo Payments client (only if API key is configured)
+const dodoPaymentsClient = process.env.DODO_PAYMENTS_API_KEY
+  ? new DodoPayments({
+      bearerToken: process.env.DODO_PAYMENTS_API_KEY,
+      environment:
+        process.env.NODE_ENV === "production" ? "live_mode" : "test_mode",
+    })
+  : null;
+
+// Get Pro plan product configuration
+const proPlan = pricingPlans.find((p) => p.id === "pro");
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -119,5 +140,221 @@ export const auth = betterAuth({
         }
       },
     }),
+    // Dodo Payments plugin (only enabled if API key is configured)
+    ...(dodoPaymentsClient && proPlan?.dodoProductId
+      ? [
+          dodopayments({
+            client: dodoPaymentsClient,
+            createCustomerOnSignUp: false, // Lazy customer creation at checkout
+            use: [
+              checkout({
+                products: [
+                  {
+                    productId: proPlan.dodoProductId,
+                    slug: proPlan.slug ?? "pro-plan",
+                  },
+                ],
+                successUrl: "/dashboard/billing/success",
+                authenticatedUsersOnly: true,
+              }),
+              portal(),
+              webhooks({
+                webhookKey: process.env.DODO_PAYMENTS_WEBHOOK_SECRET ?? "",
+                // Generic handler for logging all events
+                onPayload: async (payload) => {
+                  await Promise.resolve();
+                  console.log(
+                    "[Dodo Payments] Webhook received:",
+                    payload.type
+                  );
+                },
+                // Subscription activated - upgrade user to Pro
+                onSubscriptionActive: async (payload) => {
+                  const data = payload.data as Record<string, unknown>;
+                  const customer = data?.customer as
+                    | { email?: string; customer_id?: string }
+                    | undefined;
+                  const customerEmail = customer?.email;
+
+                  if (!customerEmail) {
+                    console.warn(
+                      "[Dodo Payments] No customer email in subscription.active"
+                    );
+                    return;
+                  }
+
+                  const [user] = await db
+                    .select()
+                    .from(users)
+                    .where(eq(users.email, customerEmail))
+                    .limit(1);
+
+                  if (!user) {
+                    console.warn(
+                      "[Dodo Payments] User not found:",
+                      customerEmail
+                    );
+                    return;
+                  }
+
+                  const subscriptionId = data?.subscription_id as
+                    | string
+                    | undefined;
+                  await db
+                    .update(users)
+                    .set({
+                      plan: "pro",
+                      subscriptionStatus: "active",
+                      subscriptionId,
+                      dodoCustomerId: customer?.customer_id,
+                    })
+                    .where(eq(users.id, user.id));
+                  console.log(
+                    "[Dodo Payments] User upgraded to Pro:",
+                    user.email
+                  );
+                },
+                // Subscription cancelled
+                onSubscriptionCancelled: async (payload) => {
+                  const data = payload.data as Record<string, unknown>;
+                  const customer = data?.customer as
+                    | { email?: string }
+                    | undefined;
+                  const customerEmail = customer?.email;
+
+                  if (!customerEmail) {
+                    return;
+                  }
+
+                  const [user] = await db
+                    .select()
+                    .from(users)
+                    .where(eq(users.email, customerEmail))
+                    .limit(1);
+
+                  if (user) {
+                    await db
+                      .update(users)
+                      .set({ subscriptionStatus: "cancelled" })
+                      .where(eq(users.id, user.id));
+                    console.log(
+                      "[Dodo Payments] Subscription cancelled:",
+                      user.email
+                    );
+                  }
+                },
+                // Subscription on hold (failed renewal)
+                onSubscriptionOnHold: async (payload) => {
+                  const data = payload.data as Record<string, unknown>;
+                  const customer = data?.customer as
+                    | { email?: string }
+                    | undefined;
+                  const customerEmail = customer?.email;
+
+                  if (!customerEmail) {
+                    return;
+                  }
+
+                  const [user] = await db
+                    .select()
+                    .from(users)
+                    .where(eq(users.email, customerEmail))
+                    .limit(1);
+
+                  if (user) {
+                    await db
+                      .update(users)
+                      .set({ subscriptionStatus: "on_hold" })
+                      .where(eq(users.id, user.id));
+                    console.log(
+                      "[Dodo Payments] Subscription on hold:",
+                      user.email
+                    );
+                  }
+                },
+                // Subscription renewed - keep active status
+                onSubscriptionRenewed: async (payload) => {
+                  await Promise.resolve();
+                  const data = payload.data as Record<string, unknown>;
+                  const customer = data?.customer as
+                    | { email?: string }
+                    | undefined;
+                  console.log(
+                    "[Dodo Payments] Subscription renewed for:",
+                    customer?.email
+                  );
+                },
+                // Payment succeeded - also update user for subscription payments
+                onPaymentSucceeded: async (payload) => {
+                  const data = payload.data as Record<string, unknown>;
+                  const customer = data?.customer as
+                    | { email?: string; customer_id?: string }
+                    | undefined;
+                  const customerEmail = customer?.email;
+
+                  console.log(
+                    "[Dodo Payments] Payment succeeded for:",
+                    customerEmail
+                  );
+
+                  if (!customerEmail) {
+                    return;
+                  }
+
+                  const [user] = await db
+                    .select()
+                    .from(users)
+                    .where(eq(users.email, customerEmail))
+                    .limit(1);
+
+                  if (user) {
+                    // Check if this is a subscription payment
+                    const subscriptionId = data?.subscription_id as
+                      | string
+                      | undefined;
+                    
+                    if (subscriptionId) {
+                      // This is a subscription payment
+                      await db
+                        .update(users)
+                        .set({
+                          plan: "pro",
+                          subscriptionStatus: "active",
+                          subscriptionId,
+                          dodoCustomerId: customer?.customer_id,
+                        })
+                        .where(eq(users.id, user.id));
+                      console.log(
+                        "[Dodo Payments] User upgraded to Pro via payment:",
+                        user.email
+                      );
+                    } else {
+                      // One-time payment - just store customer ID
+                      await db
+                        .update(users)
+                        .set({
+                          dodoCustomerId: customer?.customer_id,
+                        })
+                        .where(eq(users.id, user.id));
+                    }
+                  }
+                },
+                // Payment failed
+                onPaymentFailed: async (payload) => {
+                  await Promise.resolve();
+                  const data = payload.data as Record<string, unknown>;
+                  const customer = data?.customer as
+                    | { email?: string }
+                    | undefined;
+                  console.log(
+                    "[Dodo Payments] Payment failed for:",
+                    customer?.email
+                  );
+                },
+              }),
+            ],
+          }),
+        ]
+      : []),
   ],
 });

@@ -79,6 +79,10 @@ GITHUB_CLIENT_SECRET="your-github-client-secret"
 # Email (get from: https://resend.com)
 RESEND_API_KEY="re_your-api-key"
 EMAIL_FROM="noreply@yourdomain.com"
+
+# Dodo Payments (get from: https://app.dodopayments.com)
+DODO_PAYMENTS_API_KEY="your-api-key"
+DODO_PAYMENTS_WEBHOOK_SECRET="your-webhook-secret"
 ```
 
 ### 4. Initialize Database Schema
@@ -188,15 +192,60 @@ Make sure to:
 
 - [ ] Customize your landing page (`app/page.tsx`)
 - [ ] Add your AI features to the dashboard
-- [ ] Set up payment processing (Stripe, Lemon Squeezy, etc.)
+- [ ] Configure Dodo Payments for subscription billing (see below)
 - [ ] Configure email templates in `components/emails/`
 - [ ] Add your logo and brand colors
 - [ ] Set up analytics (Vercel Analytics, PostHog, etc.)
+
+## 💳 Dodo Payments Setup
+
+To enable Pro plan subscriptions:
+
+### 1. Create a Dodo Payments Account
+
+1. Go to [app.dodopayments.com](https://app.dodopayments.com) and create an account
+2. Complete the onboarding process
+
+### 2. Get Your API Keys
+
+1. Navigate to Settings → API Keys
+2. Copy your **API Key** (use test mode for development)
+3. Add it to `.env.local` as `DODO_PAYMENTS_API_KEY`
+
+### 3. Create Your Product
+
+1. Go to Products → Create Product
+2. Create a subscription product for your Pro plan
+3. Copy the **Product ID** (starts with `pdt_`)
+4. Update `config/pricing.ts` with your product ID:
+
+```typescript
+{
+  id: "pro",
+  dodoProductId: "pdt_your_product_id_here",
+  // ... other fields
+}
+```
+
+### 4. Configure Webhooks
+
+1. Go to Settings → Webhooks
+2. Add a new webhook endpoint: `https://yourdomain.com/api/auth/dodopayments/webhooks`
+3. Copy the **Webhook Secret**
+4. Add it to `.env.local` as `DODO_PAYMENTS_WEBHOOK_SECRET`
+
+### 5. Test the Integration
+
+1. Use test mode API keys
+2. Click "Get Started" on the Pro plan
+3. Complete a test checkout
+4. Verify your subscription status updates
 
 ## 💡 Need Help?
 
 - Check the [README.md](./README.md) for project structure
 - Review [Better Auth docs](https://better-auth.com)
 - Check [Drizzle ORM docs](https://orm.drizzle.team)
+- Check [Dodo Payments docs](https://docs.dodopayments.com)
 
 Happy building! 🚀

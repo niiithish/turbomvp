@@ -4,6 +4,7 @@ import {
   Analytics01Icon,
   Camera01Icon,
   Comment01Icon,
+  CreditCardIcon,
   DashboardCircleIcon,
   File01Icon,
   HelpCircleIcon,
@@ -93,6 +94,11 @@ const data = {
     },
   ],
   navSecondary: [
+    {
+      title: "Billing",
+      url: "/dashboard/settings/billing",
+      icon: CreditCardIcon,
+    },
     {
       title: "Help Center",
       url: "#",
