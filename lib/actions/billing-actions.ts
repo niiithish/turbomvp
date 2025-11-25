@@ -9,16 +9,16 @@ import { users } from "@/db/schema";
 import { db } from "@/lib/db";
 
 /**
- * Get the Pro plan configuration
+ * Get the Pro plan configuration (internal helper)
  */
-export function getProPlan() {
+function getProPlan() {
   return pricingPlans.find((p) => p.id === "pro");
 }
 
 /**
- * Check if Dodo Payments is configured
+ * Check if Dodo Payments is configured (internal helper)
  */
-export function isDodoPaymentsConfigured() {
+function isDodoPaymentsConfigured() {
   const proPlan = getProPlan();
   return !!(
     process.env.DODO_PAYMENTS_API_KEY &&

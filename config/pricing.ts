@@ -47,7 +47,7 @@ export const pricingPlans: PricingPlan[] = [
     popular: true,
     // Dodo Payments configuration
     // Replace with your actual product ID from the Dodo Payments dashboard
-    dodoProductId: "pdt_jqAwQTf2T4RtHqhC5s0Tm",
+    dodoProductId: "pdt_82YNu0lG9TBoRH3peiPEK",
     slug: "pro-plan",
   },
   {

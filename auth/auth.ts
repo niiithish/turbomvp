@@ -160,14 +160,6 @@ export const auth = betterAuth({
               portal(),
               webhooks({
                 webhookKey: process.env.DODO_PAYMENTS_WEBHOOK_SECRET ?? "",
-                // Generic handler for logging all events
-                onPayload: async (payload) => {
-                  await Promise.resolve();
-                  console.log(
-                    "[Dodo Payments] Webhook received:",
-                    payload.type
-                  );
-                },
                 // Subscription activated - upgrade user to Pro
                 onSubscriptionActive: async (payload) => {
                   const data = payload.data as Record<string, unknown>;
@@ -209,10 +201,6 @@ export const auth = betterAuth({
                       dodoCustomerId: customer?.customer_id,
                     })
                     .where(eq(users.id, user.id));
-                  console.log(
-                    "[Dodo Payments] User upgraded to Pro:",
-                    user.email
-                  );
                 },
                 // Subscription cancelled
                 onSubscriptionCancelled: async (payload) => {
@@ -237,10 +225,6 @@ export const auth = betterAuth({
                       .update(users)
                       .set({ subscriptionStatus: "cancelled" })
                       .where(eq(users.id, user.id));
-                    console.log(
-                      "[Dodo Payments] Subscription cancelled:",
-                      user.email
-                    );
                   }
                 },
                 // Subscription on hold (failed renewal)
@@ -266,36 +250,16 @@ export const auth = betterAuth({
                       .update(users)
                       .set({ subscriptionStatus: "on_hold" })
                       .where(eq(users.id, user.id));
-                    console.log(
-                      "[Dodo Payments] Subscription on hold:",
-                      user.email
-                    );
                   }
-                },
-                // Subscription renewed - keep active status
-                onSubscriptionRenewed: async (payload) => {
-                  await Promise.resolve();
-                  const data = payload.data as Record<string, unknown>;
-                  const customer = data?.customer as
-                    | { email?: string }
-                    | undefined;
-                  console.log(
-                    "[Dodo Payments] Subscription renewed for:",
-                    customer?.email
-                  );
                 },
                 // Payment succeeded - also update user for subscription payments
                 onPaymentSucceeded: async (payload) => {
                   const data = payload.data as Record<string, unknown>;
+
                   const customer = data?.customer as
                     | { email?: string; customer_id?: string }
                     | undefined;
                   const customerEmail = customer?.email;
-
-                  console.log(
-                    "[Dodo Payments] Payment succeeded for:",
-                    customerEmail
-                  );
 
                   if (!customerEmail) {
                     return;
@@ -308,26 +272,31 @@ export const auth = betterAuth({
                     .limit(1);
 
                   if (user) {
-                    // Check if this is a subscription payment
-                    const subscriptionId = data?.subscription_id as
+                    // Check for subscription_id in various locations
+                    const subscriptionId = (data?.subscription_id ||
+                      data?.subscriptionId ||
+                      (data?.subscription as { id?: string })?.id) as
                       | string
                       | undefined;
-                    
-                    if (subscriptionId) {
+
+                    // Check if this is a subscription payment by looking at payment_type or product info
+                    const isSubscription = !!(
+                      subscriptionId ||
+                      data?.payment_type === "subscription" ||
+                      data?.type === "subscription"
+                    );
+
+                    if (isSubscription) {
                       // This is a subscription payment
                       await db
                         .update(users)
                         .set({
                           plan: "pro",
                           subscriptionStatus: "active",
-                          subscriptionId,
+                          subscriptionId: subscriptionId || "pending",
                           dodoCustomerId: customer?.customer_id,
                         })
                         .where(eq(users.id, user.id));
-                      console.log(
-                        "[Dodo Payments] User upgraded to Pro via payment:",
-                        user.email
-                      );
                     } else {
                       // One-time payment - just store customer ID
                       await db
@@ -338,18 +307,6 @@ export const auth = betterAuth({
                         .where(eq(users.id, user.id));
                     }
                   }
-                },
-                // Payment failed
-                onPaymentFailed: async (payload) => {
-                  await Promise.resolve();
-                  const data = payload.data as Record<string, unknown>;
-                  const customer = data?.customer as
-                    | { email?: string }
-                    | undefined;
-                  console.log(
-                    "[Dodo Payments] Payment failed for:",
-                    customer?.email
-                  );
                 },
               }),
             ],

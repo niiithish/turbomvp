@@ -3,7 +3,7 @@ import NumberFlow from "@number-flow/react";
 import { motion } from "framer-motion";
 import { ArrowRight01Icon, Loading03Icon, Tick02Icon } from "hugeicons-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { authClient } from "@/auth/auth-client";
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { pricingPlans } from "@/config/pricing";
+import { getCurrentUserBilling } from "@/lib/actions/billing-actions";
 import { cn } from "@/lib/utils/cn";
 import type { PricingFrequency, PricingPlan } from "@/types";
 
@@ -22,12 +23,34 @@ function PricingButton({
   plan,
   isLoading,
   onCheckout,
+  userPlan,
 }: {
   plan: PricingPlan;
   isLoading: boolean;
   onCheckout: (plan: PricingPlan) => void;
+  userPlan: string | null;
 }) {
   const { data: session } = authClient.useSession();
+
+  // Check if this is the user's current plan
+  const isCurrentPlan =
+    (plan.id === "free" && (!userPlan || userPlan === "free")) ||
+    (plan.id === "pro" && userPlan === "pro");
+
+  // Current plan button (disabled)
+  if (session?.user && isCurrentPlan) {
+    return (
+      <Button
+        className={cn(
+          "h-11 w-full rounded-sm font-medium text-base transition-all",
+          "cursor-default border border-primary/50 bg-primary/10 text-primary"
+        )}
+        disabled
+      >
+        Current Plan
+      </Button>
+    );
+  }
 
   // Enterprise plan - always show contact link
   if (plan.id === "enterprise") {
@@ -46,7 +69,7 @@ function PricingButton({
     );
   }
 
-  // Free plan - always show signup link
+  // Free plan - show signup link for unauthenticated users
   if (plan.id === "free") {
     return (
       <Button
@@ -107,8 +130,28 @@ function PricingButton({
 }
 
 const PricingSection = () => {
+  const { data: session } = authClient.useSession();
   const [frequency, setFrequency] = useState<PricingFrequency>("monthly");
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
+  const [userPlan, setUserPlan] = useState<string | null>(null);
+
+  // Fetch user's current plan from billing server action
+  // biome-ignore lint/correctness/useExhaustiveDependencies: only fetch when session changes
+  useEffect(() => {
+    async function fetchUserPlan() {
+      if (session?.user) {
+        try {
+          const billing = await getCurrentUserBilling();
+          setUserPlan(billing?.plan || "free");
+        } catch {
+          setUserPlan("free");
+        }
+      } else {
+        setUserPlan(null);
+      }
+    }
+    fetchUserPlan();
+  }, [session?.user?.id]);
 
   const handleCheckout = async (plan: PricingPlan) => {
     if (!plan.slug) {
@@ -246,6 +289,7 @@ const PricingSection = () => {
                 isLoading={loadingPlan === plan.id}
                 onCheckout={handleCheckout}
                 plan={plan}
+                userPlan={userPlan}
               />
 
               <div className="space-y-3">
