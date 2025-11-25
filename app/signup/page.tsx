@@ -66,7 +66,7 @@ export default function SignupPage() {
     const trimmedLastName = lastName.trim();
     const trimmedEmail = email.trim();
 
-    if (!trimmedFirstName || !trimmedLastName || !trimmedEmail) {
+    if (!(trimmedFirstName && trimmedLastName && trimmedEmail)) {
       setError("Please fill in all fields");
       setIsLoading(false);
       return;
@@ -93,6 +93,16 @@ export default function SignupPage() {
       setError("An unexpected error occurred");
       setIsLoading(false);
     }
+  };
+
+  const getSubmitButtonLabel = () => {
+    if (isRedirecting) {
+      return "Redirecting...";
+    }
+    if (isLoading) {
+      return "Creating account...";
+    }
+    return "Sign up";
   };
 
   return (
@@ -229,11 +239,7 @@ export default function SignupPage() {
             disabled={isLoading || isRedirecting}
             type="submit"
           >
-            {isRedirecting
-              ? "Redirecting..."
-              : isLoading
-                ? "Creating account..."
-                : "Sign up"}
+            {getSubmitButtonLabel()}
           </Button>
         </form>
 
