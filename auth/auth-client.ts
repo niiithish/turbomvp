@@ -1,4 +1,10 @@
-import { dodopaymentsClient } from "@dodopayments/better-auth";
+import type { dodopayments } from "@dodopayments/better-auth";
+
+const dodopaymentsClient = () => ({
+  id: "dodopayments-client" as const,
+  $InferServerPlugin: {} as ReturnType<typeof dodopayments>,
+});
+
 import { emailOTPClient } from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/react";
 
