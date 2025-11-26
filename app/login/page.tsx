@@ -8,6 +8,8 @@ import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "sonner";
 import { authClient } from "@/auth/auth-client";
+import { Logo } from "@/components/shared/Logo";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -100,6 +102,12 @@ function LoginForm() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-muted/40 p-4">
+      {/* Header with Logo and Theme Toggle */}
+      <div className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 md:p-6">
+        <Logo />
+        <ThemeToggle />
+      </div>
+
       <div className="w-full max-w-md space-y-6 rounded-xl border bg-background p-8 shadow-lg">
         <div className="flex flex-col items-center text-center">
           <h1 className="font-semibold text-2xl tracking-tight">
@@ -205,7 +213,7 @@ function LoginForm() {
                   value={password}
                 />
                 <button
-                  className="-translate-y-1/2 absolute top-1/2 right-3 text-muted-foreground transition-colors hover:text-foreground"
+                  className="-translate-y-1/2 absolute top-1/2 right-3 text-muted-foreground transition-colors hover:text-foreground cursor-pointer"
                   onClick={() => setShowPassword(!showPassword)}
                   type="button"
                 >

@@ -14,6 +14,8 @@ import { Button } from "@/components/ui/button";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isSignupOpen, setIsSignupOpen] = useState(false);
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -62,12 +64,26 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <LoginDialog>
+              <LoginDialog
+                onOpenChange={setIsLoginOpen}
+                onSignupClick={() => {
+                  setIsLoginOpen(false);
+                  setIsSignupOpen(true);
+                }}
+                open={isLoginOpen}
+              >
                 <Button className="hidden sm:inline-flex" variant="outline">
                   Sign In
                 </Button>
               </LoginDialog>
-              <SignupDialog>
+              <SignupDialog
+                onLoginClick={() => {
+                  setIsSignupOpen(false);
+                  setIsLoginOpen(true);
+                }}
+                onOpenChange={setIsSignupOpen}
+                open={isSignupOpen}
+              >
                 <Button>Sign Up</Button>
               </SignupDialog>
             </>

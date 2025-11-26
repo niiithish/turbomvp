@@ -104,16 +104,29 @@ function OAuthSection({
   );
 }
 
-export function LoginDialog({ children }: LoginDialogProps) {
+export function LoginDialog({
+  children,
+  open,
+  onOpenChange,
+  onSignupClick,
+}: LoginDialogProps & {
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  onSignupClick?: () => void;
+}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isRedirecting, setIsRedirecting] = useState(false);
+
   const [error, setError] = useState("");
   const [lastUsedMethod, setLastUsedMethod] = useState<string | null>(null);
-  const [open, setOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
   const router = useRouter();
+
+  const isControlled = typeof open !== "undefined";
+  const isOpen = isControlled ? open : internalOpen;
+  const handleOpenChange = isControlled ? onOpenChange : setInternalOpen;
 
   useEffect(() => {
     const storedMethod = localStorage.getItem("turbomvp-last-login-method");
@@ -140,7 +153,7 @@ export function LoginDialog({ children }: LoginDialogProps) {
     try {
       const data = await authClient.signIn.social({
         provider,
-        callbackURL: "/dashboard",
+        callbackURL: window.location.href,
       });
 
       if (data?.error) {
@@ -168,8 +181,11 @@ export function LoginDialog({ children }: LoginDialogProps) {
         setError(result.error.message || "Login failed");
       } else {
         localStorage.setItem("turbomvp-last-login-method", "email");
-        setIsRedirecting(true);
-        router.push("/dashboard");
+        localStorage.setItem("turbomvp-last-login-method", "email");
+        if (handleOpenChange) {
+          handleOpenChange(false);
+        }
+        toast.success("Logged in successfully");
       }
     } catch (_err) {
       setError("An unexpected error occurred");
@@ -179,117 +195,116 @@ export function LoginDialog({ children }: LoginDialogProps) {
   };
 
   return (
-    <Dialog onOpenChange={setOpen} open={open}>
+    <Dialog onOpenChange={handleOpenChange} open={isOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="max-w-md">
-        {isRedirecting ? (
-          <div className="flex flex-col items-center justify-center gap-4 py-12">
-            <Loading03Icon className="h-8 w-8 animate-spin text-primary" />
-            <p className="font-medium text-muted-foreground">
-              Redirecting to dashboard...
-            </p>
+        <div className="space-y-6">
+          <div className="flex flex-col items-center text-center">
+            <DialogTitle className="font-semibold text-2xl tracking-tight">
+              Welcome back
+            </DialogTitle>
+            <DialogDescription className="mt-1 text-muted-foreground text-sm">
+              Please enter your details to login.
+            </DialogDescription>
           </div>
-        ) : (
-          <div className="space-y-6">
-            <div className="flex flex-col items-center text-center">
-              <DialogTitle className="font-semibold text-2xl tracking-tight">
-                Welcome back
-              </DialogTitle>
-              <DialogDescription className="mt-1 text-muted-foreground text-sm">
-                Please enter your details to login.
-              </DialogDescription>
-            </div>
 
-            <OAuthSection
-              isLoading={isLoading}
-              lastUsedMethod={lastUsedMethod}
-              onSocialSignIn={handleSocialSignIn}
-            />
+          <OAuthSection
+            isLoading={isLoading}
+            lastUsedMethod={lastUsedMethod}
+            onSocialSignIn={handleSocialSignIn}
+          />
 
-            <form className="space-y-4" onSubmit={handleSubmit}>
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="dialog-email">Email</Label>
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="dialog-email">Email</Label>
+                <Input
+                  className="h-11 border-0 bg-muted/50"
+                  id="dialog-email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  required
+                  type="email"
+                  value={email}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="dialog-password">Password</Label>
+                <div className="relative">
                   <Input
-                    className="h-11 border-0 bg-muted/50"
-                    id="dialog-email"
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email"
+                    className="h-11 border-0 bg-muted/50 pr-10"
+                    id="dialog-password"
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter your password"
                     required
-                    type="email"
-                    value={email}
+                    type={showPassword ? "text" : "password"}
+                    value={password}
                   />
+                  <button
+                    className="-translate-y-1/2 absolute top-1/2 right-3 text-muted-foreground transition-colors hover:text-foreground cursor-pointer"
+                    onClick={() => setShowPassword(!showPassword)}
+                    type="button"
+                  >
+                    {showPassword ? (
+                      <ViewOffSlashIcon size={20} />
+                    ) : (
+                      <ViewIcon size={20} />
+                    )}
+                  </button>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="dialog-password">Password</Label>
-                  <div className="relative">
-                    <Input
-                      className="h-11 border-0 bg-muted/50 pr-10"
-                      id="dialog-password"
-                      onChange={(e) => setPassword(e.target.value)}
-                      placeholder="Enter your password"
-                      required
-                      type={showPassword ? "text" : "password"}
-                      value={password}
-                    />
-                    <button
-                      className="-translate-y-1/2 absolute top-1/2 right-3 text-muted-foreground transition-colors hover:text-foreground"
-                      onClick={() => setShowPassword(!showPassword)}
-                      type="button"
-                    >
-                      {showPassword ? (
-                        <ViewOffSlashIcon size={20} />
-                      ) : (
-                        <ViewIcon size={20} />
-                      )}
-                    </button>
-                  </div>
-                  <div className="flex justify-end">
-                    <Link
-                      className="text-muted-foreground text-sm hover:text-primary"
-                      href="/forgot-password"
-                      onClick={() => setOpen(false)}
-                    >
-                      Forgot Password?
-                    </Link>
-                  </div>
+                <div className="flex justify-end">
+                  <Link
+                    className="text-muted-foreground text-sm hover:text-primary"
+                    href="/forgot-password"
+                    onClick={() => handleOpenChange?.(false)}
+                  >
+                    Forgot Password?
+                  </Link>
                 </div>
               </div>
-
-              {error && (
-                <div className="text-center text-destructive text-sm">
-                  {error}
-                </div>
-              )}
-
-              <div className="relative">
-                {lastUsedMethod === "email" && (
-                  <span className="-top-2 -right-2 fade-in zoom-in absolute z-10 flex h-5 animate-in items-center justify-center rounded-sm border border-primary bg-background px-2 font-medium text-[10px] text-primary shadow-sm duration-300">
-                    Last used
-                  </span>
-                )}
-                <Button
-                  className="h-11 w-full bg-primary text-primary-foreground hover:bg-primary/90"
-                  disabled={isLoading}
-                  type="submit"
-                >
-                  {isLoading ? "Signing in..." : "Login"}
-                </Button>
-              </div>
-            </form>
-
-            <div className="text-center text-muted-foreground text-sm">
-              Don't have an account?{" "}
-              <Link
-                className="font-medium text-primary hover:underline"
-                href="/signup"
-                onClick={() => setOpen(false)}
-              >
-                Register now
-              </Link>
             </div>
+
+            {error && (
+              <div className="text-center text-destructive text-sm">
+                {error}
+              </div>
+            )}
+
+            <div className="relative">
+              {lastUsedMethod === "email" && (
+                <span className="-top-2 -right-2 fade-in zoom-in absolute z-10 flex h-5 animate-in items-center justify-center rounded-sm border border-primary bg-background px-2 font-medium text-[10px] text-primary shadow-sm duration-300">
+                  Last used
+                </span>
+              )}
+              <Button
+                className="h-11 w-full bg-primary text-primary-foreground hover:bg-primary/90"
+                disabled={isLoading}
+                type="submit"
+              >
+                {isLoading ? "Signing in..." : "Login"}
+              </Button>
+            </div>
+          </form>
+
+          <div className="text-center text-muted-foreground text-sm">
+            Don't have an account?{" "}
+            <Button
+              variant="link"
+              onClick={() => {
+                if (onSignupClick) {
+                  onSignupClick();
+                } else {
+                  handleOpenChange?.(false);
+                  router.push("/signup");
+                }
+              }}
+              type="button"
+            >
+              Register now
+            </Button>
           </div>
-        )}
+        </div>
+
       </DialogContent>
     </Dialog>
   );

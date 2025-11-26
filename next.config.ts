@@ -20,6 +20,42 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      // Login page redirects
+      {
+        source: "/signin",
+        destination: "/login",
+        permanent: true,
+      },
+      {
+        source: "/sign-in",
+        destination: "/login",
+        permanent: true,
+      },
+      {
+        source: "/log-in",
+        destination: "/login",
+        permanent: true,
+      },
+      // Signup page redirects
+      {
+        source: "/register",
+        destination: "/signup",
+        permanent: true,
+      },
+      {
+        source: "/sign-up",
+        destination: "/signup",
+        permanent: true,
+      },
+      {
+        source: "/create-account",
+        destination: "/signup",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
