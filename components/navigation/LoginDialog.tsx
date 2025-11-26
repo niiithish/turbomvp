@@ -1,6 +1,6 @@
 "use client";
 
-import { Loading03Icon, ViewIcon, ViewOffSlashIcon } from "hugeicons-react";
+import { ViewIcon, ViewOffSlashIcon } from "hugeicons-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -241,7 +241,7 @@ export function LoginDialog({
                     value={password}
                   />
                   <button
-                    className="-translate-y-1/2 absolute top-1/2 right-3 text-muted-foreground transition-colors hover:text-foreground cursor-pointer"
+                    className="-translate-y-1/2 absolute top-1/2 right-3 cursor-pointer text-muted-foreground transition-colors hover:text-foreground"
                     onClick={() => setShowPassword(!showPassword)}
                     type="button"
                   >
@@ -289,7 +289,6 @@ export function LoginDialog({
           <div className="text-center text-muted-foreground text-sm">
             Don't have an account?{" "}
             <Button
-              variant="link"
               onClick={() => {
                 if (onSignupClick) {
                   onSignupClick();
@@ -299,12 +298,12 @@ export function LoginDialog({
                 }
               }}
               type="button"
+              variant="link"
             >
               Register now
             </Button>
           </div>
         </div>
-
       </DialogContent>
     </Dialog>
   );

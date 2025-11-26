@@ -1,7 +1,6 @@
 "use client";
 
-import { Loading03Icon, ViewIcon, ViewOffSlashIcon } from "hugeicons-react";
-import Link from "next/link";
+import { ViewIcon, ViewOffSlashIcon } from "hugeicons-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaGithub } from "react-icons/fa";
@@ -266,7 +265,6 @@ export function SignupDialog({
           <div className="text-center text-muted-foreground text-sm">
             Already have an account?{" "}
             <Button
-              variant="link"
               onClick={() => {
                 if (onLoginClick) {
                   onLoginClick();
@@ -276,12 +274,12 @@ export function SignupDialog({
                 }
               }}
               type="button"
+              variant="link"
             >
               Sign in
             </Button>
           </div>
         </div>
-
       </DialogContent>
     </Dialog>
   );

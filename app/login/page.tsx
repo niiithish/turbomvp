@@ -103,7 +103,7 @@ function LoginForm() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-muted/40 p-4">
       {/* Header with Logo and Theme Toggle */}
-      <div className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 md:p-6">
+      <div className="fixed top-0 right-0 left-0 z-50 flex items-center justify-between p-4 md:p-6">
         <Logo />
         <ThemeToggle />
       </div>
@@ -213,7 +213,7 @@ function LoginForm() {
                   value={password}
                 />
                 <button
-                  className="-translate-y-1/2 absolute top-1/2 right-3 text-muted-foreground transition-colors hover:text-foreground cursor-pointer"
+                  className="-translate-y-1/2 absolute top-1/2 right-3 cursor-pointer text-muted-foreground transition-colors hover:text-foreground"
                   onClick={() => setShowPassword(!showPassword)}
                   type="button"
                 >
