@@ -12,7 +12,7 @@ import { Logo } from "@/components/shared/Logo";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { Button } from "@/components/ui/button";
 
-const Navbar = () => {
+const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
@@ -98,4 +98,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Header;
