@@ -38,7 +38,6 @@ export default function Home() {
         <SectionAnimation>
           <TestimonialSection />
         </SectionAnimation>
-
         <SectionAnimation>
           <FaqSection />
         </SectionAnimation>
