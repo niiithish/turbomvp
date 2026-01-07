@@ -99,7 +99,7 @@ export default function FooterSection() {
         {/* Bottom Section: Copyright and Social Icons */}
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} BlitzMVP. All rights reserved.
+            © {new Date().getFullYear()} TurboMVP. All rights reserved.
           </p>
 
           {/* Social Media Icons */}

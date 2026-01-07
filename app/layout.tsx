@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "BlitzMVP - SaaS Starter Kit",
+  title: "TurboMVP - SaaS Starter Kit",
   description: "The ultimate Next.js SaaS starter kit",
 };
 
