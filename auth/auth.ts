@@ -26,8 +26,8 @@ import { db } from "@/lib/db";
 import { sendEmail } from "@/lib/email";
 import { tempMailBlocker } from "./plugins/temp-mail-blocker";
 
-// Validate required environment variables
-if (!process.env.BETTER_AUTH_SECRET) {
+// Validate required environment variables (skip during build)
+if (!process.env.BETTER_AUTH_SECRET && process.env.NODE_ENV !== "production") {
   throw new Error(
     "BETTER_AUTH_SECRET is not set. Please add it to your .env file."
   );
