@@ -9,7 +9,7 @@ export default function Hero() {
       <div className="relative z-10 mx-auto max-w-4xl text-center">
         <div className="mt-6 text-center">
           <h1 className="font-semibold text-4xl leading-[1.15] tracking-tighter md:text-5xl">
-            Launch your SaaS in <br /> minutes, not months
+            Launch your SaaS in <br /> days, not months
           </h1>
         </div>
         <p className="mx-auto mt-6 max-w-2xl text-muted-foreground text-xl">
